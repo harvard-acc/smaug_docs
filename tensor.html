@@ -165,12 +165,37 @@
 <dl class="py function">
 <dt id="smaug.tensor.reorder">
 <code class="sig-prename descclassname">smaug.tensor.</code><code class="sig-name descname">reorder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input_tensor</span></em>, <em class="sig-param"><span class="n">target_layout</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">'reorder'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#smaug.tensor.reorder" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Reorder the data of a given <cite>Tensor</cite> with the target layout.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_tensor</strong> – A <cite>Tensor</cite>.</p></li>
+<li><p><strong>target_layout</strong> – The target layout.</p></li>
+<li><p><strong>name</strong> – Operator name (optional).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A new <cite>Tensor</cite> with the layout as <cite>target_layout</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt id="smaug.tensor.flatten">
 <code class="sig-prename descclassname">smaug.tensor.</code><code class="sig-name descname">flatten</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input_tensor</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">'flatten'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#smaug.tensor.flatten" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Flatten the data of a given <cite>Tensor</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_tensor</strong> – A 4D <cite>Tensor</cite>.</p></li>
+<li><p><strong>name</strong> – Operator name (optional).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A 2D <cite>Tensor</cite> shpaed as <cite>NC</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt id="smaug.tensor.concat">

@@ -48,9 +48,9 @@ Functions
 
 - :ref:`exhale_function_load__store__fp16__data__test_8cpp_1aee959682d7d22746fe5c1cbaac03b221`
 
-- :ref:`exhale_function_load__store__fp16__data__test_8cpp_1a71b1c571c4911151a7fdd28172e8cc39`
-
 - :ref:`exhale_function_load__store__fp16__data__test_8cpp_1aef861657acd43676d78990e8261586be`
+
+- :ref:`exhale_function_load__store__fp16__data__test_8cpp_1a71b1c571c4911151a7fdd28172e8cc39`
 
 - :ref:`exhale_function_load__store__fp16__data__test_8cpp_1ab47c3172f3bbfcbc2a062abbf35930b3`
 

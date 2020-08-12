@@ -1,0 +1,330 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>smaug.python.node &mdash; SMAUG: Simulating Machine Learning Applications Using gem5-Aladdin</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script src="../../../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> SMAUG
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Python API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../smaug.html">smaug</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../nn.html">smaug.nn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../math.html">smaug.math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../tensor.html">smaug.tensor</a></li>
+</ul>
+<p class="caption"><span class="caption-text">C++ API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/library_root.html">Library API</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">SMAUG</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>smaug.python.node</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for smaug.python.node</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">smaug.core</span> <span class="kn">import</span> <span class="n">node_pb2</span>
+<span class="kn">from</span> <span class="nn">smaug.core</span> <span class="kn">import</span> <span class="n">types_pb2</span>
+<span class="kn">from</span> <span class="nn">smaug.python</span> <span class="kn">import</span> <span class="n">global_vars</span>
+<span class="kn">from</span> <span class="nn">smaug.python</span> <span class="kn">import</span> <span class="n">datatypes</span>
+
+<div class="viewcode-block" id="Node"><a class="viewcode-back" href="../../../smaug.html#smaug.Node">[docs]</a><span class="k">class</span> <span class="nc">Node</span><span class="p">:</span>
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">op</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">inputs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">outputs</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Create a node.</span>
+
+<span class="sd">    A `Node` instance contains information about its corresponding operation,</span>
+<span class="sd">    including the operator type, parameters and input/output tensors. A `Graph`</span>
+<span class="sd">    is made up of `Node`s. When serialized, a `NodeProto` is created.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">      name: Name of the node.</span>
+<span class="sd">      op: `OpType` representing the operation type of the node.</span>
+<span class="sd">      params: `Params` used by the operator (optional).</span>
+<span class="sd">      inputs: A list of `Tensor` (optional).</span>
+<span class="sd">      outputs: A list of `Tensor` (optional).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">      A `Node` instance.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_op</span> <span class="o">=</span> <span class="n">op</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_params</span> <span class="o">=</span> <span class="n">params</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_inputs</span> <span class="o">=</span> <span class="p">[]</span> <span class="k">if</span> <span class="n">inputs</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">inputs</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_outputs</span> <span class="o">=</span> <span class="p">[]</span> <span class="k">if</span> <span class="n">outputs</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">outputs</span>
+
+  <span class="nd">@property</span>
+  <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
+
+  <span class="nd">@property</span>
+  <span class="k">def</span> <span class="nf">op</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_op</span>
+
+  <span class="nd">@property</span>
+  <span class="k">def</span> <span class="nf">inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inputs</span>
+
+  <span class="nd">@property</span>
+  <span class="k">def</span> <span class="nf">outputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_outputs</span>
+
+<div class="viewcode-block" id="Node.add_input"><a class="viewcode-back" href="../../../smaug.html#smaug.Node.add_input">[docs]</a>  <span class="k">def</span> <span class="nf">add_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tensor</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Add an input tensor to the node.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">      tensor: A `Tensor`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_inputs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tensor</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Node.add_output"><a class="viewcode-back" href="../../../smaug.html#smaug.Node.add_output">[docs]</a>  <span class="k">def</span> <span class="nf">add_output</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tensor</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Add an output tensor to the node.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">      tensor: A `Tensor`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_outputs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tensor</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Node.update_input"><a class="viewcode-back" href="../../../smaug.html#smaug.Node.update_input">[docs]</a>  <span class="k">def</span> <span class="nf">update_input</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tensor</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Update the `index`th input with `tensor`.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">      tensor: A `Tensor` representing the new input.</span>
+<span class="sd">      index: The input index.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_inputs</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">tensor</span></div>
+
+<div class="viewcode-block" id="Node.get_parents"><a class="viewcode-back" href="../../../smaug.html#smaug.Node.get_parents">[docs]</a>  <span class="k">def</span> <span class="nf">get_parents</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get the parents of the node.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">      A list of strings representing names of the parent nodes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">parents</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">tensor</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inputs</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">tensor</span><span class="o">.</span><span class="n">source</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">parents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tensor</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">parents</span></div>
+
+<div class="viewcode-block" id="Node.get_children"><a class="viewcode-back" href="../../../smaug.html#smaug.Node.get_children">[docs]</a>  <span class="k">def</span> <span class="nf">get_children</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get the children of the node.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">      A list of strings representing names of the children nodes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">children</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">tensor</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_outputs</span><span class="p">:</span>
+      <span class="k">for</span> <span class="n">target</span> <span class="ow">in</span> <span class="n">tensor</span><span class="o">.</span><span class="n">targets</span><span class="p">:</span>
+        <span class="n">children</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">target</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">children</span></div>
+
+<div class="viewcode-block" id="Node.to_proto"><a class="viewcode-back" href="../../../smaug.html#smaug.Node.to_proto">[docs]</a>  <span class="k">def</span> <span class="nf">to_proto</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tensor_data_array</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Serialize `Node` into `NodeProto`.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">      tensor_data_array: `TensorDataArray` that tensor data gets serialized</span>
+<span class="sd">        into.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">      A `NodeProto`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">node_proto</span> <span class="o">=</span> <span class="n">node_pb2</span><span class="o">.</span><span class="n">NodeProto</span><span class="p">()</span>
+    <span class="n">node_proto</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
+    <span class="n">node_proto</span><span class="o">.</span><span class="n">op</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_op</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_params</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="n">node_proto</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">CopyFrom</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_params</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">tensor</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_inputs</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">tensor</span><span class="o">.</span><span class="n">source</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">node_proto</span><span class="o">.</span><span class="n">parents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tensor</span><span class="o">.</span><span class="n">source</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="n">node_proto</span><span class="o">.</span><span class="n">src_tensors_indices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tensor</span><span class="o">.</span><span class="n">source_index</span><span class="p">)</span>
+      <span class="n">tensor_proto</span> <span class="o">=</span> <span class="n">node_proto</span><span class="o">.</span><span class="n">input_tensors</span><span class="o">.</span><span class="n">add</span><span class="p">()</span>
+      <span class="n">tensor</span><span class="o">.</span><span class="n">to_tensor_proto</span><span class="p">(</span><span class="n">tensor_proto</span><span class="p">,</span> <span class="n">tensor_data_array</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">tensor</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_outputs</span><span class="p">:</span>
+      <span class="n">tensor_proto</span> <span class="o">=</span> <span class="n">node_proto</span><span class="o">.</span><span class="n">output_tensors</span><span class="o">.</span><span class="n">add</span><span class="p">()</span>
+      <span class="n">tensor</span><span class="o">.</span><span class="n">to_tensor_proto</span><span class="p">(</span><span class="n">tensor_proto</span><span class="p">,</span> <span class="n">tensor_data_array</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">node_proto</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, SMAUG Contributors
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

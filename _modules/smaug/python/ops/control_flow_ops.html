@@ -165,7 +165,7 @@
 
 <span class="n">switch_op_output_ports</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;true&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;false&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
 
-<span class="k">def</span> <span class="nf">switch</span><span class="p">(</span><span class="n">input_tensor</span><span class="p">,</span> <span class="n">pred</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;switch&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="switch"><a class="viewcode-back" href="../../../../smaug.html#smaug.switch">[docs]</a><span class="k">def</span> <span class="nf">switch</span><span class="p">(</span><span class="n">input_tensor</span><span class="p">,</span> <span class="n">pred</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;switch&quot;</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;Forward the input to output port determined by the given predication.</span>
 
 <span class="sd">  Args:</span>
@@ -180,9 +180,9 @@
   <span class="k">return</span> <span class="n">common</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span>
       <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">op</span><span class="o">=</span><span class="n">types_pb2</span><span class="o">.</span><span class="n">Switch</span><span class="p">,</span> <span class="n">input_tensors</span><span class="o">=</span><span class="p">[</span><span class="n">input_tensor</span><span class="p">,</span> <span class="n">pred</span><span class="p">],</span>
       <span class="n">output_tensors_dims</span><span class="o">=</span><span class="p">[</span><span class="n">input_tensor</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span>
-      <span class="n">output_tensor_layout</span><span class="o">=</span><span class="n">input_tensor</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">layout</span><span class="p">)</span>
+      <span class="n">output_tensor_layout</span><span class="o">=</span><span class="n">input_tensor</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">layout</span><span class="p">)</span></div>
 
-<span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="n">input_tensors</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;merge&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="merge"><a class="viewcode-back" href="../../../../smaug.html#smaug.merge">[docs]</a><span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="n">input_tensors</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;merge&quot;</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;Forward the value of an available tensor from inputs to output.</span>
 
 <span class="sd">  Args:</span>
@@ -194,7 +194,7 @@
   <span class="k">return</span> <span class="n">common</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span>
       <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">op</span><span class="o">=</span><span class="n">types_pb2</span><span class="o">.</span><span class="n">Merge</span><span class="p">,</span> <span class="n">input_tensors</span><span class="o">=</span><span class="n">input_tensors</span><span class="p">,</span>
       <span class="n">output_tensors_dims</span><span class="o">=</span><span class="p">[</span><span class="n">input_tensors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">],</span>
-      <span class="n">output_tensor_layout</span><span class="o">=</span><span class="n">input_tensors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">layout</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+      <span class="n">output_tensor_layout</span><span class="o">=</span><span class="n">input_tensors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">layout</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span></div>
 
 <div class="viewcode-block" id="cond"><a class="viewcode-back" href="../../../../smaug.html#smaug.cond">[docs]</a><span class="k">def</span> <span class="nf">cond</span><span class="p">(</span><span class="n">predication</span><span class="p">,</span> <span class="n">true_fn</span><span class="p">,</span> <span class="n">false_fn</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;cond&quot;</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;A conditional operator.</span>
