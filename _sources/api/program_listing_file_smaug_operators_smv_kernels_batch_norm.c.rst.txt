@@ -22,8 +22,6 @@ Program Listing for File batch_norm.c
    extern "C" {
    #endif
    
-   // 1/sqrt(var + eps) is precomputed to avoid having to run a sqrt and division
-   // in the ASIC.
    ALWAYS_INLINE
    v8fp_t batch_norm_simd_op(v8fp_t input,
                              v8fp_t mean,
@@ -86,8 +84,6 @@ Program Listing for File batch_norm.c
            host_store_fp16(results, host_results, results_size, 0, 0);
    }
    
-   // For batch norm following a convolutional/pooling layer, we only have a
-   // gamma/beta per output feature map, not per activation.
    void smv_batch_norm_post_conv_nchw_vec_fxp(float16* host_inputs,
                                               float16* host_weights,
                                               float16* host_results,

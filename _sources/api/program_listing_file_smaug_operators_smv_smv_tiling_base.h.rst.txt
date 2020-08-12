@@ -22,9 +22,11 @@ Program Listing for File smv_tiling_base.h
    
    class TilingOptimizerBase {
       protected:
+   
        static TilingDims findBestTilingDims(const TensorShape& shape,
                                             int maxTileSize,
                                             const std::vector<int>& minShape);
+   
        static void enum2DTensorTilingConfigs(TensorShape shape,
                                              int maxTileSize,
                                              const std::vector<int>& minShape,

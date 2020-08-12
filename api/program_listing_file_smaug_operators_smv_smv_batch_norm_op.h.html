@@ -171,6 +171,7 @@
 <span class="k">namespace</span> <span class="n">smaug</span> <span class="p">{</span>
 
 <span class="k">namespace</span> <span class="n">smv</span> <span class="p">{</span>
+
 <span class="k">namespace</span> <span class="n">bn</span> <span class="p">{</span>
 
 <span class="k">extern</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">kVectorSize</span><span class="p">;</span>
@@ -187,9 +188,8 @@
     <span class="kt">void</span> <span class="nf">run</span><span class="p">()</span> <span class="k">override</span><span class="p">;</span>
 
   <span class="k">protected</span><span class="o">:</span>
-   <span class="c1">// This is for post-FC batch norm.</span>
    <span class="kt">void</span> <span class="n">runNA</span><span class="p">(</span><span class="n">TiledTensor</span><span class="o">&amp;</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">TiledTensor</span><span class="o">&amp;</span> <span class="n">weights</span><span class="p">,</span> <span class="n">TiledTensor</span><span class="o">&amp;</span> <span class="n">outputs</span><span class="p">);</span>
-   <span class="c1">// This is for post-Conv bath norm.</span>
+
    <span class="kt">void</span> <span class="nf">runNHWC</span><span class="p">(</span><span class="n">TiledTensor</span><span class="o">&amp;</span> <span class="n">inputs</span><span class="p">,</span>
                 <span class="n">TiledTensor</span><span class="o">&amp;</span> <span class="n">weights</span><span class="p">,</span>
                 <span class="n">TiledTensor</span><span class="o">&amp;</span> <span class="n">outputs</span><span class="p">);</span>

@@ -20,6 +20,7 @@ Program Listing for File smv_pooling_op.h
    namespace smaug {
    
    namespace smv {
+   
    namespace pool {
    
    extern const int kVectorSize;

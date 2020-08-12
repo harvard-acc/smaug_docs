@@ -1,0 +1,13 @@
+.. _exhale_function_namespacesmaug_1_1smv_1_1unary_1a4490609a2f9f9e15788682f453491b7e:
+
+Function smaug::smv::unary::run
+===============================
+
+.. did not find file this was defined in
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: smaug::smv::unary::run(UnaryOp<SmvBackend> *, std::array<TiledTensor, 2>&)

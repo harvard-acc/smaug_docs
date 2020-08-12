@@ -169,7 +169,6 @@
 <span class="k">extern</span> <span class="s">&quot;C&quot;</span> <span class="p">{</span>
 <span class="cp">#endif</span>
 
-<span class="c1">// Top level function entry for activation functions.</span>
 <span class="kt">void</span> <span class="n">smv_activation_fun_nc_vec_fxp</span><span class="p">(</span><span class="n">float16</span><span class="o">*</span> <span class="n">host_inputs</span><span class="p">,</span>
                                    <span class="n">float16</span><span class="o">*</span> <span class="n">host_results</span><span class="p">,</span>
                                    <span class="kt">float</span><span class="o">*</span> <span class="n">inputs</span><span class="p">,</span>
@@ -184,7 +183,6 @@
     <span class="n">host_store_fp16</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">host_results</span><span class="p">,</span> <span class="n">inputs_size</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
 <span class="p">}</span>
 
-<span class="c1">// Top level function for softmax.</span>
 <span class="kt">void</span> <span class="n">smv_softmax_nc_vec_fxp</span><span class="p">(</span><span class="n">float16</span><span class="o">*</span> <span class="n">host_inputs</span><span class="p">,</span>
                             <span class="n">float16</span><span class="o">*</span> <span class="n">host_results</span><span class="p">,</span>
                             <span class="kt">float</span><span class="o">*</span> <span class="n">inputs</span><span class="p">,</span>

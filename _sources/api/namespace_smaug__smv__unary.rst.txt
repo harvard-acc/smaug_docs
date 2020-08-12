@@ -12,17 +12,24 @@ Namespace smaug::smv::unary
 
 
 
+Detailed Description
+--------------------
+
+Contains common functions for working with unary operators. 
+ 
+
+
 
 Functions
 ---------
 
 
-- :ref:`exhale_function_smv__unary__op__common_8cpp_1a0e8d1bddf6261dd5b392a85f602744dd`
+- :ref:`exhale_function_namespacesmaug_1_1smv_1_1unary_1a0e8d1bddf6261dd5b392a85f602744dd`
 
-- :ref:`exhale_function_smv__unary__op__common_8cpp_1ae0c553929116220b6701fd481cc8b937`
+- :ref:`exhale_function_namespacesmaug_1_1smv_1_1unary_1ae0c553929116220b6701fd481cc8b937`
 
-- :ref:`exhale_function_smv__unary__op__common_8cpp_1a3ec5417c5c0cd2d9cd98ca1d95586119`
+- :ref:`exhale_function_namespacesmaug_1_1smv_1_1unary_1a3ec5417c5c0cd2d9cd98ca1d95586119`
 
-- :ref:`exhale_function_smv__unary__op__common_8cpp_1a4490609a2f9f9e15788682f453491b7e`
+- :ref:`exhale_function_namespacesmaug_1_1smv_1_1unary_1a4490609a2f9f9e15788682f453491b7e`
 
-- :ref:`exhale_function_smv__unary__op__common_8cpp_1ab7bc35f14f0b02b658091056239d53c6`
+- :ref:`exhale_function_namespacesmaug_1_1smv_1_1unary_1ab7bc35f14f0b02b658091056239d53c6`

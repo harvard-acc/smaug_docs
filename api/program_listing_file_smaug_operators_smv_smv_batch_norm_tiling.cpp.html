@@ -173,10 +173,6 @@
 <span class="k">namespace</span> <span class="n">smv</span> <span class="p">{</span>
 <span class="k">namespace</span> <span class="n">bn</span> <span class="p">{</span>
 
-<span class="c1">// Determine the best tiling dimensions for running batch norm on SMV.</span>
-<span class="c1">//</span>
-<span class="c1">// Returns:</span>
-<span class="c1">//   A 2-element array of TilingDims enums (inputs, weights).</span>
 <span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">TilingDims</span><span class="p">,</span> <span class="mi">2</span><span class="o">&gt;</span> <span class="n">TilingOptimizer</span><span class="o">::</span><span class="n">determineBestTilingDims</span><span class="p">(</span>
         <span class="n">Tensor</span><span class="o">*</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">Tensor</span><span class="o">*</span> <span class="n">weights</span><span class="p">,</span> <span class="kt">int</span> <span class="n">maxTileSize</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// Determine the best tiling dims for each of inputs and weights. The</span>
@@ -371,28 +367,6 @@
     <span class="n">assert</span><span class="p">(</span><span class="o">!</span><span class="n">fullConfigs</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="s">&quot;No tiling configurations found!&quot;</span><span class="p">);</span>
 <span class="p">}</span>
 
-<span class="c1">// Determine the best basic tiling shape for this batch norm layer.</span>
-<span class="c1">//</span>
-<span class="c1">// The algorithm first determines the dimensions along which the inputs,</span>
-<span class="c1">// weights, and outputs will be tiled. Then based on those dimensions, we</span>
-<span class="c1">// enumerate all possible basic tile shapes for inputs, weights, and outputs. A</span>
-<span class="c1">// **basic** shape is the shape that all but potentially the last tile along a</span>
-<span class="c1">// set of dimensions will use. This triplet of tile shapes defines a</span>
-<span class="c1">// TilingConfig. The TilingConfig that maximizes the total combined size of</span>
-<span class="c1">// input, weights, and output tiles is chosen as the best.</span>
-<span class="c1">//</span>
-<span class="c1">// This algorithm assumes that the maximum tile size for weights, inputs, and</span>
-<span class="c1">// outputs are all the same and that they will reside in separate scratchpads</span>
-<span class="c1">// (no sharing).</span>
-<span class="c1">//</span>
-<span class="c1">// Args:</span>
-<span class="c1">//    inputs: Inputs tensor of the batch norm operator.</span>
-<span class="c1">//    weights: A tensor that concatenates the four weights tensors of the batch</span>
-<span class="c1">//        norm operator.</span>
-<span class="c1">//    outputs: Outputs tensor of the batch norm operator.</span>
-<span class="c1">// Returns:</span>
-<span class="c1">//    The TilingConfig that describes the best tiling shapes.</span>
-<span class="c1">//</span>
 <span class="n">TilingConfig</span> <span class="n">TilingOptimizer</span><span class="o">::</span><span class="n">computeBasicTileShapes</span><span class="p">(</span><span class="n">Tensor</span><span class="o">*</span> <span class="n">inputs</span><span class="p">,</span>
                                                      <span class="n">Tensor</span><span class="o">*</span> <span class="n">weights</span><span class="p">,</span>
                                                      <span class="n">Tensor</span><span class="o">*</span> <span class="n">outputs</span><span class="p">)</span> <span class="p">{</span>

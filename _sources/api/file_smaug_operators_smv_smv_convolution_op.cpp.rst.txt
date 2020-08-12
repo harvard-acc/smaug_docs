@@ -54,12 +54,3 @@ Namespaces
 
 - :ref:`namespace_smaug__smv__conv`
 
-
-Variables
----------
-
-
-- :ref:`exhale_variable_smv__convolution__op_8cpp_1aa9355b2539aca8658e715c3cbaba2f89`
-
-- :ref:`exhale_variable_smv__convolution__op_8cpp_1aaebd66dc1512c639ff0481d4fd321533`
-

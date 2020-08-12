@@ -178,7 +178,21 @@
 <dl class="cpp class">
 <dt id="_CPPv4N5smaug18SmvAcceleratorPoolE">
 <span id="_CPPv3N5smaug18SmvAcceleratorPoolE"></span><span id="_CPPv2N5smaug18SmvAcceleratorPoolE"></span><span id="smaug::SmvAcceleratorPool"></span><span class="target" id="classsmaug_1_1SmvAcceleratorPool"></span><em class="property">class </em><code class="sig-prename descclassname">smaug<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">SmvAcceleratorPool</code><a class="headerlink" href="#_CPPv4N5smaug18SmvAcceleratorPoolE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><div class="breathe-sectiondef docutils container">
+<dd><p>Implements a pool of worker accelerators.</p>
+<p>For operators that require work tiling, tiles can be distributed across multiple accelerators to exploit parallelism. This class implements a deterministic round-robin worker pool. Determinism is required because when generating multiple dynamic traces, worker accelerator assignments must match with simulation of the binary in gem5.</p>
+<p>To use:</p>
+<p><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SmvAcceleratorPool</span> <span class="n">pool</span><span class="p">(</span><span class="n">size</span><span class="p">);</span>
+<span class="nb">int</span> <span class="n">currAccel</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="k">for</span> <span class="p">(</span><span class="nb">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">tiles</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">volatile</span> <span class="nb">int</span><span class="o">*</span> <span class="n">finishFlag</span> <span class="o">=</span> <span class="n">invokeKernelNoBlock</span><span class="p">(</span><span class="n">currAccel</span><span class="p">,</span> <span class="n">redCode</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">args</span><span class="o">...</span><span class="p">);</span>
+   <span class="n">pool</span><span class="o">.</span><span class="n">addFinishFlag</span><span class="p">(</span><span class="n">currAccel</span><span class="p">,</span> <span class="n">std</span><span class="p">::</span><span class="n">make_unique</span><span class="p">(</span><span class="n">finishFlag</span><span class="p">));</span>
+   <span class="n">currAccel</span> <span class="o">=</span> <span class="n">pool</span><span class="o">.</span><span class="n">getNextAvailableAccelerator</span><span class="p">(</span><span class="n">currAccel</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="n">pool</span><span class="o">.</span><span class="n">joinAll</span><span class="p">();</span>
+</pre></div>
+</div>
+ </p>
+<div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Functions</p>
 <dl class="cpp function">
 <dt id="_CPPv4N5smaug18SmvAcceleratorPool18SmvAcceleratorPoolEi">
@@ -188,17 +202,21 @@
 <dl class="cpp function">
 <dt id="_CPPv4N5smaug18SmvAcceleratorPool13addFinishFlagEiNSt10unique_ptrIViEE">
 <span id="_CPPv3N5smaug18SmvAcceleratorPool13addFinishFlagEiNSt10unique_ptrIViEE"></span><span id="_CPPv2N5smaug18SmvAcceleratorPool13addFinishFlagEiNSt10unique_ptrIViEE"></span><span id="smaug::SmvAcceleratorPool::addFinishFlag__i.std::unique_ptr:iV:"></span><span class="target" id="classsmaug_1_1SmvAcceleratorPool_1ae436c6e102756adfd5ee0f07aad4882d"></span>void <code class="sig-name descname">addFinishFlag</code><span class="sig-paren">(</span>int <em>accelIdx</em>, std::unique_ptr&lt;<em class="property">volatile</em> int&gt; <em>finishFlag</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N5smaug18SmvAcceleratorPool13addFinishFlagEiNSt10unique_ptrIViEE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Add a finish flag for the specified accelerator. </p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N5smaug18SmvAcceleratorPool7joinAllEv">
 <span id="_CPPv3N5smaug18SmvAcceleratorPool7joinAllEv"></span><span id="_CPPv2N5smaug18SmvAcceleratorPool7joinAllEv"></span><span id="smaug::SmvAcceleratorPool::joinAll"></span><span class="target" id="classsmaug_1_1SmvAcceleratorPool_1aa725ada381f41d375c86eb95dea137d9"></span>void <code class="sig-name descname">joinAll</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N5smaug18SmvAcceleratorPool7joinAllEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Wait until all the finish flags turn complete. </p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N5smaug18SmvAcceleratorPool27getNextAvailableAcceleratorEi">
 <span id="_CPPv3N5smaug18SmvAcceleratorPool27getNextAvailableAcceleratorEi"></span><span id="_CPPv2N5smaug18SmvAcceleratorPool27getNextAvailableAcceleratorEi"></span><span id="smaug::SmvAcceleratorPool::getNextAvailableAccelerator__i"></span><span class="target" id="classsmaug_1_1SmvAcceleratorPool_1a82d5531e60fd07e1a4ccdedf141fd8d6"></span>int <code class="sig-name descname">getNextAvailableAccelerator</code><span class="sig-paren">(</span>int <em>currAccelIdx</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N5smaug18SmvAcceleratorPool27getNextAvailableAcceleratorEi" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Get the next accelerator and wait if it’s still busy. A round-robin scheduling policy is used for picking the accelerator. The simple static policy is used because the scheduling decisions need to be the same as when we generate the traces, whereas dynamic decisions that depend on runtime information may lead to mismatch between the traces and the simulation.</p>
+<p>TODO(xyzsam): the pool should be able to keep track of the current accelerator index on its own. </p>
+</dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
@@ -206,7 +224,8 @@
 <dl class="cpp function">
 <dt id="_CPPv4N5smaug18SmvAcceleratorPool4joinEi">
 <span id="_CPPv3N5smaug18SmvAcceleratorPool4joinEi"></span><span id="_CPPv2N5smaug18SmvAcceleratorPool4joinEi"></span><span id="smaug::SmvAcceleratorPool::join__i"></span><span class="target" id="classsmaug_1_1SmvAcceleratorPool_1a2e7aba1fad586cfd5da8c41fe1515563"></span>void <code class="sig-name descname">join</code><span class="sig-paren">(</span>int <em>accelIdx</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N5smaug18SmvAcceleratorPool4joinEi" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Wait until this accelerator’s finish flags turn complete. </p>
+</dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
@@ -214,12 +233,14 @@
 <dl class="cpp var">
 <dt id="_CPPv4N5smaug18SmvAcceleratorPool4sizeE">
 <span id="_CPPv3N5smaug18SmvAcceleratorPool4sizeE"></span><span id="_CPPv2N5smaug18SmvAcceleratorPool4sizeE"></span><span id="smaug::SmvAcceleratorPool::size__i"></span><span class="target" id="classsmaug_1_1SmvAcceleratorPool_1ab527d58c28f046728be520c683873b69"></span>int <code class="sig-name descname">size</code><a class="headerlink" href="#_CPPv4N5smaug18SmvAcceleratorPool4sizeE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Number of accelerators in the pool. </p>
+</dd></dl>
 
 <dl class="cpp var">
 <dt id="_CPPv4N5smaug18SmvAcceleratorPool11finishFlagsE">
 <span id="_CPPv3N5smaug18SmvAcceleratorPool11finishFlagsE"></span><span id="_CPPv2N5smaug18SmvAcceleratorPool11finishFlagsE"></span><span id="smaug::SmvAcceleratorPool::finishFlags__std::vector:std::deque:std::unique_ptr:iV:::"></span><span class="target" id="classsmaug_1_1SmvAcceleratorPool_1aaaca89247d404d094bec73695f7893dd"></span>std::vector&lt;std::deque&lt;std::unique_ptr&lt;<em class="property">volatile</em> int&gt;&gt;&gt; <code class="sig-name descname">finishFlags</code><a class="headerlink" href="#_CPPv4N5smaug18SmvAcceleratorPool11finishFlagsE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Active finish flags for all the accelerators in the pool. </p>
+</dd></dl>
 
 </div>
 </dd></dl>

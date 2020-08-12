@@ -1,0 +1,13 @@
+.. _exhale_variable_namespacesmaug_1_1smv_1_1bn_1a5feff55ba4fe111be0a1115552c2f26f:
+
+Variable smaug::smv::bn::kVectorSize
+====================================
+
+.. did not find file this was defined in
+
+
+Variable Documentation
+----------------------
+
+
+.. doxygenvariable:: smaug::smv::bn::kVectorSize

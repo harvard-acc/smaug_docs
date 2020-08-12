@@ -40,5 +40,5 @@ Functions
 ---------
 
 
-- :ref:`exhale_function_eltwise__mul_8c_1a467161b5c843763bf4308a59ba4d1e6d`
+- :ref:`exhale_function_group__AladdinKernels_1ga467161b5c843763bf4308a59ba4d1e6d`
 

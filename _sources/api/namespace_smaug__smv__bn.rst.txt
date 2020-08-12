@@ -12,6 +12,13 @@ Namespace smaug::smv::bn
 
 
 
+Detailed Description
+--------------------
+
+Contains batch-norm implementations and tiling optimizers for SMV. 
+ 
+
+
 
 Classes
 -------
@@ -24,4 +31,4 @@ Variables
 ---------
 
 
-- :ref:`exhale_variable_smv__batch__norm__op_8cpp_1a5feff55ba4fe111be0a1115552c2f26f`
+- :ref:`exhale_variable_namespacesmaug_1_1smv_1_1bn_1a5feff55ba4fe111be0a1115552c2f26f`

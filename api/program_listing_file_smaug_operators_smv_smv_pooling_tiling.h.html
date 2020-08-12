@@ -179,9 +179,11 @@
 <span class="k">class</span> <span class="nc">TilingOptimizer</span> <span class="o">:</span> <span class="k">public</span> <span class="n">TilingOptimizerBase</span> <span class="p">{</span>
    <span class="k">public</span><span class="o">:</span>
     <span class="k">static</span> <span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">TiledTensor</span><span class="p">,</span> <span class="mi">2</span><span class="o">&gt;</span> <span class="n">doTiling</span><span class="p">(</span><span class="n">SmvPoolingOp</span><span class="o">*</span> <span class="n">op</span><span class="p">);</span>
+
     <span class="k">static</span> <span class="n">TilingConfig</span> <span class="nf">computeBasicTileShapes</span><span class="p">(</span><span class="n">SmvPoolingOp</span><span class="o">*</span> <span class="n">op</span><span class="p">);</span>
 
    <span class="k">protected</span><span class="o">:</span>
+
     <span class="k">static</span> <span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">TilingDims</span><span class="p">,</span> <span class="mi">2</span><span class="o">&gt;</span> <span class="n">determineBestTilingDims</span><span class="p">(</span>
             <span class="n">Tensor</span><span class="o">*</span> <span class="n">inputs</span><span class="p">,</span>
             <span class="n">Tensor</span><span class="o">*</span> <span class="n">outputs</span><span class="p">,</span>

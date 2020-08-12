@@ -42,11 +42,11 @@ Functions
 
 - :ref:`exhale_function_compare_8c_1a70a0b8d7d71dddc279a6614470aa95be`
 
-- :ref:`exhale_function_compare_8c_1a3586bda438836c18785953639e4e94e5`
+- :ref:`exhale_function_group__AladdinKernels_1ga3586bda438836c18785953639e4e94e5`
 
-- :ref:`exhale_function_compare_8c_1ae30b545515aece6ad4953b640ccb37e0`
+- :ref:`exhale_function_group__AladdinKernels_1gae30b545515aece6ad4953b640ccb37e0`
 
-- :ref:`exhale_function_compare_8c_1a10ebe308c112a7b338fc50e29d8e440b`
+- :ref:`exhale_function_group__AladdinKernels_1ga10ebe308c112a7b338fc50e29d8e440b`
 
-- :ref:`exhale_function_compare_8c_1ac9b30b70d5129ddc3f374099102b0f1e`
+- :ref:`exhale_function_group__AladdinKernels_1gac9b30b70d5129ddc3f374099102b0f1e`
 

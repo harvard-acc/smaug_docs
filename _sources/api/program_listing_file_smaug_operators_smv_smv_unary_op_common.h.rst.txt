@@ -19,6 +19,7 @@ Program Listing for File smv_unary_op_common.h
    
    namespace smaug {
    namespace smv {
+   
    namespace unary {
    
    std::pair<activation_type, activation_param_t> getActivationParams(

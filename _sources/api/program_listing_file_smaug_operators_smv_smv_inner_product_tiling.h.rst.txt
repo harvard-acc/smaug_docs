@@ -28,6 +28,7 @@ Program Listing for File smv_inner_product_tiling.h
    class TilingOptimizer : public TilingOptimizerBase {
       public:
        static std::array<TiledTensor, 3> doTiling(SmvInnerProductOp* op);
+   
        static TilingConfig computeBasicTileShapes(SmvInnerProductOp* op);
    
       protected:

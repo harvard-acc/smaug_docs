@@ -1,0 +1,13 @@
+.. _exhale_variable_namespacesmaug_1_1smv_1_1fc_1a13e60cb23a27ce99b8588152279fbe00:
+
+Variable smaug::smv::fc::kNumPEs
+================================
+
+.. did not find file this was defined in
+
+
+Variable Documentation
+----------------------
+
+
+.. doxygenvariable:: smaug::smv::fc::kNumPEs

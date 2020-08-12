@@ -62,7 +62,7 @@ Functions
 ---------
 
 
-- :ref:`exhale_function_load__store__fp16__data_8h_1a54203daca3238cf666e1cbdaddf92529`
+- :ref:`exhale_function_group__AladdinKernels_1ga54203daca3238cf666e1cbdaddf92529`
 
-- :ref:`exhale_function_load__store__fp16__data_8h_1a32493e25cae1af4f003d371592888fcb`
+- :ref:`exhale_function_group__AladdinKernels_1ga32493e25cae1af4f003d371592888fcb`
 

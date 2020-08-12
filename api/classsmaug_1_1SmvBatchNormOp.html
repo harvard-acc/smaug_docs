@@ -192,7 +192,9 @@
 <dl class="cpp class">
 <dt id="_CPPv4N5smaug14SmvBatchNormOpE">
 <span id="_CPPv3N5smaug14SmvBatchNormOpE"></span><span id="_CPPv2N5smaug14SmvBatchNormOpE"></span><span id="smaug::SmvBatchNormOp"></span><span class="target" id="classsmaug_1_1SmvBatchNormOp"></span><em class="property">class </em><code class="sig-prename descclassname">smaug<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">SmvBatchNormOp</code> : <em class="property">public</em> smaug::<a class="reference internal" href="classsmaug_1_1BatchNormOp.html#_CPPv4I0EN5smaug11BatchNormOpE" title="smaug::BatchNormOp">BatchNormOp</a>&lt;<a class="reference internal" href="classsmaug_1_1SmvBackend.html#_CPPv4N5smaug10SmvBackendE" title="smaug::SmvBackend">SmvBackend</a>&gt;<a class="headerlink" href="#_CPPv4N5smaug14SmvBatchNormOpE" title="Permalink to this definition">¶</a><br /></dt>
-<dd><div class="breathe-sectiondef docutils container">
+<dd><p>SMV backend implementation of batch normalization.</p>
+<p>Elements are formatted and consumed in vectors of 8. </p>
+<div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Functions</p>
 <dl class="cpp function">
 <dt id="_CPPv4N5smaug14SmvBatchNormOp4tileEv">
@@ -212,12 +214,14 @@
 <dl class="cpp function">
 <dt id="_CPPv4N5smaug14SmvBatchNormOp5runNAER11TiledTensorR11TiledTensorR11TiledTensor">
 <span id="_CPPv3N5smaug14SmvBatchNormOp5runNAER11TiledTensorR11TiledTensorR11TiledTensor"></span><span id="_CPPv2N5smaug14SmvBatchNormOp5runNAER11TiledTensorR11TiledTensorR11TiledTensor"></span><span id="smaug::SmvBatchNormOp::runNA__TiledTensorR.TiledTensorR.TiledTensorR"></span><span class="target" id="classsmaug_1_1SmvBatchNormOp_1aaa9b852b5ef9d7175e86b610ad1223e2"></span>void <code class="sig-name descname">runNA</code><span class="sig-paren">(</span><a class="reference internal" href="classsmaug_1_1TiledTensor.html#_CPPv4N5smaug11TiledTensorE" title="smaug::TiledTensor">TiledTensor</a> &amp;<em>inputs</em>, <a class="reference internal" href="classsmaug_1_1TiledTensor.html#_CPPv4N5smaug11TiledTensorE" title="smaug::TiledTensor">TiledTensor</a> &amp;<em>weights</em>, <a class="reference internal" href="classsmaug_1_1TiledTensor.html#_CPPv4N5smaug11TiledTensorE" title="smaug::TiledTensor">TiledTensor</a> &amp;<em>outputs</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N5smaug14SmvBatchNormOp5runNAER11TiledTensorR11TiledTensorR11TiledTensor" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Post-FC tile dispatcher. </p>
+</dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N5smaug14SmvBatchNormOp7runNHWCER11TiledTensorR11TiledTensorR11TiledTensor">
 <span id="_CPPv3N5smaug14SmvBatchNormOp7runNHWCER11TiledTensorR11TiledTensorR11TiledTensor"></span><span id="_CPPv2N5smaug14SmvBatchNormOp7runNHWCER11TiledTensorR11TiledTensorR11TiledTensor"></span><span id="smaug::SmvBatchNormOp::runNHWC__TiledTensorR.TiledTensorR.TiledTensorR"></span><span class="target" id="classsmaug_1_1SmvBatchNormOp_1ac9fb53d39e7f92d4db9c4964510333cb"></span>void <code class="sig-name descname">runNHWC</code><span class="sig-paren">(</span><a class="reference internal" href="classsmaug_1_1TiledTensor.html#_CPPv4N5smaug11TiledTensorE" title="smaug::TiledTensor">TiledTensor</a> &amp;<em>inputs</em>, <a class="reference internal" href="classsmaug_1_1TiledTensor.html#_CPPv4N5smaug11TiledTensorE" title="smaug::TiledTensor">TiledTensor</a> &amp;<em>weights</em>, <a class="reference internal" href="classsmaug_1_1TiledTensor.html#_CPPv4N5smaug11TiledTensorE" title="smaug::TiledTensor">TiledTensor</a> &amp;<em>outputs</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N5smaug14SmvBatchNormOp7runNHWCER11TiledTensorR11TiledTensorR11TiledTensor" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Post-convolution tile dispatcher. </p>
+</dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">

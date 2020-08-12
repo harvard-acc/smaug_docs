@@ -172,26 +172,6 @@
 <span class="k">extern</span> <span class="s">&quot;C&quot;</span> <span class="p">{</span>
 <span class="cp">#endif</span>
 
-<span class="c1">// A max-pooling operation on SMV with NHWC format. This is the</span>
-<span class="c1">// vectorized implementation.</span>
-<span class="c1">//</span>
-<span class="c1">// Args:</span>
-<span class="c1">//   host_inputs: Host inputs buffer in NHWC.</span>
-<span class="c1">//   host_results: Host results buffer in NHWC.</span>
-<span class="c1">//   inputs: Local inputs buffer in NHWC.</span>
-<span class="c1">//   results: Local results buffer in NHWC.</span>
-<span class="c1">//   inputs_dims: Dimensions of the inputs.</span>
-<span class="c1">//   weights_dims: Dimensions of the weights.</span>
-<span class="c1">//   results_dims: Dimensions of the results.</span>
-<span class="c1">//   inputs_pad: Align padding size on the channel dimension of the</span>
-<span class="c1">//       inputs.</span>
-<span class="c1">//   results_pad: Align padding size on the channel dimension of the results.</span>
-<span class="c1">//   pool_rows: Row size of the pooling function.</span>
-<span class="c1">//   pool_cols: Column size of the pooling function.</span>
-<span class="c1">//   row_stride: Stride size on the row dimension.</span>
-<span class="c1">//   col_stride: Stride size on the col dimension.</span>
-<span class="c1">//   ofmap_start: If the results contains more channels than the inputs, start</span>
-<span class="c1">//       from this one. Otherwise this should always be zero.</span>
 <span class="kt">void</span> <span class="n">smv_maxpooling_nhwc_vec_fxp</span><span class="p">(</span><span class="n">float16</span><span class="o">*</span> <span class="n">host_inputs</span><span class="p">,</span>
                                  <span class="n">float16</span><span class="o">*</span> <span class="n">host_results</span><span class="p">,</span>
                                  <span class="kt">float</span><span class="o">*</span> <span class="n">inputs</span><span class="p">,</span>
@@ -296,29 +276,6 @@
         <span class="n">host_store_fp16</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">host_results</span><span class="p">,</span> <span class="n">results_size</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
 <span class="p">}</span>
 
-<span class="c1">// An average-pooling operation on SMV with NHWC format. This is the</span>
-<span class="c1">// vectorized implementation.</span>
-<span class="c1">//</span>
-<span class="c1">// Args:</span>
-<span class="c1">//   host_inputs: Host inputs buffer in NHWC.</span>
-<span class="c1">//   host_results: Host results buffer in NHWC.</span>
-<span class="c1">//   inputs: Local inputs buffer in NHWC.</span>
-<span class="c1">//   results: Local results buffer in NHWC.</span>
-<span class="c1">//   inputs_dims: Dimensions of the inputs.</span>
-<span class="c1">//   weights_dims: Dimensions of the weights.</span>
-<span class="c1">//   results_dims: Dimensions of the results.</span>
-<span class="c1">//   inputs_pad: Align padding size on the channel dimension of the</span>
-<span class="c1">//       inputs.</span>
-<span class="c1">//   results_pad: Align padding size on the channel dimension of the results.</span>
-<span class="c1">//   pool_rows: Row size of the pooling function.</span>
-<span class="c1">//   pool_cols: Column size of the pooling function.</span>
-<span class="c1">//   row_stride: Stride size on the row dimension.</span>
-<span class="c1">//   col_stride: Stride size on the col dimension.</span>
-<span class="c1">//   ofmap_start: If the results contains more channels than the inputs, start</span>
-<span class="c1">//       from this one. Otherwise this should always be zero.</span>
-<span class="c1">// This requires a blocked channel data format (GNHWC), where G = channels/8,</span>
-<span class="c1">// and the last dimension = chans = 8. The last dimension MUST be 8.</span>
-<span class="c1">// This supports arbitrary pooling sizes and strides.</span>
 <span class="kt">void</span> <span class="n">smv_avgpooling_nhwc_vec_fxp</span><span class="p">(</span><span class="n">float16</span><span class="o">*</span> <span class="n">host_inputs</span><span class="p">,</span>
                                  <span class="n">float16</span><span class="o">*</span> <span class="n">host_results</span><span class="p">,</span>
                                  <span class="kt">float</span><span class="o">*</span> <span class="n">inputs</span><span class="p">,</span>

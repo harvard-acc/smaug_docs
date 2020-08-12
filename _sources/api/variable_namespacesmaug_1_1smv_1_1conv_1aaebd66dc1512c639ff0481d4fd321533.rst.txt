@@ -1,0 +1,13 @@
+.. _exhale_variable_namespacesmaug_1_1smv_1_1conv_1aaebd66dc1512c639ff0481d4fd321533:
+
+Variable smaug::smv::conv::kNumPEs
+==================================
+
+.. did not find file this was defined in
+
+
+Variable Documentation
+----------------------
+
+
+.. doxygenvariable:: smaug::smv::conv::kNumPEs

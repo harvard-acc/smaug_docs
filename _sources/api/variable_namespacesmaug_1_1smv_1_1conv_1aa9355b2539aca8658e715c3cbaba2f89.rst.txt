@@ -1,0 +1,13 @@
+.. _exhale_variable_namespacesmaug_1_1smv_1_1conv_1aa9355b2539aca8658e715c3cbaba2f89:
+
+Variable smaug::smv::conv::kNumMaccsPerPE
+=========================================
+
+.. did not find file this was defined in
+
+
+Variable Documentation
+----------------------
+
+
+.. doxygenvariable:: smaug::smv::conv::kNumMaccsPerPE

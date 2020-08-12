@@ -173,45 +173,6 @@
 <span class="k">extern</span> <span class="s">&quot;C&quot;</span> <span class="p">{</span>
 <span class="cp">#endif</span>
 
-<span class="c1">// Matrix b after transposition:</span>
-<span class="c1">//</span>
-<span class="c1">// cols (originally rows) ---&gt;</span>
-<span class="c1">//</span>
-<span class="c1">// rows  [[---][---][---]]</span>
-<span class="c1">//  |    [[---][---][---]]</span>
-<span class="c1">//       [[---][---][---]]</span>
-<span class="c1">//  v    [[---][---][---]]</span>
-<span class="c1">//</span>
-<span class="c1">//  Each [---] represents an 8-wide vector. This inner product executes a 32-way</span>
-<span class="c1">//  MACC -- 4 such 8-wide vectors -- per PE, and 8 PEs, where each PE is</span>
-<span class="c1">//  assigned a row in in the transposed matrix. It continues across each row of</span>
-<span class="c1">//  b until the complete output pixel is finished (output stationary).</span>
-<span class="c1">//</span>
-<span class="c1">//  No biases are added.</span>
-<span class="c1">//</span>
-<span class="c1">// Args:</span>
-<span class="c1">//   host_a: Host buffer for a in NC.</span>
-<span class="c1">//   host_b: Host buffer for b in NC.</span>
-<span class="c1">//   host_results: Host results buffer in NC.</span>
-<span class="c1">//   a: Local buffer for a in NC.</span>
-<span class="c1">//   b: Local buffer for b in NC.</span>
-<span class="c1">//   results: Local results buffer in NC.</span>
-<span class="c1">//   a_dims: Dimensions of a.</span>
-<span class="c1">//   b_dims: Dimensions of b.</span>
-<span class="c1">//   results_dims: Dimensions of the results.</span>
-<span class="c1">//   a_pad: Align padding size on the channel dimension of a.</span>
-<span class="c1">//   b_pad: Align padding size on the channel dimension of b.</span>
-<span class="c1">//   results_pad: Align padding size on the channel dimension of the results.</span>
-<span class="c1">//   a_start: If a contains more activations than b, start from this one.</span>
-<span class="c1">//       Otherwise this should always be zero.</span>
-<span class="c1">//   result_start: If the results contain more neurons than the b, start writing</span>
-<span class="c1">//       results from this one. Otherwise this should always be zero.</span>
-<span class="c1">//   accumulate: If the original b tensor is tiled on activations, this should</span>
-<span class="c1">//       be set to true in order to avoid resetting the result buffer for</span>
-<span class="c1">//       non-first b tiles.</span>
-<span class="c1">//   send_results: Send the results to the host memory if this is true.</span>
-<span class="c1">//   act_function: Activation function the operator runs.</span>
-<span class="c1">//   act_params: Parameters for the activation function.</span>
 <span class="kt">void</span> <span class="n">smv_matrix_multiply_transpose_nc_vec_fxp</span><span class="p">(</span><span class="n">float16</span><span class="o">*</span> <span class="n">host_a</span><span class="p">,</span>
                                               <span class="n">float16</span><span class="o">*</span> <span class="n">host_b</span><span class="p">,</span>
                                               <span class="n">float16</span><span class="o">*</span> <span class="n">host_results</span><span class="p">,</span>

@@ -46,5 +46,5 @@ Functions
 ---------
 
 
-- :ref:`exhale_function_smv_2kernels_2convolution__simd_8c_1a330bc11dfe9be31ca2f3604ae6f7fc89`
+- :ref:`exhale_function_group__AladdinKernels_1ga330bc11dfe9be31ca2f3604ae6f7fc89`
 

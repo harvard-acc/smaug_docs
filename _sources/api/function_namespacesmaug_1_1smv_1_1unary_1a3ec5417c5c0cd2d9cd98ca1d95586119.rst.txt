@@ -1,0 +1,13 @@
+.. _exhale_function_namespacesmaug_1_1smv_1_1unary_1a3ec5417c5c0cd2d9cd98ca1d95586119:
+
+Function smaug::smv::unary::getActivationParams
+===============================================
+
+.. did not find file this was defined in
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: smaug::smv::unary::getActivationParams(UnaryOp<SmvBackend> *)

@@ -12,6 +12,13 @@ Namespace smaug::smv::conv
 
 
 
+Detailed Description
+--------------------
+
+Contains convolution implementations and tiling optimizers for SMV. 
+ 
+
+
 
 Classes
 -------
@@ -24,6 +31,6 @@ Variables
 ---------
 
 
-- :ref:`exhale_variable_smv__convolution__op_8cpp_1aa9355b2539aca8658e715c3cbaba2f89`
+- :ref:`exhale_variable_namespacesmaug_1_1smv_1_1conv_1aa9355b2539aca8658e715c3cbaba2f89`
 
-- :ref:`exhale_variable_smv__convolution__op_8cpp_1aaebd66dc1512c639ff0481d4fd321533`
+- :ref:`exhale_variable_namespacesmaug_1_1smv_1_1conv_1aaebd66dc1512c639ff0481d4fd321533`

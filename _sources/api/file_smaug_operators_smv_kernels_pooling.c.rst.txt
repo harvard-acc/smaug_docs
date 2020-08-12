@@ -44,7 +44,7 @@ Functions
 ---------
 
 
-- :ref:`exhale_function_pooling_8c_1af22777b0aa474e084504b1f7ca985a12`
+- :ref:`exhale_function_group__AladdinKernels_1gaf22777b0aa474e084504b1f7ca985a12`
 
-- :ref:`exhale_function_pooling_8c_1ae783412d32edc392c25ef800f7a09a4a`
+- :ref:`exhale_function_group__AladdinKernels_1gae783412d32edc392c25ef800f7a09a4a`
 

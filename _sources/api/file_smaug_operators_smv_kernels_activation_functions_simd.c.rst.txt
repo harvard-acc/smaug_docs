@@ -40,7 +40,7 @@ Functions
 ---------
 
 
-- :ref:`exhale_function_activation__functions__simd_8c_1a4407cdf131f8d45217671e43a26e4d31`
+- :ref:`exhale_function_group__AladdinKernels_1ga4407cdf131f8d45217671e43a26e4d31`
 
-- :ref:`exhale_function_activation__functions__simd_8c_1acf65acbe34ad83f1ecae9da643220754`
+- :ref:`exhale_function_group__AladdinKernels_1gacf65acbe34ad83f1ecae9da643220754`
 

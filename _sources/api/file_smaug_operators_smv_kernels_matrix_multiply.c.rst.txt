@@ -46,5 +46,5 @@ Functions
 ---------
 
 
-- :ref:`exhale_function_matrix__multiply_8c_1ae8856ee4b9d5235dcb6914185d784c91`
+- :ref:`exhale_function_group__AladdinKernels_1gae8856ee4b9d5235dcb6914185d784c91`
 

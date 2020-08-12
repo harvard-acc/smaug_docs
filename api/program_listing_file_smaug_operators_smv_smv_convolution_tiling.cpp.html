@@ -173,14 +173,6 @@
 <span class="k">namespace</span> <span class="n">smv</span> <span class="p">{</span>
 <span class="k">namespace</span> <span class="n">conv</span> <span class="p">{</span>
 
-<span class="c1">// Determine the best tiling dimensions for running convolution on SMV.</span>
-<span class="c1">//</span>
-<span class="c1">// This function imposes some additional constraints on the tiling dimensions,</span>
-<span class="c1">// in that certain combinations of input/weight/output tiling dimensions are</span>
-<span class="c1">// not allowed in the interest of tiling code complexity.</span>
-<span class="c1">//</span>
-<span class="c1">// Returns:</span>
-<span class="c1">//   A 3-element array of TilingDims enums (inputs, weights, outputs).</span>
 <span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">TilingDims</span><span class="p">,</span> <span class="mi">3</span><span class="o">&gt;</span> <span class="n">TilingOptimizer</span><span class="o">::</span><span class="n">determineBestTilingDims</span><span class="p">(</span>
         <span class="n">Tensor</span><span class="o">*</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">Tensor</span><span class="o">*</span> <span class="n">weights</span><span class="p">,</span> <span class="n">Tensor</span><span class="o">*</span> <span class="n">outputs</span><span class="p">,</span> <span class="kt">int</span> <span class="n">maxTileSize</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// Determine the best tiling strategy for each of inputs, weights, and</span>
@@ -225,31 +217,6 @@
     <span class="k">return</span> <span class="p">{</span> <span class="n">bestInputTilingDims</span><span class="p">,</span> <span class="n">bestWeightTilingDims</span><span class="p">,</span> <span class="n">bestOutputTilingDims</span> <span class="p">};</span>
 <span class="p">}</span>
 
-<span class="c1">// Determine the best basic tiling shape for this convolution layer.</span>
-<span class="c1">//</span>
-<span class="c1">// The algorithm first determines the dimensions along which the inputs,</span>
-<span class="c1">// weights, and outputs will be tiled. Then based on those dimensions, we</span>
-<span class="c1">// enumerate all possible basic tile shapes for inputs, weights, and outputs. A</span>
-<span class="c1">// **basic** shape is the shape that all but potentially the last tile along a</span>
-<span class="c1">// set of dimensions will use. This triplet of tile shapes defines a</span>
-<span class="c1">// TilingConfig. The TilingConfig that maximizes the total combined size of</span>
-<span class="c1">// input, weights, and output tiles is chosen as the best.</span>
-<span class="c1">//</span>
-<span class="c1">// To limit the number of possibilities, we only enumerate each dimension in</span>
-<span class="c1">// certain increments. For example, input channels are only enumerated in</span>
-<span class="c1">// multiples of kNumMaccsPerPE, and output channels are only enumerated in</span>
-<span class="c1">// multiples in kNumPEs.</span>
-<span class="c1">//</span>
-<span class="c1">// This algorithm assumes that the maximum tile size for weights, inputs, and</span>
-<span class="c1">// outputs are all the same and that they will reside in separate scratchpads</span>
-<span class="c1">// (no sharing).</span>
-<span class="c1">//</span>
-<span class="c1">// Args:</span>
-<span class="c1">//    op: The SMV convolution operator. All tensors must have been created with</span>
-<span class="c1">//        createAllTensors() prior to calling this function.</span>
-<span class="c1">// Returns:</span>
-<span class="c1">//    The TilingConfig that describes the best tiling shapes.</span>
-<span class="c1">//</span>
 <span class="n">TilingConfig</span> <span class="n">TilingOptimizer</span><span class="o">::</span><span class="n">computeBasicTileShapes</span><span class="p">(</span><span class="n">SmvConvolutionOp</span><span class="o">*</span> <span class="n">op</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">Tensor</span><span class="o">*</span> <span class="n">inputs</span> <span class="o">=</span> <span class="n">op</span><span class="o">-&gt;</span><span class="n">getInput</span><span class="p">(</span><span class="n">op</span><span class="o">-&gt;</span><span class="n">Inputs</span><span class="p">);</span>
     <span class="n">Tensor</span><span class="o">*</span> <span class="n">weights</span> <span class="o">=</span> <span class="n">op</span><span class="o">-&gt;</span><span class="n">getInput</span><span class="p">(</span><span class="n">op</span><span class="o">-&gt;</span><span class="n">Kernels</span><span class="p">);</span>

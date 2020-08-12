@@ -1,0 +1,13 @@
+.. _exhale_variable_namespacesmaug_1_1smv_1_1pool_1a64a4c38cf4fe0dbd3348e4e7da4c177b:
+
+Variable smaug::smv::pool::kVectorSize
+======================================
+
+.. did not find file this was defined in
+
+
+Variable Documentation
+----------------------
+
+
+.. doxygenvariable:: smaug::smv::pool::kVectorSize

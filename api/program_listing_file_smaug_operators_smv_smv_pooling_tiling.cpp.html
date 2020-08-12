@@ -173,14 +173,6 @@
 <span class="k">namespace</span> <span class="n">smv</span> <span class="p">{</span>
 <span class="k">namespace</span> <span class="n">pool</span> <span class="p">{</span>
 
-<span class="c1">// Determine the best tiling dimensions for running pooling on SMV.</span>
-<span class="c1">//</span>
-<span class="c1">// This function imposes some additional constraints on the tiling dimensions,</span>
-<span class="c1">// in that certain combinations of input/output tiling dimensions are</span>
-<span class="c1">// not allowed in the interest of tiling code complexity.</span>
-<span class="c1">//</span>
-<span class="c1">// Returns:</span>
-<span class="c1">//   A 2-element array of TilingDims enums (inputs, outputs).</span>
 <span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">TilingDims</span><span class="p">,</span> <span class="mi">2</span><span class="o">&gt;</span> <span class="n">TilingOptimizer</span><span class="o">::</span><span class="n">determineBestTilingDims</span><span class="p">(</span>
         <span class="n">Tensor</span><span class="o">*</span> <span class="n">inputs</span><span class="p">,</span>
         <span class="n">Tensor</span><span class="o">*</span> <span class="n">outputs</span><span class="p">,</span>
@@ -220,29 +212,6 @@
     <span class="k">return</span> <span class="p">{</span> <span class="n">bestInputTilingDims</span><span class="p">,</span> <span class="n">bestOutputTilingDims</span> <span class="p">};</span>
 <span class="p">}</span>
 
-<span class="c1">// Determine the best basic tiling shape for this pooling layer.</span>
-<span class="c1">//</span>
-<span class="c1">// The algorithm first determines the dimensions along which the inputs and</span>
-<span class="c1">// outputs will be tiled. Then based on those dimensions, we enumerate all</span>
-<span class="c1">// possible basic tile shapes for inputs and outputs. A **basic** shape is the</span>
-<span class="c1">// shape that all but potentially the last tile along a set of dimensions will</span>
-<span class="c1">// use. This duo of tile shapes defines a TilingConfig. The TilingConfig</span>
-<span class="c1">// that maximizes the total combined size of input and output tiles is</span>
-<span class="c1">// chosen as the best.</span>
-<span class="c1">//</span>
-<span class="c1">// To limit the number of possibilities, we only enumerate each dimension in</span>
-<span class="c1">// certain increments. For example, input channels are only enumerated in</span>
-<span class="c1">// multiples of kVectorSize.</span>
-<span class="c1">//</span>
-<span class="c1">// This algorithm assumes that the maximum tile size for inputs and outputs are</span>
-<span class="c1">// all the same and that they will reside in separate scratchpads (no sharing).</span>
-<span class="c1">//</span>
-<span class="c1">// Args:</span>
-<span class="c1">//    op: The SMV pooling operator. All tensors must have been created with</span>
-<span class="c1">//        createAllTensors() prior to calling this function.</span>
-<span class="c1">// Returns:</span>
-<span class="c1">//    The TilingConfig that describes the best tiling shapes.</span>
-<span class="c1">//</span>
 <span class="n">TilingConfig</span> <span class="n">TilingOptimizer</span><span class="o">::</span><span class="n">computeBasicTileShapes</span><span class="p">(</span><span class="n">SmvPoolingOp</span><span class="o">*</span> <span class="n">op</span><span class="p">)</span> <span class="p">{</span>
     <span class="n">Tensor</span><span class="o">*</span> <span class="n">inputs</span> <span class="o">=</span> <span class="n">op</span><span class="o">-&gt;</span><span class="n">getInput</span><span class="p">(</span><span class="n">op</span><span class="o">-&gt;</span><span class="n">Inputs</span><span class="p">);</span>
     <span class="n">Tensor</span><span class="o">*</span> <span class="n">outputs</span> <span class="o">=</span> <span class="n">op</span><span class="o">-&gt;</span><span class="n">getOutput</span><span class="p">(</span><span class="n">op</span><span class="o">-&gt;</span><span class="n">Outputs</span><span class="p">);</span>

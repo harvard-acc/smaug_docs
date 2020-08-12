@@ -174,28 +174,17 @@
    <span class="k">public</span><span class="o">:</span>
     <span class="n">SmvAcceleratorPool</span><span class="p">(</span><span class="kt">int</span> <span class="n">_size</span><span class="p">);</span>
 
-    <span class="c1">// Add a finish flag for the specified accelerator.</span>
     <span class="kt">void</span> <span class="nf">addFinishFlag</span><span class="p">(</span><span class="kt">int</span> <span class="n">accelIdx</span><span class="p">,</span> <span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="k">volatile</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">finishFlag</span><span class="p">);</span>
 
-    <span class="c1">// Wait until all the finish flags turn complete.</span>
     <span class="kt">void</span> <span class="nf">joinAll</span><span class="p">();</span>
 
-    <span class="c1">// Get the next accelerator and wait if it&#39;s still busy. A round-robin</span>
-    <span class="c1">// scheduling policy is used for picking the accelerator. The simple static</span>
-    <span class="c1">// policy is used because the scheduling decisions need to be the same as</span>
-    <span class="c1">// when we generate the traces, whereas dynamic decisions that depend on</span>
-    <span class="c1">// runtime information may lead to mismatch between the traces and the</span>
-    <span class="c1">// simulation.</span>
     <span class="kt">int</span> <span class="nf">getNextAvailableAccelerator</span><span class="p">(</span><span class="kt">int</span> <span class="n">currAccelIdx</span><span class="p">);</span>
 
    <span class="k">protected</span><span class="o">:</span>
-    <span class="c1">// Wait until this accelerator&#39;s finish flags turn complete.</span>
     <span class="kt">void</span> <span class="n">join</span><span class="p">(</span><span class="kt">int</span> <span class="n">accelIdx</span><span class="p">);</span>
 
-    <span class="c1">// Number of accelerators in the pool.</span>
     <span class="kt">int</span> <span class="n">size</span><span class="p">;</span>
 
-    <span class="c1">// Active finish flags for all the accelerators in the pool.</span>
     <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">deque</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="k">volatile</span> <span class="kt">int</span><span class="o">&gt;&gt;&gt;</span> <span class="n">finishFlags</span><span class="p">;</span>
 <span class="p">};</span>
 

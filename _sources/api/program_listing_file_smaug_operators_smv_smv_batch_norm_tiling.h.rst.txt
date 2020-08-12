@@ -28,6 +28,7 @@ Program Listing for File smv_batch_norm_tiling.h
    class TilingOptimizer : TilingOptimizerBase {
       public:
        static std::array<TiledTensor, 3> doTiling(SmvBatchNormOp* op);
+   
        static TilingConfig computeBasicTileShapes(Tensor* inputs,
                                                   Tensor* weights,
                                                   Tensor* outputs);

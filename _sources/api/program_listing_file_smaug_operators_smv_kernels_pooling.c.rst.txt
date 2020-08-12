@@ -21,26 +21,6 @@ Program Listing for File pooling.c
    extern "C" {
    #endif
    
-   // A max-pooling operation on SMV with NHWC format. This is the
-   // vectorized implementation.
-   //
-   // Args:
-   //   host_inputs: Host inputs buffer in NHWC.
-   //   host_results: Host results buffer in NHWC.
-   //   inputs: Local inputs buffer in NHWC.
-   //   results: Local results buffer in NHWC.
-   //   inputs_dims: Dimensions of the inputs.
-   //   weights_dims: Dimensions of the weights.
-   //   results_dims: Dimensions of the results.
-   //   inputs_pad: Align padding size on the channel dimension of the
-   //       inputs.
-   //   results_pad: Align padding size on the channel dimension of the results.
-   //   pool_rows: Row size of the pooling function.
-   //   pool_cols: Column size of the pooling function.
-   //   row_stride: Stride size on the row dimension.
-   //   col_stride: Stride size on the col dimension.
-   //   ofmap_start: If the results contains more channels than the inputs, start
-   //       from this one. Otherwise this should always be zero.
    void smv_maxpooling_nhwc_vec_fxp(float16* host_inputs,
                                     float16* host_results,
                                     float* inputs,
@@ -145,29 +125,6 @@ Program Listing for File pooling.c
            host_store_fp16(results, host_results, results_size, 0, 0);
    }
    
-   // An average-pooling operation on SMV with NHWC format. This is the
-   // vectorized implementation.
-   //
-   // Args:
-   //   host_inputs: Host inputs buffer in NHWC.
-   //   host_results: Host results buffer in NHWC.
-   //   inputs: Local inputs buffer in NHWC.
-   //   results: Local results buffer in NHWC.
-   //   inputs_dims: Dimensions of the inputs.
-   //   weights_dims: Dimensions of the weights.
-   //   results_dims: Dimensions of the results.
-   //   inputs_pad: Align padding size on the channel dimension of the
-   //       inputs.
-   //   results_pad: Align padding size on the channel dimension of the results.
-   //   pool_rows: Row size of the pooling function.
-   //   pool_cols: Column size of the pooling function.
-   //   row_stride: Stride size on the row dimension.
-   //   col_stride: Stride size on the col dimension.
-   //   ofmap_start: If the results contains more channels than the inputs, start
-   //       from this one. Otherwise this should always be zero.
-   // This requires a blocked channel data format (GNHWC), where G = channels/8,
-   // and the last dimension = chans = 8. The last dimension MUST be 8.
-   // This supports arbitrary pooling sizes and strides.
    void smv_avgpooling_nhwc_vec_fxp(float16* host_inputs,
                                     float16* host_results,
                                     float* inputs,

@@ -46,11 +46,11 @@ Functions
 ---------
 
 
-- :ref:`exhale_function_batch__norm_8c_1aefe8683b9bac57c357337284d46b1b02`
+- :ref:`exhale_function_group__AladdinKernels_1gaefe8683b9bac57c357337284d46b1b02`
 
-- :ref:`exhale_function_batch__norm_8c_1a46edfe20d88e670c0ccdf178f06df5d5`
+- :ref:`exhale_function_group__AladdinKernels_1ga46edfe20d88e670c0ccdf178f06df5d5`
 
-- :ref:`exhale_function_batch__norm_8c_1a11592342cb1df7a956f29897e126cbac`
+- :ref:`exhale_function_group__AladdinKernels_1ga11592342cb1df7a956f29897e126cbac`
 
-- :ref:`exhale_function_batch__norm_8c_1a3f0b5357fc98ed5b148eb9e78e2da08c`
+- :ref:`exhale_function_group__AladdinKernels_1ga3f0b5357fc98ed5b148eb9e78e2da08c`
 

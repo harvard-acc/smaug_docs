@@ -20,6 +20,7 @@ Program Listing for File smv_inner_product_op.h
    namespace smaug {
    
    namespace smv {
+   
    namespace fc {
    
    extern const int kNumPEs;

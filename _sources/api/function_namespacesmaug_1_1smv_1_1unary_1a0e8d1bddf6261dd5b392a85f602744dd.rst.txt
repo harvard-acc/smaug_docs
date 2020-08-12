@@ -1,0 +1,13 @@
+.. _exhale_function_namespacesmaug_1_1smv_1_1unary_1a0e8d1bddf6261dd5b392a85f602744dd:
+
+Function smaug::smv::unary::doTiling
+====================================
+
+.. did not find file this was defined in
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: smaug::smv::unary::doTiling(UnaryOp<SmvBackend> *, bool)

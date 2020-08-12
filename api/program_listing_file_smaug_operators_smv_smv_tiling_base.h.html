@@ -173,9 +173,11 @@
 
 <span class="k">class</span> <span class="nc">TilingOptimizerBase</span> <span class="p">{</span>
    <span class="k">protected</span><span class="o">:</span>
+
     <span class="k">static</span> <span class="n">TilingDims</span> <span class="n">findBestTilingDims</span><span class="p">(</span><span class="k">const</span> <span class="n">TensorShape</span><span class="o">&amp;</span> <span class="n">shape</span><span class="p">,</span>
                                          <span class="kt">int</span> <span class="n">maxTileSize</span><span class="p">,</span>
                                          <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">minShape</span><span class="p">);</span>
+
     <span class="k">static</span> <span class="kt">void</span> <span class="nf">enum2DTensorTilingConfigs</span><span class="p">(</span><span class="n">TensorShape</span> <span class="n">shape</span><span class="p">,</span>
                                           <span class="kt">int</span> <span class="n">maxTileSize</span><span class="p">,</span>
                                           <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">minShape</span><span class="p">,</span>

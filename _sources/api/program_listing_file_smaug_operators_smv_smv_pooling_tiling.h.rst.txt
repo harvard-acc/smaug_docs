@@ -28,9 +28,11 @@ Program Listing for File smv_pooling_tiling.h
    class TilingOptimizer : public TilingOptimizerBase {
       public:
        static std::array<TiledTensor, 2> doTiling(SmvPoolingOp* op);
+   
        static TilingConfig computeBasicTileShapes(SmvPoolingOp* op);
    
       protected:
+   
        static std::array<TilingDims, 2> determineBestTilingDims(
                Tensor* inputs,
                Tensor* outputs,

@@ -20,6 +20,7 @@ Program Listing for File smv_batch_norm_op.h
    namespace smaug {
    
    namespace smv {
+   
    namespace bn {
    
    extern const int kVectorSize;
@@ -36,9 +37,8 @@ Program Listing for File smv_batch_norm_op.h
        void run() override;
    
      protected:
-      // This is for post-FC batch norm.
       void runNA(TiledTensor& inputs, TiledTensor& weights, TiledTensor& outputs);
-      // This is for post-Conv bath norm.
+   
       void runNHWC(TiledTensor& inputs,
                    TiledTensor& weights,
                    TiledTensor& outputs);

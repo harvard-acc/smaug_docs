@@ -173,37 +173,6 @@
 <span class="k">extern</span> <span class="s">&quot;C&quot;</span> <span class="p">{</span>
 <span class="cp">#endif</span>
 
-<span class="c1">// Perform a 3D convolution with one kernel on an image, with reduction in NHWC</span>
-<span class="c1">// format. This is the vectorized implementation.</span>
-<span class="c1">//</span>
-<span class="c1">// Args:</span>
-<span class="c1">//   host_inputs: Host inputs buffer in NHWC.</span>
-<span class="c1">//   host_weights: Host weights buffer in NHWC.</span>
-<span class="c1">//   host_results: Host results buffer in NHWC.</span>
-<span class="c1">//   inputs: Local inputs buffer in NHWC.</span>
-<span class="c1">//   weights: Local weights buffer in NHWC.</span>
-<span class="c1">//   results: Local results buffer in NHWC.</span>
-<span class="c1">//   inputs_dims: Dimensions of the inputs.</span>
-<span class="c1">//   weights_dims: Dimensions of the weights.</span>
-<span class="c1">//   results_dims: Dimensions of the results.</span>
-<span class="c1">//   inputs_align_pad: Align padding size on the channel dimension of the</span>
-<span class="c1">//       inputs.</span>
-<span class="c1">//   weights_pad: Align padding size on the channel dimension of the weights.</span>
-<span class="c1">//   results_pad: Align padding size on the channel dimension of the results.</span>
-<span class="c1">//   inputs_halo_pad: Padding sizes on top, bottom, left and right of the input</span>
-<span class="c1">//       2D feature maps.</span>
-<span class="c1">//   row_stride: Stride size on the row dimension.</span>
-<span class="c1">//   col_stride: Stride size on the col dimension.</span>
-<span class="c1">//   ifmap_start: If the input contains more channels than the weights, start</span>
-<span class="c1">//       from this one. Otherwise this should always be zero.</span>
-<span class="c1">//   kern_start: If the weights contain more kernels than the results buffer can</span>
-<span class="c1">//       fit, start from this one. Otherwise this should always be zero.</span>
-<span class="c1">//   accumulate: If the original weight tensor is tiled channelwise, this should</span>
-<span class="c1">//       be set to true in order to avoid resetting the result buffer for</span>
-<span class="c1">//       non-first weight tiles.</span>
-<span class="c1">//   send_results: Send the results to the host memory if this is true.</span>
-<span class="c1">//   act_function: Activation function the operator runs.</span>
-<span class="c1">//   act_params: Parameters for the activation function.</span>
 <span class="kt">void</span> <span class="n">smv_conv3d_nhwc_vec_fxp</span><span class="p">(</span><span class="n">float16</span><span class="o">*</span> <span class="n">host_inputs</span><span class="p">,</span>
                              <span class="n">float16</span><span class="o">*</span> <span class="n">host_weights</span><span class="p">,</span>
                              <span class="n">float16</span><span class="o">*</span> <span class="n">host_results</span><span class="p">,</span>

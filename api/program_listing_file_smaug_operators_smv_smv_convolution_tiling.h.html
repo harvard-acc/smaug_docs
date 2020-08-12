@@ -179,7 +179,9 @@
 <span class="k">class</span> <span class="nc">TilingOptimizer</span> <span class="o">:</span> <span class="k">public</span> <span class="n">TilingOptimizerBase</span> <span class="p">{</span>
    <span class="k">public</span><span class="o">:</span>
     <span class="k">static</span> <span class="n">std</span><span class="o">::</span><span class="n">array</span><span class="o">&lt;</span><span class="n">TiledTensor</span><span class="p">,</span> <span class="mi">3</span><span class="o">&gt;</span> <span class="n">doTiling</span><span class="p">(</span><span class="n">SmvConvolutionOp</span><span class="o">*</span> <span class="n">op</span><span class="p">);</span>
+
     <span class="k">static</span> <span class="n">TilingConfig</span> <span class="nf">computeBasicTileShapes</span><span class="p">(</span><span class="n">SmvConvolutionOp</span><span class="o">*</span> <span class="n">op</span><span class="p">);</span>
+
     <span class="k">static</span> <span class="n">TiledTensor</span> <span class="nf">generateRowwiseOutputTiledTensor</span><span class="p">(</span>
             <span class="n">SmvConvolutionOp</span><span class="o">*</span> <span class="n">op</span><span class="p">,</span>
             <span class="k">const</span> <span class="n">TiledTensor</span><span class="o">&amp;</span> <span class="n">inputTiledTensor</span><span class="p">,</span>

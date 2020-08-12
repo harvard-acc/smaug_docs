@@ -28,7 +28,9 @@ Program Listing for File smv_convolution_tiling.h
    class TilingOptimizer : public TilingOptimizerBase {
       public:
        static std::array<TiledTensor, 3> doTiling(SmvConvolutionOp* op);
+   
        static TilingConfig computeBasicTileShapes(SmvConvolutionOp* op);
+   
        static TiledTensor generateRowwiseOutputTiledTensor(
                SmvConvolutionOp* op,
                const TiledTensor& inputTiledTensor,
