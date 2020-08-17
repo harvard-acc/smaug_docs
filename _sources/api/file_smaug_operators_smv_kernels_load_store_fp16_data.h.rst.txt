@@ -10,7 +10,8 @@ File load_store_fp16_data.h
 
 
 Aladdin kernels to load/store FP16 data to/from host memory. 
- 
+
+
 
 .. contents:: Page Contents
    :local:

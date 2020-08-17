@@ -1,0 +1,21 @@
+.. _dir_docs_source:
+
+
+Directory source
+================
+
+
+|exhale_lsh| :ref:`Parent directory <dir_docs>` (``docs``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+*Directory path:* ``docs/source``
+
+
+Files
+-----
+
+- :ref:`file_docs_source_intro.dox`
+- :ref:`file_docs_source_operators.dox`
+
+

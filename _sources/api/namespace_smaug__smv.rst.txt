@@ -16,7 +16,8 @@ Detailed Description
 --------------------
 
 The smv namespace contains all code specific to the Smv backend. 
- 
+
+
 
 
 
@@ -63,9 +64,9 @@ Functions
 
 - :ref:`exhale_function_namespacesmaug_1_1smv_1a98f8a1335dcc878869d2429b66484ef8`
 
-- :ref:`exhale_function_namespacesmaug_1_1smv_1afa4e7466a2ec63af49fbf42ac9d9ef56`
-
 - :ref:`exhale_function_namespacesmaug_1_1smv_1a147bb1b218a149af498aae3b588c4b2d`
+
+- :ref:`exhale_function_namespacesmaug_1_1smv_1afa4e7466a2ec63af49fbf42ac9d9ef56`
 
 
 Variables

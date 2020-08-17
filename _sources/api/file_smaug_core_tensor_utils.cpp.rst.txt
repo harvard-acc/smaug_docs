@@ -59,7 +59,7 @@ Functions
 ---------
 
 
-- :ref:`exhale_function_namespacesmaug_1a2f49dfb9f461b76b26c0df68a50d267a`
+- :ref:`exhale_function_namespacesmaug_1a0f88aad9ec087e84bc688a21b2f56e68`
 
 - :ref:`exhale_function_namespacesmaug_1a6bb2498c8a66a4c0730a80d633c01a4c`
 

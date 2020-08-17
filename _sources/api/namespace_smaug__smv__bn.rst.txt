@@ -16,7 +16,8 @@ Detailed Description
 --------------------
 
 Contains batch-norm implementations and tiling optimizers for SMV. 
- 
+
+
 
 
 

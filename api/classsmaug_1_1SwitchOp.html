@@ -170,28 +170,14 @@
 <div class="contents local topic" id="page-contents">
 <p class="topic-title">Page Contents</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#inheritance-relationships" id="id1">Inheritance Relationships</a></p>
-<ul>
-<li><p><a class="reference internal" href="#base-type" id="id2">Base Type</a></p></li>
+<li><p><a class="reference internal" href="#class-documentation" id="id1">Class Documentation</a></p></li>
 </ul>
-</li>
-<li><p><a class="reference internal" href="#class-documentation" id="id3">Class Documentation</a></p></li>
-</ul>
-</div>
-<div class="section" id="inheritance-relationships">
-<h2>Inheritance Relationships<a class="headerlink" href="#inheritance-relationships" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="base-type">
-<h3>Base Type<a class="headerlink" href="#base-type" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">smaug::Operator</span></code> (<a class="reference internal" href="classsmaug_1_1Operator.html#exhale-class-classsmaug-1-1operator"><span class="std std-ref">Class Operator</span></a>)</p></li>
-</ul>
-</div>
 </div>
 <div class="section" id="class-documentation">
 <h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline">¶</a></h2>
 <dl class="cpp class">
 <dt id="_CPPv4I0EN5smaug8SwitchOpE">
-<span id="_CPPv3I0EN5smaug8SwitchOpE"></span><span id="_CPPv2I0EN5smaug8SwitchOpE"></span>template&lt;typename <code class="sig-name descname">Backend</code>&gt;<br /><span class="target" id="classsmaug_1_1SwitchOp"></span><em class="property">class </em><code class="sig-prename descclassname">smaug<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">SwitchOp</code> : <em class="property">public</em> smaug::<a class="reference internal" href="classsmaug_1_1Operator.html#_CPPv4N5smaug8OperatorE" title="smaug::Operator">Operator</a><a class="headerlink" href="#_CPPv4I0EN5smaug8SwitchOpE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3I0EN5smaug8SwitchOpE"></span><span id="_CPPv2I0EN5smaug8SwitchOpE"></span>template&lt;typename <code class="sig-name descname">Backend</code>&gt;<br /><span class="target" id="classsmaug_1_1SwitchOp"></span><em class="property">class </em><code class="sig-prename descclassname">smaug<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">SwitchOp</code><a class="headerlink" href="#_CPPv4I0EN5smaug8SwitchOpE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>The switch operator passes an input <a class="reference internal" href="classsmaug_1_1Tensor.html#classsmaug_1_1Tensor"><span class="std std-ref">Tensor</span></a> to one of two output tensors, depending on whether the specified predicate is true. The other tensor is marked as dead.</p>
 <p>This is an integral component of implementing control flow in networks.</p>
 <p><dl class="simple">
@@ -265,17 +251,12 @@
 <dl class="cpp function">
 <dt id="_CPPv4N5smaug8SwitchOp16createAllTensorsEv">
 <span id="_CPPv3N5smaug8SwitchOp16createAllTensorsEv"></span><span id="_CPPv2N5smaug8SwitchOp16createAllTensorsEv"></span><span id="smaug::SwitchOp::createAllTensors"></span><span class="target" id="classsmaug_1_1SwitchOp_1a9c400e272aa2c3699a0996094be082a3"></span>void <code class="sig-name descname">createAllTensors</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">override</em><a class="headerlink" href="#_CPPv4N5smaug8SwitchOp16createAllTensorsEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Creates all the input and output tensors specific to this operator.</p>
-<p>This should only be called once the <a class="reference internal" href="classsmaug_1_1Operator.html#classsmaug_1_1Operator"><span class="std std-ref">Operator</span></a> is fully initialized with all required parameters. It is responsible for creating only the tensors it “owns”. All operators “own” their output tensors, but not necessarily all of their input tensors. For example, a convolution operator “owns” its weight tensors, but not the input activations (which are the output of a previous <a class="reference internal" href="classsmaug_1_1Operator.html#classsmaug_1_1Operator"><span class="std std-ref">Operator</span></a>).</p>
-<p>Note that “ownership” of a <a class="reference internal" href="classsmaug_1_1Tensor.html#classsmaug_1_1Tensor"><span class="std std-ref">Tensor</span></a> does not mean the <a class="reference internal" href="classsmaug_1_1Operator.html#classsmaug_1_1Operator"><span class="std std-ref">Operator</span></a> holds a std::unique_ptr to the <a class="reference internal" href="classsmaug_1_1Tensor.html#classsmaug_1_1Tensor"><span class="std std-ref">Tensor</span></a>; it simply means it is solely responsible for constructing and allocating memory for it. </p>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N5smaug8SwitchOp3runEv">
 <span id="_CPPv3N5smaug8SwitchOp3runEv"></span><span id="_CPPv2N5smaug8SwitchOp3runEv"></span><span id="smaug::SwitchOp::run"></span><span class="target" id="classsmaug_1_1SwitchOp_1a1f2878306fd09d68de6067a1ac2c0cd2"></span>void <code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">override</em><a class="headerlink" href="#_CPPv4N5smaug8SwitchOp3runEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Executes the <a class="reference internal" href="classsmaug_1_1Operator.html#classsmaug_1_1Operator"><span class="std std-ref">Operator</span></a>.</p>
-<p>All <a class="reference internal" href="classsmaug_1_1Operator.html#classsmaug_1_1Operator"><span class="std std-ref">Operator</span></a> subclasses must override this method. </p>
-</dd></dl>
+<dd></dd></dl>
 
 </div>
 </dd></dl>

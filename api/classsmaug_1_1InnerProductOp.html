@@ -170,28 +170,14 @@
 <div class="contents local topic" id="page-contents">
 <p class="topic-title">Page Contents</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#inheritance-relationships" id="id1">Inheritance Relationships</a></p>
-<ul>
-<li><p><a class="reference internal" href="#base-type" id="id2">Base Type</a></p></li>
+<li><p><a class="reference internal" href="#class-documentation" id="id1">Class Documentation</a></p></li>
 </ul>
-</li>
-<li><p><a class="reference internal" href="#class-documentation" id="id3">Class Documentation</a></p></li>
-</ul>
-</div>
-<div class="section" id="inheritance-relationships">
-<h2>Inheritance Relationships<a class="headerlink" href="#inheritance-relationships" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="base-type">
-<h3>Base Type<a class="headerlink" href="#base-type" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">smaug::FusedActivationOp</span></code> (<a class="reference internal" href="classsmaug_1_1FusedActivationOp.html#exhale-class-classsmaug-1-1fusedactivationop"><span class="std std-ref">Class FusedActivationOp</span></a>)</p></li>
-</ul>
-</div>
 </div>
 <div class="section" id="class-documentation">
 <h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline">¶</a></h2>
 <dl class="cpp class">
 <dt id="_CPPv4I0EN5smaug14InnerProductOpE">
-<span id="_CPPv3I0EN5smaug14InnerProductOpE"></span><span id="_CPPv2I0EN5smaug14InnerProductOpE"></span>template&lt;typename <code class="sig-name descname">Backend</code>&gt;<br /><span class="target" id="classsmaug_1_1InnerProductOp"></span><em class="property">class </em><code class="sig-prename descclassname">smaug<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">InnerProductOp</code> : <em class="property">public</em> smaug::<a class="reference internal" href="classsmaug_1_1FusedActivationOp.html#_CPPv4N5smaug17FusedActivationOpE" title="smaug::FusedActivationOp">FusedActivationOp</a><a class="headerlink" href="#_CPPv4I0EN5smaug14InnerProductOpE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3I0EN5smaug14InnerProductOpE"></span><span id="_CPPv2I0EN5smaug14InnerProductOpE"></span>template&lt;typename <code class="sig-name descname">Backend</code>&gt;<br /><span class="target" id="classsmaug_1_1InnerProductOp"></span><em class="property">class </em><code class="sig-prename descclassname">smaug<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">InnerProductOp</code><a class="headerlink" href="#_CPPv4I0EN5smaug14InnerProductOpE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Implements the inner product operator.</p>
 <p><dl class="simple">
 <dt><strong>Template Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
@@ -255,9 +241,7 @@
 <dl class="cpp function">
 <dt id="_CPPv4N5smaug14InnerProductOp3runEv">
 <span id="_CPPv3N5smaug14InnerProductOp3runEv"></span><span id="_CPPv2N5smaug14InnerProductOp3runEv"></span><span id="smaug::InnerProductOp::run"></span><span class="target" id="classsmaug_1_1InnerProductOp_1a3c79e5baccef909a50c9418798175a47"></span>void <code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">override</em><a class="headerlink" href="#_CPPv4N5smaug14InnerProductOp3runEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Executes the <a class="reference internal" href="classsmaug_1_1Operator.html#classsmaug_1_1Operator"><span class="std std-ref">Operator</span></a>.</p>
-<p>All <a class="reference internal" href="classsmaug_1_1Operator.html#classsmaug_1_1Operator"><span class="std std-ref">Operator</span></a> subclasses must override this method. </p>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N5smaug14InnerProductOp8validateEv">
@@ -287,10 +271,7 @@
 <dl class="cpp function">
 <dt id="_CPPv4N5smaug14InnerProductOp16createAllTensorsEv">
 <span id="_CPPv3N5smaug14InnerProductOp16createAllTensorsEv"></span><span id="_CPPv2N5smaug14InnerProductOp16createAllTensorsEv"></span><span id="smaug::InnerProductOp::createAllTensors"></span><span class="target" id="classsmaug_1_1InnerProductOp_1aa428283a8db8c829738372a077c4208f"></span>void <code class="sig-name descname">createAllTensors</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">override</em><a class="headerlink" href="#_CPPv4N5smaug14InnerProductOp16createAllTensorsEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Creates all the input and output tensors specific to this operator.</p>
-<p>This should only be called once the <a class="reference internal" href="classsmaug_1_1Operator.html#classsmaug_1_1Operator"><span class="std std-ref">Operator</span></a> is fully initialized with all required parameters. It is responsible for creating only the tensors it “owns”. All operators “own” their output tensors, but not necessarily all of their input tensors. For example, a convolution operator “owns” its weight tensors, but not the input activations (which are the output of a previous <a class="reference internal" href="classsmaug_1_1Operator.html#classsmaug_1_1Operator"><span class="std std-ref">Operator</span></a>).</p>
-<p>Note that “ownership” of a <a class="reference internal" href="classsmaug_1_1Tensor.html#classsmaug_1_1Tensor"><span class="std std-ref">Tensor</span></a> does not mean the <a class="reference internal" href="classsmaug_1_1Operator.html#classsmaug_1_1Operator"><span class="std std-ref">Operator</span></a> holds a std::unique_ptr to the <a class="reference internal" href="classsmaug_1_1Tensor.html#classsmaug_1_1Tensor"><span class="std std-ref">Tensor</span></a>; it simply means it is solely responsible for constructing and allocating memory for it. </p>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4NK5smaug14InnerProductOp13getNumOutputsEv">
@@ -300,14 +281,12 @@
 <dl class="cpp function">
 <dt id="_CPPv4NK5smaug14InnerProductOp16getNumParametersEv">
 <span id="_CPPv3NK5smaug14InnerProductOp16getNumParametersEv"></span><span id="_CPPv2NK5smaug14InnerProductOp16getNumParametersEv"></span><span id="smaug::InnerProductOp::getNumParametersC"></span><span class="target" id="classsmaug_1_1InnerProductOp_1aace3966e9d3ffd5ed448d20e1919e8b2"></span>int <code class="sig-name descname">getNumParameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em> <em class="property">override</em><a class="headerlink" href="#_CPPv4NK5smaug14InnerProductOp16getNumParametersEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>This returns the number of parameterizable weights in the operator. </p>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N5smaug14InnerProductOp24getParameterizableInputsEv">
 <span id="_CPPv3N5smaug14InnerProductOp24getParameterizableInputsEv"></span><span id="_CPPv2N5smaug14InnerProductOp24getParameterizableInputsEv"></span><span id="smaug::InnerProductOp::getParameterizableInputs"></span><span class="target" id="classsmaug_1_1InnerProductOp_1ae8229a1484bb0b1207971d4dd45e1bb1"></span>std::vector&lt;<a class="reference internal" href="classsmaug_1_1TensorBase.html#_CPPv4N5smaug10TensorBaseE" title="smaug::TensorBase">TensorBase</a>*&gt; <code class="sig-name descname">getParameterizableInputs</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">override</em><a class="headerlink" href="#_CPPv4N5smaug14InnerProductOp24getParameterizableInputsEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Return a list of Tensors that are parameterizable (i.e. weights). </p>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4NK5smaug14InnerProductOp19isSamplingSupportedEv">
@@ -316,15 +295,13 @@
 
 <dl class="cpp function">
 <dt id="_CPPv4N5smaug14InnerProductOp15setSamplingInfoERK12SamplingInfo">
-<span id="_CPPv3N5smaug14InnerProductOp15setSamplingInfoERK12SamplingInfo"></span><span id="_CPPv2N5smaug14InnerProductOp15setSamplingInfoERK12SamplingInfo"></span><span id="smaug::InnerProductOp::setSamplingInfo__SamplingInfoCR"></span><span class="target" id="classsmaug_1_1InnerProductOp_1ae2d3a81b24e916f3d7bb07f662dade18"></span>void <code class="sig-name descname">setSamplingInfo</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="typedef_common_8h_1ac26244c52bac79d3daa59be3e99b1348.html#_CPPv412SamplingInfo" title="SamplingInfo">SamplingInfo</a> &amp;<em>_sampling</em><span class="sig-paren">)</span> <em class="property">override</em><a class="headerlink" href="#_CPPv4N5smaug14InnerProductOp15setSamplingInfoERK12SamplingInfo" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N5smaug14InnerProductOp15setSamplingInfoERK12SamplingInfo"></span><span id="_CPPv2N5smaug14InnerProductOp15setSamplingInfoERK12SamplingInfo"></span><span id="smaug::InnerProductOp::setSamplingInfo__SamplingInfoCR"></span><span class="target" id="classsmaug_1_1InnerProductOp_1ae2d3a81b24e916f3d7bb07f662dade18"></span>void <code class="sig-name descname">setSamplingInfo</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="typedef_common_8h_1a0bb2a15f11719f28d34877f8ee1b4785.html#_CPPv412SamplingInfo" title="SamplingInfo">SamplingInfo</a> &amp;<em>_sampling</em><span class="sig-paren">)</span> <em class="property">override</em><a class="headerlink" href="#_CPPv4N5smaug14InnerProductOp15setSamplingInfoERK12SamplingInfo" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4IEN5smaug14InnerProductOp3runEvv">
-<span id="_CPPv3IEN5smaug14InnerProductOp3runEv"></span><span id="_CPPv2IEN5smaug14InnerProductOp3runEv"></span>template&lt;&gt;<br /><span class="target" id="classsmaug_1_1InnerProductOp_1ae55e340985a9f27294ec1dda0d3f7b9b"></span>void <code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4IEN5smaug14InnerProductOp3runEvv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Executes the <a class="reference internal" href="classsmaug_1_1Operator.html#classsmaug_1_1Operator"><span class="std std-ref">Operator</span></a>.</p>
-<p>All <a class="reference internal" href="classsmaug_1_1Operator.html#classsmaug_1_1Operator"><span class="std std-ref">Operator</span></a> subclasses must override this method. </p>
-</dd></dl>
+<dt id="_CPPv4N5smaug14InnerProductOp3runEv">
+<span id="_CPPv3N5smaug14InnerProductOp3runEv"></span><span id="_CPPv2N5smaug14InnerProductOp3runEv"></span><span class="target" id="classsmaug_1_1InnerProductOp_1afb2d279eae998abd58748ed8d8ed2052"></span>void <code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd></dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
@@ -351,7 +328,7 @@
 
 <dl class="cpp var">
 <dt id="_CPPv4N5smaug14InnerProductOp8samplingE">
-<span id="_CPPv3N5smaug14InnerProductOp8samplingE"></span><span id="_CPPv2N5smaug14InnerProductOp8samplingE"></span><span id="smaug::InnerProductOp::sampling__SamplingInfo"></span><span class="target" id="classsmaug_1_1InnerProductOp_1aa458957ce9294bb24deb0c0f58c83217"></span><a class="reference internal" href="typedef_common_8h_1ac26244c52bac79d3daa59be3e99b1348.html#_CPPv412SamplingInfo" title="SamplingInfo">SamplingInfo</a> <code class="sig-name descname">sampling</code><a class="headerlink" href="#_CPPv4N5smaug14InnerProductOp8samplingE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N5smaug14InnerProductOp8samplingE"></span><span id="_CPPv2N5smaug14InnerProductOp8samplingE"></span><span id="smaug::InnerProductOp::sampling__SamplingInfo"></span><span class="target" id="classsmaug_1_1InnerProductOp_1aa458957ce9294bb24deb0c0f58c83217"></span><a class="reference internal" href="typedef_common_8h_1a0bb2a15f11719f28d34877f8ee1b4785.html#_CPPv412SamplingInfo" title="SamplingInfo">SamplingInfo</a> <code class="sig-name descname">sampling</code><a class="headerlink" href="#_CPPv4N5smaug14InnerProductOp8samplingE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 </div>

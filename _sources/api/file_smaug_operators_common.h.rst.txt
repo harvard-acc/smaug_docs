@@ -10,7 +10,8 @@ File common.h
 
 
 Utilities for writing and invoking Aladdin kernels from Operators. 
- 
+
+
 
 .. contents:: Page Contents
    :local:
@@ -287,9 +288,9 @@ Typedefs
 --------
 
 
-- :ref:`exhale_typedef_common_8h_1a1ab9b2863864d513d28f1c9013beda7f`
+- :ref:`exhale_typedef_common_8h_1a60344b56c1c1fcc95e918e3a3a8d9e00`
 
-- :ref:`exhale_typedef_common_8h_1af7a8f90f6aa003a551c80a9417bc52eb`
+- :ref:`exhale_typedef_common_8h_1a3450a047484fbe6e9e6ff53b2fad79c2`
 
 - :ref:`exhale_typedef_common_8h_1ae5eeee1841c292211016f5b92f2ea25b`
 
@@ -297,9 +298,9 @@ Typedefs
 
 - :ref:`exhale_typedef_common_8h_1aa902f71068000d0c8a449064e2963cc6`
 
-- :ref:`exhale_typedef_common_8h_1ac26244c52bac79d3daa59be3e99b1348`
+- :ref:`exhale_typedef_common_8h_1a0bb2a15f11719f28d34877f8ee1b4785`
 
-- :ref:`exhale_typedef_common_8h_1a03d3f1f74440ec9a89b7ad8b755807a0`
+- :ref:`exhale_typedef_common_8h_1aaa3b85637a3a4949accbe3c61920740c`
 
 - :ref:`exhale_typedef_common_8h_1accf9e3b338b5e4316ba338e113f6d4ed`
 

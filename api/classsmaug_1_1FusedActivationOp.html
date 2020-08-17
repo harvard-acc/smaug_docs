@@ -173,10 +173,9 @@
 <li><p><a class="reference internal" href="#inheritance-relationships" id="id1">Inheritance Relationships</a></p>
 <ul>
 <li><p><a class="reference internal" href="#base-type" id="id2">Base Type</a></p></li>
-<li><p><a class="reference internal" href="#derived-types" id="id3">Derived Types</a></p></li>
 </ul>
 </li>
-<li><p><a class="reference internal" href="#class-documentation" id="id4">Class Documentation</a></p></li>
+<li><p><a class="reference internal" href="#class-documentation" id="id3">Class Documentation</a></p></li>
 </ul>
 </div>
 <div class="section" id="inheritance-relationships">
@@ -187,17 +186,6 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">smaug::Operator</span></code> (<a class="reference internal" href="classsmaug_1_1Operator.html#exhale-class-classsmaug-1-1operator"><span class="std std-ref">Class Operator</span></a>)</p></li>
 </ul>
 </div>
-<div class="section" id="derived-types">
-<h3>Derived Types<a class="headerlink" href="#derived-types" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">smaug::BatchNormOp&lt;</span> <span class="pre">SmvBackend</span> <span class="pre">&gt;</span></code> (<a class="reference internal" href="classsmaug_1_1BatchNormOp.html#exhale-class-classsmaug-1-1batchnormop"><span class="std std-ref">Template Class BatchNormOp</span></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">smaug::ConvolutionOp&lt;</span> <span class="pre">SmvBackend</span> <span class="pre">&gt;</span></code> (<a class="reference internal" href="classsmaug_1_1ConvolutionOp.html#exhale-class-classsmaug-1-1convolutionop"><span class="std std-ref">Template Class ConvolutionOp</span></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">smaug::InnerProductOp&lt;</span> <span class="pre">SmvBackend</span> <span class="pre">&gt;</span></code> (<a class="reference internal" href="classsmaug_1_1InnerProductOp.html#exhale-class-classsmaug-1-1innerproductop"><span class="std std-ref">Template Class InnerProductOp</span></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">smaug::BatchNormOp&lt;</span> <span class="pre">Backend</span> <span class="pre">&gt;</span></code> (<a class="reference internal" href="classsmaug_1_1BatchNormOp.html#exhale-class-classsmaug-1-1batchnormop"><span class="std std-ref">Template Class BatchNormOp</span></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">smaug::ConvolutionOp&lt;</span> <span class="pre">Backend</span> <span class="pre">&gt;</span></code> (<a class="reference internal" href="classsmaug_1_1ConvolutionOp.html#exhale-class-classsmaug-1-1convolutionop"><span class="std std-ref">Template Class ConvolutionOp</span></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">smaug::InnerProductOp&lt;</span> <span class="pre">Backend</span> <span class="pre">&gt;</span></code> (<a class="reference internal" href="classsmaug_1_1InnerProductOp.html#exhale-class-classsmaug-1-1innerproductop"><span class="std std-ref">Template Class InnerProductOp</span></a>)</p></li>
-</ul>
-</div>
 </div>
 <div class="section" id="class-documentation">
 <h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline">¶</a></h2>
@@ -206,7 +194,6 @@
 <span id="_CPPv3N5smaug17FusedActivationOpE"></span><span id="_CPPv2N5smaug17FusedActivationOpE"></span><span id="smaug::FusedActivationOp"></span><span class="target" id="classsmaug_1_1FusedActivationOp"></span><em class="property">class </em><code class="sig-prename descclassname">smaug<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">FusedActivationOp</code> : <em class="property">public</em> smaug::<a class="reference internal" href="classsmaug_1_1Operator.html#_CPPv4N5smaug8OperatorE" title="smaug::Operator">Operator</a><a class="headerlink" href="#_CPPv4N5smaug17FusedActivationOpE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>An <a class="reference internal" href="classsmaug_1_1Operator.html#classsmaug_1_1Operator"><span class="std std-ref">Operator</span></a> fused with an activation function.</p>
 <p>This is an optimized operator that reduces memory/compute by directly computing the activation function on its output. This is a parent class of all operator implementations that support activation op fusion. </p>
-<p>Subclassed by <a class="reference internal" href="classsmaug_1_1BatchNormOp.html#classsmaug_1_1BatchNormOp"><span class="std std-ref">smaug::BatchNormOp&lt; SmvBackend &gt;</span></a>, <a class="reference internal" href="classsmaug_1_1ConvolutionOp.html#classsmaug_1_1ConvolutionOp"><span class="std std-ref">smaug::ConvolutionOp&lt; SmvBackend &gt;</span></a>, <a class="reference internal" href="classsmaug_1_1InnerProductOp.html#classsmaug_1_1InnerProductOp"><span class="std std-ref">smaug::InnerProductOp&lt; SmvBackend &gt;</span></a>, <a class="reference internal" href="classsmaug_1_1BatchNormOp.html#classsmaug_1_1BatchNormOp"><span class="std std-ref">smaug::BatchNormOp&lt; Backend &gt;</span></a>, <a class="reference internal" href="classsmaug_1_1ConvolutionOp.html#classsmaug_1_1ConvolutionOp"><span class="std std-ref">smaug::ConvolutionOp&lt; Backend &gt;</span></a>, <a class="reference internal" href="classsmaug_1_1InnerProductOp.html#classsmaug_1_1InnerProductOp"><span class="std std-ref">smaug::InnerProductOp&lt; Backend &gt;</span></a></p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Functions</p>
 <dl class="cpp function">

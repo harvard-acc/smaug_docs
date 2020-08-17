@@ -16,7 +16,8 @@ Detailed Description
 --------------------
 
 Contains utility functions for interacting with :ref:`namespace_smaug__gem5`. In trace mode, these are no-ops. 
- 
+
+
 
 
 

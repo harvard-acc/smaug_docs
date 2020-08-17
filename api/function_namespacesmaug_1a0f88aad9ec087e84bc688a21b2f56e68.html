@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Typedef SamplingLevel &mdash; SMAUG: Simulating Machine Learning Applications Using gem5-Aladdin</title>
+  <title>Function smaug::concatTensors &mdash; SMAUG: Simulating Machine Learning Applications Using gem5-Aladdin</title>
   
 
   
@@ -39,8 +39,8 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Typedef sfx_t" href="typedef_common_8h_1accf9e3b338b5e4316ba338e113f6d4ed.html" />
-    <link rel="prev" title="Typedef SamplingInfo" href="typedef_common_8h_1ac26244c52bac79d3daa59be3e99b1348.html" /> 
+    <link rel="next" title="Function smaug::convertFp16ToFp32Tensor" href="function_namespacesmaug_1afd06d17d9a7304d3b4ed558d9178a500.html" />
+    <link rel="prev" title="Function smaug::calc_padding" href="function_namespacesmaug_1aaaf353c0b5f5d65cc37824dd7f43ac48.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -143,13 +143,13 @@
         
           <li><a href="library_root.html">Library API</a> &raquo;</li>
         
-      <li>Typedef SamplingLevel</li>
+      <li>Function smaug::concatTensors</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/api/typedef_common_8h_1a03d3f1f74440ec9a89b7ad8b755807a0.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/api/function_namespacesmaug_1a0f88aad9ec087e84bc688a21b2f56e68.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -162,18 +162,17 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="typedef-samplinglevel">
-<span id="exhale-typedef-common-8h-1a03d3f1f74440ec9a89b7ad8b755807a0"></span><h1>Typedef SamplingLevel<a class="headerlink" href="#typedef-samplinglevel" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="function-smaug-concattensors">
+<span id="exhale-function-namespacesmaug-1a0f88aad9ec087e84bc688a21b2f56e68"></span><h1>Function smaug::concatTensors<a class="headerlink" href="#function-smaug-concattensors" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
-<li><p>Defined in <a class="reference internal" href="file_smaug_operators_common.h.html#file-smaug-operators-common-h"><span class="std std-ref">File common.h</span></a></p></li>
+<li><p>Defined in <a class="reference internal" href="file_smaug_core_tensor_utils.cpp.html#file-smaug-core-tensor-utils-cpp"><span class="std std-ref">File tensor_utils.cpp</span></a></p></li>
 </ul>
-<div class="section" id="typedef-documentation">
-<h2>Typedef Documentation<a class="headerlink" href="#typedef-documentation" title="Permalink to this headline">¶</a></h2>
-<dl class="cpp type">
-<dt id="_CPPv413SamplingLevel">
-<span id="_CPPv313SamplingLevel"></span><span id="_CPPv213SamplingLevel"></span><span id="SamplingLevel"></span><span class="target" id="common_8h_1a03d3f1f74440ec9a89b7ad8b755807a0"></span><em class="property">typedef </em><em class="property">enum</em> <a class="reference internal" href="enum_common_8h_1aea04f73b7df5ba1e47cbbfd34824370b.html#_CPPv414_SamplingLevel" title="_SamplingLevel">_SamplingLevel</a> <code class="sig-name descname">SamplingLevel</code><a class="headerlink" href="#_CPPv413SamplingLevel" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Levels of simulation sampling to apply to certain accelerator kernels.</p>
-<p>It is the responsibility of the kernel writer to translate this qualitative description into a kernel-appropriate modification of the code behavior. For example, Low could mean “only sample the innermost loop”, while VeryHigh could be translated to “sample all loop levels”. Kernels do not need to support every single sampling level. </p>
+<div class="section" id="function-documentation">
+<h2>Function Documentation<a class="headerlink" href="#function-documentation" title="Permalink to this headline">¶</a></h2>
+<dl class="cpp function">
+<dt id="_CPPv4N5smaug13concatTensorsENSt6vectorIP6TensorEEiP9Workspace">
+<span id="_CPPv3N5smaug13concatTensorsENSt6vectorIP6TensorEEiP9Workspace"></span><span id="_CPPv2N5smaug13concatTensorsENSt6vectorIP6TensorEEiP9Workspace"></span><span id="smaug::concatTensors__std::vector:TensorP:.i.WorkspaceP"></span><span class="target" id="namespacesmaug_1a0f88aad9ec087e84bc688a21b2f56e68"></span><a class="reference internal" href="classsmaug_1_1Tensor.html#_CPPv4N5smaug6TensorE" title="smaug::Tensor">Tensor</a> *<code class="sig-prename descclassname">smaug<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">concatTensors</code><span class="sig-paren">(</span>std::vector&lt;<a class="reference internal" href="classsmaug_1_1Tensor.html#_CPPv4N5smaug6TensorE" title="smaug::Tensor">Tensor</a>*&gt; <em>inputTensors</em>, int <em>concatDim</em>, <a class="reference internal" href="classsmaug_1_1Workspace.html#_CPPv4N5smaug9WorkspaceE" title="smaug::Workspace">Workspace</a> *<em>workspace</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N5smaug13concatTensorsENSt6vectorIP6TensorEEiP9Workspace" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Concatenates Tensors on the specified dimension into one single tensor. </p>
 </dd></dl>
 
 </div>
@@ -187,10 +186,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="typedef_common_8h_1accf9e3b338b5e4316ba338e113f6d4ed.html" class="btn btn-neutral float-right" title="Typedef sfx_t" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="function_namespacesmaug_1afd06d17d9a7304d3b4ed558d9178a500.html" class="btn btn-neutral float-right" title="Function smaug::convertFp16ToFp32Tensor" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="typedef_common_8h_1ac26244c52bac79d3daa59be3e99b1348.html" class="btn btn-neutral float-left" title="Typedef SamplingInfo" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="function_namespacesmaug_1aaaf353c0b5f5d65cc37824dd7f43ac48.html" class="btn btn-neutral float-left" title="Function smaug::calc_padding" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

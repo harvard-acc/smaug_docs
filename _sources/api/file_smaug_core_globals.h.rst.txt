@@ -10,7 +10,8 @@ File globals.h
 
 
 SMAUG Global variables. 
- 
+
+
 
 .. contents:: Page Contents
    :local:

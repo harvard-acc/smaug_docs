@@ -20,17 +20,6 @@ Base Type
 - ``public smaug::Operator`` (:ref:`exhale_class_classsmaug_1_1Operator`)
 
 
-Derived Types
-*************
-
-- ``public smaug::BatchNormOp< SmvBackend >`` (:ref:`exhale_class_classsmaug_1_1BatchNormOp`)
-- ``public smaug::ConvolutionOp< SmvBackend >`` (:ref:`exhale_class_classsmaug_1_1ConvolutionOp`)
-- ``public smaug::InnerProductOp< SmvBackend >`` (:ref:`exhale_class_classsmaug_1_1InnerProductOp`)
-- ``public smaug::BatchNormOp< Backend >`` (:ref:`exhale_class_classsmaug_1_1BatchNormOp`)
-- ``public smaug::ConvolutionOp< Backend >`` (:ref:`exhale_class_classsmaug_1_1ConvolutionOp`)
-- ``public smaug::InnerProductOp< Backend >`` (:ref:`exhale_class_classsmaug_1_1InnerProductOp`)
-
-
 Class Documentation
 -------------------
 

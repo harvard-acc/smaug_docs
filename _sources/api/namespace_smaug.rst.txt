@@ -16,7 +16,8 @@ Detailed Description
 --------------------
 
 The smaug namespace is the parent namespace of all C++ code in SMAUG. 
- 
+
+
 
 
 
@@ -235,7 +236,7 @@ Functions
 
 - :ref:`exhale_function_namespacesmaug_1aaaf353c0b5f5d65cc37824dd7f43ac48`
 
-- :ref:`exhale_function_namespacesmaug_1a2f49dfb9f461b76b26c0df68a50d267a`
+- :ref:`exhale_function_namespacesmaug_1a0f88aad9ec087e84bc688a21b2f56e68`
 
 - :ref:`exhale_function_namespacesmaug_1afd06d17d9a7304d3b4ed558d9178a500`
 
@@ -307,43 +308,43 @@ Functions
 
 - :ref:`exhale_function_namespacesmaug_1a5e98863e376cb89e28d3681cf2e292a0`
 
-- :ref:`exhale_function_namespacesmaug_1a728806fdfd36084271e4f28c1e70e835`
-
-- :ref:`exhale_function_namespacesmaug_1a2b3d3c4a74841c32af7fad0a3fb2ab78`
-
-- :ref:`exhale_function_namespacesmaug_1aae242fc7f5e899f05c1c8d0a5e6ebf4c`
-
-- :ref:`exhale_function_namespacesmaug_1a1849c6385b1a2f5fb66a786696b426dc`
-
-- :ref:`exhale_function_namespacesmaug_1a7301e44408ce5a29fd1c0fbf45680b37`
-
-- :ref:`exhale_function_namespacesmaug_1a5f13e085ebbd27e1dd3bff915c2c7ab9`
-
-- :ref:`exhale_function_namespacesmaug_1ab3c782752ac8ba629bc1470ab178ea3b`
-
-- :ref:`exhale_function_namespacesmaug_1a2274f4ca27560674f90f944660ab93b3`
-
-- :ref:`exhale_function_namespacesmaug_1ad0c96b729f8ae726d2bed2ffa52d2214`
-
-- :ref:`exhale_function_namespacesmaug_1a98017978cfa8ac6212bffb305241eec5`
-
-- :ref:`exhale_function_namespacesmaug_1a66a67126c24276a53a41623fe66fe33d`
-
-- :ref:`exhale_function_namespacesmaug_1a138632037e9abb23e08370157b028c78`
-
-- :ref:`exhale_function_namespacesmaug_1a40c885eec0d7c1f5825ec27ce78ecf22`
-
-- :ref:`exhale_function_namespacesmaug_1ada148291bfaa0abf3c3604e736dcad70`
-
-- :ref:`exhale_function_namespacesmaug_1a02997db1aa5d28c36d57734afd3ad2f5`
-
-- :ref:`exhale_function_namespacesmaug_1af8ed25d8a034aa6a4e6133a6ab3402c1`
-
 - :ref:`exhale_function_namespacesmaug_1ac76f6cec64da99a2e9eb4aef148bab43`
 
 - :ref:`exhale_function_namespacesmaug_1a7a1f5d60256d48fe88d2fdd3bcbd6d64`
 
 - :ref:`exhale_function_namespacesmaug_1ae4c8c4058a2a8b52d5e10f72c93fe9cf`
+
+- :ref:`exhale_function_namespacesmaug_1a728806fdfd36084271e4f28c1e70e835`
+
+- :ref:`exhale_function_namespacesmaug_1ab3c782752ac8ba629bc1470ab178ea3b`
+
+- :ref:`exhale_function_namespacesmaug_1ad0c96b729f8ae726d2bed2ffa52d2214`
+
+- :ref:`exhale_function_namespacesmaug_1af8ed25d8a034aa6a4e6133a6ab3402c1`
+
+- :ref:`exhale_function_namespacesmaug_1a5f13e085ebbd27e1dd3bff915c2c7ab9`
+
+- :ref:`exhale_function_namespacesmaug_1a7301e44408ce5a29fd1c0fbf45680b37`
+
+- :ref:`exhale_function_namespacesmaug_1a138632037e9abb23e08370157b028c78`
+
+- :ref:`exhale_function_namespacesmaug_1a1849c6385b1a2f5fb66a786696b426dc`
+
+- :ref:`exhale_function_namespacesmaug_1ada148291bfaa0abf3c3604e736dcad70`
+
+- :ref:`exhale_function_namespacesmaug_1aae242fc7f5e899f05c1c8d0a5e6ebf4c`
+
+- :ref:`exhale_function_namespacesmaug_1a98017978cfa8ac6212bffb305241eec5`
+
+- :ref:`exhale_function_namespacesmaug_1a2b3d3c4a74841c32af7fad0a3fb2ab78`
+
+- :ref:`exhale_function_namespacesmaug_1a40c885eec0d7c1f5825ec27ce78ecf22`
+
+- :ref:`exhale_function_namespacesmaug_1a2274f4ca27560674f90f944660ab93b3`
+
+- :ref:`exhale_function_namespacesmaug_1a66a67126c24276a53a41623fe66fe33d`
+
+- :ref:`exhale_function_namespacesmaug_1a02997db1aa5d28c36d57734afd3ad2f5`
 
 - :ref:`exhale_function_namespacesmaug_1a5741f2a1302381ee8184990c767dabf5`
 

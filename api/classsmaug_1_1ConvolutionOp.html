@@ -170,35 +170,14 @@
 <div class="contents local topic" id="page-contents">
 <p class="topic-title">Page Contents</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#inheritance-relationships" id="id1">Inheritance Relationships</a></p>
-<ul>
-<li><p><a class="reference internal" href="#base-type" id="id2">Base Type</a></p></li>
-<li><p><a class="reference internal" href="#derived-type" id="id3">Derived Type</a></p></li>
+<li><p><a class="reference internal" href="#class-documentation" id="id1">Class Documentation</a></p></li>
 </ul>
-</li>
-<li><p><a class="reference internal" href="#class-documentation" id="id4">Class Documentation</a></p></li>
-</ul>
-</div>
-<div class="section" id="inheritance-relationships">
-<h2>Inheritance Relationships<a class="headerlink" href="#inheritance-relationships" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="base-type">
-<h3>Base Type<a class="headerlink" href="#base-type" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">smaug::FusedActivationOp</span></code> (<a class="reference internal" href="classsmaug_1_1FusedActivationOp.html#exhale-class-classsmaug-1-1fusedactivationop"><span class="std std-ref">Class FusedActivationOp</span></a>)</p></li>
-</ul>
-</div>
-<div class="section" id="derived-type">
-<h3>Derived Type<a class="headerlink" href="#derived-type" title="Permalink to this headline">¶</a></h3>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">public</span> <span class="pre">smaug::DepthwiseConvolutionOp&lt;</span> <span class="pre">Backend</span> <span class="pre">&gt;</span></code> (<a class="reference internal" href="classsmaug_1_1DepthwiseConvolutionOp.html#exhale-class-classsmaug-1-1depthwiseconvolutionop"><span class="std std-ref">Template Class DepthwiseConvolutionOp</span></a>)</p></li>
-</ul>
-</div>
 </div>
 <div class="section" id="class-documentation">
 <h2>Class Documentation<a class="headerlink" href="#class-documentation" title="Permalink to this headline">¶</a></h2>
 <dl class="cpp class">
 <dt id="_CPPv4I0EN5smaug13ConvolutionOpE">
-<span id="_CPPv3I0EN5smaug13ConvolutionOpE"></span><span id="_CPPv2I0EN5smaug13ConvolutionOpE"></span>template&lt;typename <code class="sig-name descname">Backend</code>&gt;<br /><span class="target" id="classsmaug_1_1ConvolutionOp"></span><em class="property">class </em><code class="sig-prename descclassname">smaug<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">ConvolutionOp</code> : <em class="property">public</em> smaug::<a class="reference internal" href="classsmaug_1_1FusedActivationOp.html#_CPPv4N5smaug17FusedActivationOpE" title="smaug::FusedActivationOp">FusedActivationOp</a><a class="headerlink" href="#_CPPv4I0EN5smaug13ConvolutionOpE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3I0EN5smaug13ConvolutionOpE"></span><span id="_CPPv2I0EN5smaug13ConvolutionOpE"></span>template&lt;typename <code class="sig-name descname">Backend</code>&gt;<br /><span class="target" id="classsmaug_1_1ConvolutionOp"></span><em class="property">class </em><code class="sig-prename descclassname">smaug<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">ConvolutionOp</code><a class="headerlink" href="#_CPPv4I0EN5smaug13ConvolutionOpE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>The base class for all 4D spatial convolution operators. Provides common functionality for writing convolution operators.</p>
 <p><dl class="simple">
 <dt><strong>Template Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
@@ -207,7 +186,6 @@
 </dd>
 </dl>
 </p>
-<p>Subclassed by <a class="reference internal" href="classsmaug_1_1DepthwiseConvolutionOp.html#classsmaug_1_1DepthwiseConvolutionOp"><span class="std std-ref">smaug::DepthwiseConvolutionOp&lt; Backend &gt;</span></a></p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Types</p>
 <dl class="cpp enum">
@@ -299,10 +277,7 @@
 <dl class="cpp function">
 <dt id="_CPPv4N5smaug13ConvolutionOp16createAllTensorsEv">
 <span id="_CPPv3N5smaug13ConvolutionOp16createAllTensorsEv"></span><span id="_CPPv2N5smaug13ConvolutionOp16createAllTensorsEv"></span><span id="smaug::ConvolutionOp::createAllTensors"></span><span class="target" id="classsmaug_1_1ConvolutionOp_1ae5087c45c6ff5f50895c5ebdc6b92466"></span>void <code class="sig-name descname">createAllTensors</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">override</em><a class="headerlink" href="#_CPPv4N5smaug13ConvolutionOp16createAllTensorsEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Creates all the input and output tensors specific to this operator.</p>
-<p>This should only be called once the <a class="reference internal" href="classsmaug_1_1Operator.html#classsmaug_1_1Operator"><span class="std std-ref">Operator</span></a> is fully initialized with all required parameters. It is responsible for creating only the tensors it “owns”. All operators “own” their output tensors, but not necessarily all of their input tensors. For example, a convolution operator “owns” its weight tensors, but not the input activations (which are the output of a previous <a class="reference internal" href="classsmaug_1_1Operator.html#classsmaug_1_1Operator"><span class="std std-ref">Operator</span></a>).</p>
-<p>Note that “ownership” of a <a class="reference internal" href="classsmaug_1_1Tensor.html#classsmaug_1_1Tensor"><span class="std std-ref">Tensor</span></a> does not mean the <a class="reference internal" href="classsmaug_1_1Operator.html#classsmaug_1_1Operator"><span class="std std-ref">Operator</span></a> holds a std::unique_ptr to the <a class="reference internal" href="classsmaug_1_1Tensor.html#classsmaug_1_1Tensor"><span class="std std-ref">Tensor</span></a>; it simply means it is solely responsible for constructing and allocating memory for it. </p>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4NK5smaug13ConvolutionOp12getNumOfmapsEv">
@@ -312,21 +287,17 @@
 <dl class="cpp function">
 <dt id="_CPPv4N5smaug13ConvolutionOp3runEv">
 <span id="_CPPv3N5smaug13ConvolutionOp3runEv"></span><span id="_CPPv2N5smaug13ConvolutionOp3runEv"></span><span id="smaug::ConvolutionOp::run"></span><span class="target" id="classsmaug_1_1ConvolutionOp_1a80379d95fdbf0adea180f8926da8368c"></span>void <code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">override</em><a class="headerlink" href="#_CPPv4N5smaug13ConvolutionOp3runEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Executes the <a class="reference internal" href="classsmaug_1_1Operator.html#classsmaug_1_1Operator"><span class="std std-ref">Operator</span></a>.</p>
-<p>All <a class="reference internal" href="classsmaug_1_1Operator.html#classsmaug_1_1Operator"><span class="std std-ref">Operator</span></a> subclasses must override this method. </p>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4NK5smaug13ConvolutionOp16getNumParametersEv">
 <span id="_CPPv3NK5smaug13ConvolutionOp16getNumParametersEv"></span><span id="_CPPv2NK5smaug13ConvolutionOp16getNumParametersEv"></span><span id="smaug::ConvolutionOp::getNumParametersC"></span><span class="target" id="classsmaug_1_1ConvolutionOp_1a96308ccafecceb637b50c647303d85cf"></span>int <code class="sig-name descname">getNumParameters</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">const</em> <em class="property">override</em><a class="headerlink" href="#_CPPv4NK5smaug13ConvolutionOp16getNumParametersEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>This returns the number of parameterizable weights in the operator. </p>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4N5smaug13ConvolutionOp24getParameterizableInputsEv">
 <span id="_CPPv3N5smaug13ConvolutionOp24getParameterizableInputsEv"></span><span id="_CPPv2N5smaug13ConvolutionOp24getParameterizableInputsEv"></span><span id="smaug::ConvolutionOp::getParameterizableInputs"></span><span class="target" id="classsmaug_1_1ConvolutionOp_1a559c5ad81c14fa09379c5afad4e63ba2"></span>std::vector&lt;<a class="reference internal" href="classsmaug_1_1TensorBase.html#_CPPv4N5smaug10TensorBaseE" title="smaug::TensorBase">TensorBase</a>*&gt; <code class="sig-name descname">getParameterizableInputs</code><span class="sig-paren">(</span><span class="sig-paren">)</span> <em class="property">override</em><a class="headerlink" href="#_CPPv4N5smaug13ConvolutionOp24getParameterizableInputsEv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Return a list of Tensors that are parameterizable (i.e. weights). </p>
-</dd></dl>
+<dd></dd></dl>
 
 <dl class="cpp function">
 <dt id="_CPPv4NK5smaug13ConvolutionOp12getRowStrideEv">
@@ -366,15 +337,13 @@
 
 <dl class="cpp function">
 <dt id="_CPPv4N5smaug13ConvolutionOp15setSamplingInfoERK12SamplingInfo">
-<span id="_CPPv3N5smaug13ConvolutionOp15setSamplingInfoERK12SamplingInfo"></span><span id="_CPPv2N5smaug13ConvolutionOp15setSamplingInfoERK12SamplingInfo"></span><span id="smaug::ConvolutionOp::setSamplingInfo__SamplingInfoCR"></span><span class="target" id="classsmaug_1_1ConvolutionOp_1a5cf999ef8e433333ffc96f1e7cdd9971"></span>void <code class="sig-name descname">setSamplingInfo</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="typedef_common_8h_1ac26244c52bac79d3daa59be3e99b1348.html#_CPPv412SamplingInfo" title="SamplingInfo">SamplingInfo</a> &amp;<em>_sampling</em><span class="sig-paren">)</span> <em class="property">override</em><a class="headerlink" href="#_CPPv4N5smaug13ConvolutionOp15setSamplingInfoERK12SamplingInfo" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N5smaug13ConvolutionOp15setSamplingInfoERK12SamplingInfo"></span><span id="_CPPv2N5smaug13ConvolutionOp15setSamplingInfoERK12SamplingInfo"></span><span id="smaug::ConvolutionOp::setSamplingInfo__SamplingInfoCR"></span><span class="target" id="classsmaug_1_1ConvolutionOp_1a5cf999ef8e433333ffc96f1e7cdd9971"></span>void <code class="sig-name descname">setSamplingInfo</code><span class="sig-paren">(</span><em class="property">const</em> <a class="reference internal" href="typedef_common_8h_1a0bb2a15f11719f28d34877f8ee1b4785.html#_CPPv412SamplingInfo" title="SamplingInfo">SamplingInfo</a> &amp;<em>_sampling</em><span class="sig-paren">)</span> <em class="property">override</em><a class="headerlink" href="#_CPPv4N5smaug13ConvolutionOp15setSamplingInfoERK12SamplingInfo" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
-<dt id="_CPPv4IEN5smaug13ConvolutionOp3runEvv">
-<span id="_CPPv3IEN5smaug13ConvolutionOp3runEv"></span><span id="_CPPv2IEN5smaug13ConvolutionOp3runEv"></span>template&lt;&gt;<br /><span class="target" id="classsmaug_1_1ConvolutionOp_1ac0615f4ecebc30e8461ff43cd5f5845b"></span>void <code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4IEN5smaug13ConvolutionOp3runEvv" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Executes the <a class="reference internal" href="classsmaug_1_1Operator.html#classsmaug_1_1Operator"><span class="std std-ref">Operator</span></a>.</p>
-<p>All <a class="reference internal" href="classsmaug_1_1Operator.html#classsmaug_1_1Operator"><span class="std std-ref">Operator</span></a> subclasses must override this method. </p>
-</dd></dl>
+<dt id="_CPPv4N5smaug13ConvolutionOp3runEv">
+<span id="_CPPv3N5smaug13ConvolutionOp3runEv"></span><span id="_CPPv2N5smaug13ConvolutionOp3runEv"></span><span class="target" id="classsmaug_1_1ConvolutionOp_1afb529cd00a5492c595b67bc206502edd"></span>void <code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd></dd></dl>
 
 </div>
 <div class="breathe-sectiondef docutils container">
@@ -429,7 +398,7 @@
 
 <dl class="cpp var">
 <dt id="_CPPv4N5smaug13ConvolutionOp8samplingE">
-<span id="_CPPv3N5smaug13ConvolutionOp8samplingE"></span><span id="_CPPv2N5smaug13ConvolutionOp8samplingE"></span><span id="smaug::ConvolutionOp::sampling__SamplingInfo"></span><span class="target" id="classsmaug_1_1ConvolutionOp_1afb1c13af36e856ec6411fb42b9c57673"></span><a class="reference internal" href="typedef_common_8h_1ac26244c52bac79d3daa59be3e99b1348.html#_CPPv412SamplingInfo" title="SamplingInfo">SamplingInfo</a> <code class="sig-name descname">sampling</code><a class="headerlink" href="#_CPPv4N5smaug13ConvolutionOp8samplingE" title="Permalink to this definition">¶</a><br /></dt>
+<span id="_CPPv3N5smaug13ConvolutionOp8samplingE"></span><span id="_CPPv2N5smaug13ConvolutionOp8samplingE"></span><span id="smaug::ConvolutionOp::sampling__SamplingInfo"></span><span class="target" id="classsmaug_1_1ConvolutionOp_1afb1c13af36e856ec6411fb42b9c57673"></span><a class="reference internal" href="typedef_common_8h_1a0bb2a15f11719f28d34877f8ee1b4785.html#_CPPv412SamplingInfo" title="SamplingInfo">SamplingInfo</a> <code class="sig-name descname">sampling</code><a class="headerlink" href="#_CPPv4N5smaug13ConvolutionOp8samplingE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
 </div>

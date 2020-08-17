@@ -941,7 +941,7 @@ Functions
 .. toctree::
    :maxdepth: 5
 
-   function_namespacesmaug_1a2f49dfb9f461b76b26c0df68a50d267a.rst
+   function_namespacesmaug_1a0f88aad9ec087e84bc688a21b2f56e68.rst
 
 .. toctree::
    :maxdepth: 5
@@ -2028,12 +2028,12 @@ Typedefs
 .. toctree::
    :maxdepth: 5
 
-   typedef_common_8h_1a1ab9b2863864d513d28f1c9013beda7f.rst
+   typedef_common_8h_1a60344b56c1c1fcc95e918e3a3a8d9e00.rst
 
 .. toctree::
    :maxdepth: 5
 
-   typedef_common_8h_1af7a8f90f6aa003a551c80a9417bc52eb.rst
+   typedef_common_8h_1a3450a047484fbe6e9e6ff53b2fad79c2.rst
 
 .. toctree::
    :maxdepth: 5
@@ -2098,12 +2098,12 @@ Typedefs
 .. toctree::
    :maxdepth: 5
 
-   typedef_common_8h_1ac26244c52bac79d3daa59be3e99b1348.rst
+   typedef_common_8h_1a0bb2a15f11719f28d34877f8ee1b4785.rst
 
 .. toctree::
    :maxdepth: 5
 
-   typedef_common_8h_1a03d3f1f74440ec9a89b7ad8b755807a0.rst
+   typedef_common_8h_1aaa3b85637a3a4949accbe3c61920740c.rst
 
 .. toctree::
    :maxdepth: 5

@@ -11,15 +11,6 @@ Template Class DepthwiseConvolutionOp
    :backlinks: none
 
 
-Inheritance Relationships
--------------------------
-
-Base Type
-*********
-
-- ``public smaug::ConvolutionOp< Backend >`` (:ref:`exhale_class_classsmaug_1_1ConvolutionOp`)
-
-
 Class Documentation
 -------------------
 

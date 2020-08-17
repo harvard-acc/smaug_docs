@@ -76,7 +76,7 @@ Functions
 ---------
 
 
-- :ref:`exhale_function_namespacesmaug_1a66a67126c24276a53a41623fe66fe33d`
-
 - :ref:`exhale_function_namespacesmaug_1a138632037e9abb23e08370157b028c78`
+
+- :ref:`exhale_function_namespacesmaug_1a66a67126c24276a53a41623fe66fe33d`
 

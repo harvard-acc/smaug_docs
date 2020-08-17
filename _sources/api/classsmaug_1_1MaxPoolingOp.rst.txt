@@ -11,15 +11,6 @@ Template Class MaxPoolingOp
    :backlinks: none
 
 
-Inheritance Relationships
--------------------------
-
-Base Type
-*********
-
-- ``public smaug::PoolingOp< Backend >`` (:ref:`exhale_class_classsmaug_1_1PoolingOp`)
-
-
 Class Documentation
 -------------------
 

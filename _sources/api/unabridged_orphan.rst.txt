@@ -11,6 +11,16 @@ Directories
 .. toctree::
    :maxdepth: 5
 
+   dir_docs.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   dir_docs_source.rst
+
+.. toctree::
+   :maxdepth: 5
+
    dir_smaug.rst
 
 .. toctree::

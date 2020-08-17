@@ -11,15 +11,6 @@ Template Class RepeatOp
    :backlinks: none
 
 
-Inheritance Relationships
--------------------------
-
-Base Type
-*********
-
-- ``public smaug::Operator`` (:ref:`exhale_class_classsmaug_1_1Operator`)
-
-
 Class Documentation
 -------------------
 

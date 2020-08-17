@@ -20,13 +20,6 @@ Base Type
 - ``public smaug::Operator`` (:ref:`exhale_class_classsmaug_1_1Operator`)
 
 
-Derived Types
-*************
-
-- ``public smaug::AvgPoolingOp< Backend >`` (:ref:`exhale_class_classsmaug_1_1AvgPoolingOp`)
-- ``public smaug::MaxPoolingOp< Backend >`` (:ref:`exhale_class_classsmaug_1_1MaxPoolingOp`)
-
-
 Class Documentation
 -------------------
 
