@@ -40,6 +40,7 @@ Program Listing for File debug_stream.h
    };
    
    void initDebugStream(int debugLevel);
+   
    const DebugStream& dout(int debugLevel);
    
    }  // namespace smaug

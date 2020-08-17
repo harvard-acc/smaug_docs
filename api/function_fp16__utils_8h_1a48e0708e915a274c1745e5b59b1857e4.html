@@ -172,7 +172,16 @@
 <dl class="cpp function">
 <dt id="_CPPv417__smaug_vcvtph2ps7__m128i">
 <span id="_CPPv317__smaug_vcvtph2ps7__m128i"></span><span id="_CPPv217__smaug_vcvtph2ps7__m128i"></span><span id="__smaug_vcvtph2ps____m128i"></span><span class="target" id="fp16__utils_8h_1a48e0708e915a274c1745e5b59b1857e4"></span>__m128i <code class="sig-name descname">__smaug_vcvtph2ps</code><span class="sig-paren">(</span>__m128i <em>a</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv417__smaug_vcvtph2ps7__m128i" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Converts each element of a 4-wide vector of half-precision FP values to single-precision FP using the x86 instruction vctph2ps. Assumes the presence of the FP16 conversion ISA extension on the target machine.</p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">a</span></code>: A vector of 4 half-precision floats (e.g. v4ph_t). </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">imm8</span></code>: The rounding mode. </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 </div>
 </div>

@@ -172,7 +172,16 @@
 <dl class="cpp type">
 <dt id="_CPPv410__smaug256">
 <span id="_CPPv310__smaug256"></span><span id="_CPPv210__smaug256"></span><span id="__smaug256"></span><span class="target" id="fp16__utils_8h_1acc4b5519efa5f990b17bc021a4a7d604"></span><em class="property">typedef </em>float <code class="sig-name descname">__smaug256</code><a class="headerlink" href="#_CPPv410__smaug256" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Converts each element of an 8-wide vector of single-precision FP values to half-precision FP using the x86 instruction vctps2ph. Assumes the presence of the FP16 conversion ISA extension on the target machine.</p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">a</span></code>: A vector of 8 single-precision floats (e.g. v8fp_t). </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">imm8</span></code>: The rounding mode. </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
 
 </div>
 </div>

@@ -18,6 +18,7 @@ Program Listing for File fp16_utils.h
    
    //=------------- SW emulation of conversion instructions --------------=//
    
+   
    #define _SW_CVT_PS_PH_256(fp32x8_data, rounding_mode)                  \
        {                                                                  \
            fp16_ieee_from_fp32_value((fp32x8_data)[0]),                   \
@@ -58,7 +59,7 @@ Program Listing for File fp16_utils.h
            fp16_ieee_to_fp32_value((fp16x4_data)[3])                      \
        }
    
-   //=----------------- Manual builtin implementions -------------------=//
+   //=----------------- Manual assembly implementions -------------------=//
    //
    // These are used if certain side-effects of adding -mf16c are unacceptable
    // (for example, we want to enable F16C without AVX).
@@ -92,14 +93,14 @@ Program Listing for File fp16_utils.h
    
    #ifdef __F16C__
    
-   // Use compiler intrinsics.
+   // Use built-in compiler intrinsics.
    #define _CVT_PS_PH_128(p4_fp32_data, rounding_mode)                    \
        _mm_cvtps_ph(p4_fp32_data, rounding_mode)
    #define _CVT_PH_PS_128(p4_fp16_data) _mm_cvtph_ps(p4_fp16_data)
    
    #elif defined(__USE_F16C_ANYWAYS__)
    
-   // We can't use the compiler intrinsics, so use our own builtins.
+   // We can't use the compiler intrinsics, so use our own manual asm.
    #define _CVT_PS_PH_128(p4_fp32_data, rounding_mode)                    \
        __smaug_vcvtps2ph(p4_fp32_data, rounding_mode)
    #define _CVT_PH_PS_128(p4_fp16_data) __smaug_vcvtph2ps(p4_fp16_data)
@@ -154,16 +155,12 @@ Program Listing for File fp16_utils.h
    
    //=----------------- Scalar conversion instructions -----------------=//
    
-   // Scalar 32-bit to 16-bit conversion and back.
-   // Although ISA support exists for these instructions in F16C, LLVM did not add
-   // support for this intrinsic until 3.8, so we need to fallback to the lowest
-   // common denominator.
    #define _CVT_SS_SH(val, rounding_mode) fp16_ieee_from_fp32_value(val)
+   
    #define _CVT_SH_SS(val) fp16_ieee_to_fp32_value(val)
    
    //=----------------- Miscellaneous vector instructions -----------------=//
    
-   // Shuffle 64-bit chunks of two XMM registers based on value of imm8.
    #define _SHUFFLE_PD(a, b, imm8) _mm_shuffle_pd((__m128d)(a), (__m128d)(b), imm8)
    
    #endif

@@ -1,4 +1,4 @@
-.. _exhale_define_fp16__utils_8h_1a5c68642271a1cc74e58da61468c24088:
+.. _exhale_define_group__VectorFPConversionMacros_1ga5c68642271a1cc74e58da61468c24088:
 
 Define _CVT_PH_PS_128
 =====================

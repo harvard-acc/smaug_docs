@@ -169,6 +169,7 @@
 
 <span class="c1">//=------------- SW emulation of conversion instructions --------------=//</span>
 
+
 <span class="cp">#define _SW_CVT_PS_PH_256(fp32x8_data, rounding_mode)                  \</span>
 <span class="cp">    {                                                                  \</span>
 <span class="cp">        fp16_ieee_from_fp32_value((fp32x8_data)[0]),                   \</span>
@@ -209,7 +210,7 @@
 <span class="cp">        fp16_ieee_to_fp32_value((fp16x4_data)[3])                      \</span>
 <span class="cp">    }</span>
 
-<span class="c1">//=----------------- Manual builtin implementions -------------------=//</span>
+<span class="c1">//=----------------- Manual assembly implementions -------------------=//</span>
 <span class="c1">//</span>
 <span class="c1">// These are used if certain side-effects of adding -mf16c are unacceptable</span>
 <span class="c1">// (for example, we want to enable F16C without AVX).</span>
@@ -243,14 +244,14 @@
 
 <span class="cp">#ifdef __F16C__</span>
 
-<span class="c1">// Use compiler intrinsics.</span>
+<span class="c1">// Use built-in compiler intrinsics.</span>
 <span class="cp">#define _CVT_PS_PH_128(p4_fp32_data, rounding_mode)                    \</span>
 <span class="cp">    _mm_cvtps_ph(p4_fp32_data, rounding_mode)</span>
 <span class="cp">#define _CVT_PH_PS_128(p4_fp16_data) _mm_cvtph_ps(p4_fp16_data)</span>
 
 <span class="cp">#elif defined(__USE_F16C_ANYWAYS__)</span>
 
-<span class="c1">// We can&#39;t use the compiler intrinsics, so use our own builtins.</span>
+<span class="c1">// We can&#39;t use the compiler intrinsics, so use our own manual asm.</span>
 <span class="cp">#define _CVT_PS_PH_128(p4_fp32_data, rounding_mode)                    \</span>
 <span class="cp">    __smaug_vcvtps2ph(p4_fp32_data, rounding_mode)</span>
 <span class="cp">#define _CVT_PH_PS_128(p4_fp16_data) __smaug_vcvtph2ps(p4_fp16_data)</span>
@@ -305,16 +306,12 @@
 
 <span class="c1">//=----------------- Scalar conversion instructions -----------------=//</span>
 
-<span class="c1">// Scalar 32-bit to 16-bit conversion and back.</span>
-<span class="c1">// Although ISA support exists for these instructions in F16C, LLVM did not add</span>
-<span class="c1">// support for this intrinsic until 3.8, so we need to fallback to the lowest</span>
-<span class="c1">// common denominator.</span>
 <span class="cp">#define _CVT_SS_SH(val, rounding_mode) fp16_ieee_from_fp32_value(val)</span>
+
 <span class="cp">#define _CVT_SH_SS(val) fp16_ieee_to_fp32_value(val)</span>
 
 <span class="c1">//=----------------- Miscellaneous vector instructions -----------------=//</span>
 
-<span class="c1">// Shuffle 64-bit chunks of two XMM registers based on value of imm8.</span>
 <span class="cp">#define _SHUFFLE_PD(a, b, imm8) _mm_shuffle_pd((__m128d)(a), (__m128d)(b), imm8)</span>
 
 <span class="cp">#endif</span>

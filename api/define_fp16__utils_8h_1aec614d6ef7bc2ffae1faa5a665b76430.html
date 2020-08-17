@@ -172,7 +172,10 @@
 <dl class="cpp macro">
 <dt id="c._CVT_SS_SH">
 <span class="target" id="fp16__utils_8h_1aec614d6ef7bc2ffae1faa5a665b76430"></span><code class="sig-name descname">_CVT_SS_SH</code><span class="sig-paren">(</span><em>val</em>, <em>rounding_mode</em><span class="sig-paren">)</span><a class="headerlink" href="#c._CVT_SS_SH" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
+<dd><p>Converts a scalar float from single to half precision.</p>
+<p>Although ISA support exists for these instructions in F16C, LLVM did not add support for this intrinsic until 3.8, so we need to fallback to the lowest common denominator.</p>
+<p>TODO(xyzsam): Update this implementation now that we run on LLVM 6. </p>
+</dd></dl>
 
 </div>
 </div>
