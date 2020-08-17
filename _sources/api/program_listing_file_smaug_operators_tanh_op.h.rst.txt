@@ -51,8 +51,10 @@ Program Listing for File tanh_op.h
        float max;
    };
    
+   #ifndef DOXYGEN_SHOULD_SKIP_THIS
    REGISTER_SPECIAL_OP(TanhOp, ReferenceBackend);
    REGISTER_SPECIAL_OP(HardTanhOp, ReferenceBackend);
+   #endif
    
    }  // namespace smaug
    

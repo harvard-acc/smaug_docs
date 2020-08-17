@@ -4,6 +4,10 @@
 File smv_test_common.cpp
 ========================
 
+|exhale_lsh| :ref:`Parent directory <dir_smaug_operators_smv>` (``smaug/operators/smv``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
 .. contents:: Page Contents
    :local:
    :backlinks: none
@@ -43,4 +47,30 @@ Namespaces
 
 
 - :ref:`namespace_smaug`
+
+
+Functions
+---------
+
+
+- :ref:`exhale_function_namespacesmaug_1ae115cc875d56155e4a78ccf8c77951de`
+
+- :ref:`exhale_function_namespacesmaug_1a592ee36bd4a4a930ea1bcf035aea7f46`
+
+- :ref:`exhale_function_namespacesmaug_1a0020dc986e9f22fe744c6bb4900112f2`
+
+- :ref:`exhale_function_namespacesmaug_1a20936adb60f96366260273c9e409cf08`
+
+
+Variables
+---------
+
+
+- :ref:`exhale_variable_namespacesmaug_1a04c6ca860aae57d8771e0f0a031afed3`
+
+- :ref:`exhale_variable_namespacesmaug_1a6284e96e108d985ba6a7e683530b4d63`
+
+- :ref:`exhale_variable_namespacesmaug_1a715962cb481e11117498a0eb9ebe9b16`
+
+- :ref:`exhale_variable_namespacesmaug_1a908d00caea13101a1b6f81f69afe3bcf`
 

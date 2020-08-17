@@ -4,6 +4,10 @@
 File pooling_op.h
 =================
 
+|exhale_lsh| :ref:`Parent directory <dir_smaug_operators>` (``smaug/operators``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
 .. contents:: Page Contents
    :local:
    :backlinks: none
@@ -45,8 +49,6 @@ Included By
 
 - :ref:`file_smaug_operators_ref_ref_pooling_op.cpp`
 
-- :ref:`file_smaug_operators_ref_ref_pooling_op_test.cpp`
-
 - :ref:`file_smaug_operators_smv_smv_pooling_op.h`
 
 
@@ -68,4 +70,13 @@ Classes
 - :ref:`exhale_class_classsmaug_1_1MaxPoolingOp`
 
 - :ref:`exhale_class_classsmaug_1_1PoolingOp`
+
+
+Functions
+---------
+
+
+- :ref:`exhale_function_namespacesmaug_1a40c885eec0d7c1f5825ec27ce78ecf22`
+
+- :ref:`exhale_function_namespacesmaug_1ada148291bfaa0abf3c3604e736dcad70`
 

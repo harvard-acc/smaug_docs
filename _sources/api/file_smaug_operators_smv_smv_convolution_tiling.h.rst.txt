@@ -4,6 +4,10 @@
 File smv_convolution_tiling.h
 =============================
 
+|exhale_lsh| :ref:`Parent directory <dir_smaug_operators_smv>` (``smaug/operators/smv``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
 .. contents:: Page Contents
    :local:
    :backlinks: none
@@ -41,11 +45,7 @@ Included By
 
 - :ref:`file_smaug_operators_smv_smv_convolution_op.cpp`
 
-- :ref:`file_smaug_operators_smv_smv_convolution_op_test.cpp`
-
 - :ref:`file_smaug_operators_smv_smv_convolution_tiling.cpp`
-
-- :ref:`file_smaug_operators_smv_smv_convolution_tiling_test.cpp`
 
 
 

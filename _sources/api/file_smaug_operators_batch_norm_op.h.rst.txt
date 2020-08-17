@@ -4,6 +4,10 @@
 File batch_norm_op.h
 ====================
 
+|exhale_lsh| :ref:`Parent directory <dir_smaug_operators>` (``smaug/operators``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
 .. contents:: Page Contents
    :local:
    :backlinks: none
@@ -49,8 +53,6 @@ Included By
 
 - :ref:`file_smaug_operators_ref_ref_batch_norm_op.cpp`
 
-- :ref:`file_smaug_operators_ref_ref_batch_norm_op_test.cpp`
-
 - :ref:`file_smaug_operators_smv_smv_batch_norm_op.h`
 
 
@@ -68,4 +70,11 @@ Classes
 
 
 - :ref:`exhale_class_classsmaug_1_1BatchNormOp`
+
+
+Functions
+---------
+
+
+- :ref:`exhale_function_namespacesmaug_1a728806fdfd36084271e4f28c1e70e835`
 

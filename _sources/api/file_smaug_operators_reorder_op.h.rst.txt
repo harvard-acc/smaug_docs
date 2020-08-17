@@ -4,6 +4,10 @@
 File reorder_op.h
 =================
 
+|exhale_lsh| :ref:`Parent directory <dir_smaug_operators>` (``smaug/operators``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
 .. contents:: Page Contents
    :local:
    :backlinks: none
@@ -40,12 +44,6 @@ Included By
 - :ref:`file_smaug_core_backend.cpp`
 
 - :ref:`file_smaug_core_network_builder.cpp`
-
-- :ref:`file_smaug_core_network_test.cpp`
-
-- :ref:`file_smaug_operators_ref_ref_inner_product_op_test.cpp`
-
-- :ref:`file_smaug_operators_reorder_op_test.cpp`
 
 
 

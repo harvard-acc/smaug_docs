@@ -1,0 +1,13 @@
+.. _exhale_function_namespacesmaug_1aae242fc7f5e899f05c1c8d0a5e6ebf4c:
+
+Function smaug::REGISTER_SPECIAL_OP(DepthwiseConvolutionOp, ReferenceBackend)
+=============================================================================
+
+- Defined in :ref:`file_smaug_operators_depthwise_convolution_op.h`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: smaug::REGISTER_SPECIAL_OP(DepthwiseConvolutionOp, ReferenceBackend)

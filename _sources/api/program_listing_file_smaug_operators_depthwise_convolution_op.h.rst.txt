@@ -75,7 +75,9 @@ Program Listing for File depthwise_convolution_op.h
        }
    };
    
+   #ifndef DOXYGEN_SHOULD_SKIP_THIS
    REGISTER_SPECIAL_OP(DepthwiseConvolutionOp, ReferenceBackend);
+   #endif
    
    }  // namespace smaug
    

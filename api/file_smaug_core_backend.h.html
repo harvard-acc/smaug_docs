@@ -160,6 +160,7 @@
             
   <div class="section" id="file-backend-h">
 <span id="file-smaug-core-backend-h"></span><h1>File backend.h<a class="headerlink" href="#file-backend-h" title="Permalink to this headline">¶</a></h1>
+<p>↰ <a class="reference internal" href="dir_smaug_core.html#dir-smaug-core"><span class="std std-ref">Parent directory</span></a> (<code class="docutils literal notranslate"><span class="pre">smaug/core</span></code>)</p>
 <div class="contents local topic" id="page-contents">
 <p class="topic-title">Page Contents</p>
 <ul class="simple">
@@ -168,7 +169,8 @@
 <li><p><a class="reference internal" href="#included-by" id="id3">Included By</a></p></li>
 <li><p><a class="reference internal" href="#namespaces" id="id4">Namespaces</a></p></li>
 <li><p><a class="reference internal" href="#classes" id="id5">Classes</a></p></li>
-<li><p><a class="reference internal" href="#defines" id="id6">Defines</a></p></li>
+<li><p><a class="reference internal" href="#enums" id="id6">Enums</a></p></li>
+<li><p><a class="reference internal" href="#defines" id="id7">Defines</a></p></li>
 </ul>
 </div>
 <div class="section" id="definition-smaug-core-backend-h">
@@ -192,14 +194,10 @@
 <ul class="simple">
 <li><p><a class="reference internal" href="file_smaug_core_backend.cpp.html#file-smaug-core-backend-cpp"><span class="std std-ref">File backend.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_core_network_builder.cpp.html#file-smaug-core-network-builder-cpp"><span class="std std-ref">File network_builder.cpp</span></a></p></li>
-<li><p><a class="reference internal" href="file_smaug_core_network_test.cpp.html#file-smaug-core-network-test-cpp"><span class="std std-ref">File network_test.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_core_smaug_test.h.html#file-smaug-core-smaug-test-h"><span class="std std-ref">File smaug_test.h</span></a></p></li>
-<li><p><a class="reference internal" href="file_smaug_core_tensor_test.cpp.html#file-smaug-core-tensor-test-cpp"><span class="std std-ref">File tensor_test.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_batch_norm_op.h.html#file-smaug-operators-batch-norm-op-h"><span class="std std-ref">File batch_norm_op.h</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_concat_op.h.html#file-smaug-operators-concat-op-h"><span class="std std-ref">File concat_op.h</span></a></p></li>
-<li><p><a class="reference internal" href="file_smaug_operators_concat_op_test.cpp.html#file-smaug-operators-concat-op-test-cpp"><span class="std std-ref">File concat_op_test.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_control_flow_ops.h.html#file-smaug-operators-control-flow-ops-h"><span class="std std-ref">File control_flow_ops.h</span></a></p></li>
-<li><p><a class="reference internal" href="file_smaug_operators_control_flow_ops_test.cpp.html#file-smaug-operators-control-flow-ops-test-cpp"><span class="std std-ref">File control_flow_ops_test.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_convolution_op.h.html#file-smaug-operators-convolution-op-h"><span class="std std-ref">File convolution_op.h</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_data_op.h.html#file-smaug-operators-data-op-h"><span class="std std-ref">File data_op.h</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_eltwise_add_op.h.html#file-smaug-operators-eltwise-add-op-h"><span class="std std-ref">File eltwise_add_op.h</span></a></p></li>
@@ -211,68 +209,49 @@
 <li><p><a class="reference internal" href="file_smaug_operators_less_op.h.html#file-smaug-operators-less-op-h"><span class="std std-ref">File less_op.h</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_pooling_op.h.html#file-smaug-operators-pooling-op-h"><span class="std std-ref">File pooling_op.h</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_ref_ref_batch_norm_op.cpp.html#file-smaug-operators-ref-ref-batch-norm-op-cpp"><span class="std std-ref">File ref_batch_norm_op.cpp</span></a></p></li>
-<li><p><a class="reference internal" href="file_smaug_operators_ref_ref_batch_norm_op_test.cpp.html#file-smaug-operators-ref-ref-batch-norm-op-test-cpp"><span class="std std-ref">File ref_batch_norm_op_test.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_ref_ref_convolution_op.cpp.html#file-smaug-operators-ref-ref-convolution-op-cpp"><span class="std std-ref">File ref_convolution_op.cpp</span></a></p></li>
-<li><p><a class="reference internal" href="file_smaug_operators_ref_ref_convolution_op_test.cpp.html#file-smaug-operators-ref-ref-convolution-op-test-cpp"><span class="std std-ref">File ref_convolution_op_test.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_ref_ref_depthwise_convolution_op.cpp.html#file-smaug-operators-ref-ref-depthwise-convolution-op-cpp"><span class="std std-ref">File ref_depthwise_convolution_op.cpp</span></a></p></li>
-<li><p><a class="reference internal" href="file_smaug_operators_ref_ref_depthwise_convolution_op_test.cpp.html#file-smaug-operators-ref-ref-depthwise-convolution-op-test-cpp"><span class="std std-ref">File ref_depthwise_convolution_op_test.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_ref_ref_eltwise_add_op.cpp.html#file-smaug-operators-ref-ref-eltwise-add-op-cpp"><span class="std std-ref">File ref_eltwise_add_op.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_ref_ref_eltwise_mul_op.cpp.html#file-smaug-operators-ref-ref-eltwise-mul-op-cpp"><span class="std std-ref">File ref_eltwise_mul_op.cpp</span></a></p></li>
-<li><p><a class="reference internal" href="file_smaug_operators_ref_ref_eltwise_ops_test.cpp.html#file-smaug-operators-ref-ref-eltwise-ops-test-cpp"><span class="std std-ref">File ref_eltwise_ops_test.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_ref_ref_elu_op.cpp.html#file-smaug-operators-ref-ref-elu-op-cpp"><span class="std std-ref">File ref_elu_op.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_ref_ref_greater_op.cpp.html#file-smaug-operators-ref-ref-greater-op-cpp"><span class="std std-ref">File ref_greater_op.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_ref_ref_inner_product_op.cpp.html#file-smaug-operators-ref-ref-inner-product-op-cpp"><span class="std std-ref">File ref_inner_product_op.cpp</span></a></p></li>
-<li><p><a class="reference internal" href="file_smaug_operators_ref_ref_inner_product_op_test.cpp.html#file-smaug-operators-ref-ref-inner-product-op-test-cpp"><span class="std std-ref">File ref_inner_product_op_test.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_ref_ref_less_op.cpp.html#file-smaug-operators-ref-ref-less-op-cpp"><span class="std std-ref">File ref_less_op.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_ref_ref_pooling_op.cpp.html#file-smaug-operators-ref-ref-pooling-op-cpp"><span class="std std-ref">File ref_pooling_op.cpp</span></a></p></li>
-<li><p><a class="reference internal" href="file_smaug_operators_ref_ref_pooling_op_test.cpp.html#file-smaug-operators-ref-ref-pooling-op-test-cpp"><span class="std std-ref">File ref_pooling_op_test.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_ref_ref_relu_op.cpp.html#file-smaug-operators-ref-ref-relu-op-cpp"><span class="std std-ref">File ref_relu_op.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_ref_ref_sigmoid_op.cpp.html#file-smaug-operators-ref-ref-sigmoid-op-cpp"><span class="std std-ref">File ref_sigmoid_op.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_ref_ref_softmax_op.cpp.html#file-smaug-operators-ref-ref-softmax-op-cpp"><span class="std std-ref">File ref_softmax_op.cpp</span></a></p></li>
-<li><p><a class="reference internal" href="file_smaug_operators_ref_ref_softmax_op_test.cpp.html#file-smaug-operators-ref-ref-softmax-op-test-cpp"><span class="std std-ref">File ref_softmax_op_test.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_ref_ref_tanh_op.cpp.html#file-smaug-operators-ref-ref-tanh-op-cpp"><span class="std std-ref">File ref_tanh_op.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_relu_op.h.html#file-smaug-operators-relu-op-h"><span class="std std-ref">File relu_op.h</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_reorder_op.h.html#file-smaug-operators-reorder-op-h"><span class="std std-ref">File reorder_op.h</span></a></p></li>
-<li><p><a class="reference internal" href="file_smaug_operators_reorder_op_test.cpp.html#file-smaug-operators-reorder-op-test-cpp"><span class="std std-ref">File reorder_op_test.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_repeat_op.h.html#file-smaug-operators-repeat-op-h"><span class="std std-ref">File repeat_op.h</span></a></p></li>
-<li><p><a class="reference internal" href="file_smaug_operators_repeat_op_test.cpp.html#file-smaug-operators-repeat-op-test-cpp"><span class="std std-ref">File repeat_op_test.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_reshape_op.h.html#file-smaug-operators-reshape-op-h"><span class="std std-ref">File reshape_op.h</span></a></p></li>
-<li><p><a class="reference internal" href="file_smaug_operators_reshape_op_test.cpp.html#file-smaug-operators-reshape-op-test-cpp"><span class="std std-ref">File reshape_op_test.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_sigmoid_op.h.html#file-smaug-operators-sigmoid-op-h"><span class="std std-ref">File sigmoid_op.h</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_smv_smv_batch_norm_op.cpp.html#file-smaug-operators-smv-smv-batch-norm-op-cpp"><span class="std std-ref">File smv_batch_norm_op.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_smv_smv_batch_norm_op.h.html#file-smaug-operators-smv-smv-batch-norm-op-h"><span class="std std-ref">File smv_batch_norm_op.h</span></a></p></li>
-<li><p><a class="reference internal" href="file_smaug_operators_smv_smv_batch_norm_op_test.cpp.html#file-smaug-operators-smv-smv-batch-norm-op-test-cpp"><span class="std std-ref">File smv_batch_norm_op_test.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_smv_smv_batch_norm_tiling.cpp.html#file-smaug-operators-smv-smv-batch-norm-tiling-cpp"><span class="std std-ref">File smv_batch_norm_tiling.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_smv_smv_batch_norm_tiling.h.html#file-smaug-operators-smv-smv-batch-norm-tiling-h"><span class="std std-ref">File smv_batch_norm_tiling.h</span></a></p></li>
-<li><p><a class="reference internal" href="file_smaug_operators_smv_smv_batch_norm_tiling_test.cpp.html#file-smaug-operators-smv-smv-batch-norm-tiling-test-cpp"><span class="std std-ref">File smv_batch_norm_tiling_test.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_smv_smv_convolution_op.cpp.html#file-smaug-operators-smv-smv-convolution-op-cpp"><span class="std std-ref">File smv_convolution_op.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_smv_smv_convolution_op.h.html#file-smaug-operators-smv-smv-convolution-op-h"><span class="std std-ref">File smv_convolution_op.h</span></a></p></li>
-<li><p><a class="reference internal" href="file_smaug_operators_smv_smv_convolution_op_test.cpp.html#file-smaug-operators-smv-smv-convolution-op-test-cpp"><span class="std std-ref">File smv_convolution_op_test.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_smv_smv_convolution_tiling.cpp.html#file-smaug-operators-smv-smv-convolution-tiling-cpp"><span class="std std-ref">File smv_convolution_tiling.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_smv_smv_convolution_tiling.h.html#file-smaug-operators-smv-smv-convolution-tiling-h"><span class="std std-ref">File smv_convolution_tiling.h</span></a></p></li>
-<li><p><a class="reference internal" href="file_smaug_operators_smv_smv_convolution_tiling_test.cpp.html#file-smaug-operators-smv-smv-convolution-tiling-test-cpp"><span class="std std-ref">File smv_convolution_tiling_test.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_smv_smv_eltwise_add_op.cpp.html#file-smaug-operators-smv-smv-eltwise-add-op-cpp"><span class="std std-ref">File smv_eltwise_add_op.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_smv_smv_eltwise_add_op.h.html#file-smaug-operators-smv-smv-eltwise-add-op-h"><span class="std std-ref">File smv_eltwise_add_op.h</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_smv_smv_eltwise_mul_op.cpp.html#file-smaug-operators-smv-smv-eltwise-mul-op-cpp"><span class="std std-ref">File smv_eltwise_mul_op.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_smv_smv_eltwise_mul_op.h.html#file-smaug-operators-smv-smv-eltwise-mul-op-h"><span class="std std-ref">File smv_eltwise_mul_op.h</span></a></p></li>
-<li><p><a class="reference internal" href="file_smaug_operators_smv_smv_eltwise_ops_test.cpp.html#file-smaug-operators-smv-smv-eltwise-ops-test-cpp"><span class="std std-ref">File smv_eltwise_ops_test.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_smv_smv_elu_op.h.html#file-smaug-operators-smv-smv-elu-op-h"><span class="std std-ref">File smv_elu_op.h</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_smv_smv_greater_op.cpp.html#file-smaug-operators-smv-smv-greater-op-cpp"><span class="std std-ref">File smv_greater_op.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_smv_smv_greater_op.h.html#file-smaug-operators-smv-smv-greater-op-h"><span class="std std-ref">File smv_greater_op.h</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_smv_smv_inner_product_op.cpp.html#file-smaug-operators-smv-smv-inner-product-op-cpp"><span class="std std-ref">File smv_inner_product_op.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_smv_smv_inner_product_op.h.html#file-smaug-operators-smv-smv-inner-product-op-h"><span class="std std-ref">File smv_inner_product_op.h</span></a></p></li>
-<li><p><a class="reference internal" href="file_smaug_operators_smv_smv_inner_product_op_test.cpp.html#file-smaug-operators-smv-smv-inner-product-op-test-cpp"><span class="std std-ref">File smv_inner_product_op_test.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_smv_smv_inner_product_tiling.cpp.html#file-smaug-operators-smv-smv-inner-product-tiling-cpp"><span class="std std-ref">File smv_inner_product_tiling.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_smv_smv_inner_product_tiling.h.html#file-smaug-operators-smv-smv-inner-product-tiling-h"><span class="std std-ref">File smv_inner_product_tiling.h</span></a></p></li>
-<li><p><a class="reference internal" href="file_smaug_operators_smv_smv_inner_product_tiling_test.cpp.html#file-smaug-operators-smv-smv-inner-product-tiling-test-cpp"><span class="std std-ref">File smv_inner_product_tiling_test.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_smv_smv_less_op.cpp.html#file-smaug-operators-smv-smv-less-op-cpp"><span class="std std-ref">File smv_less_op.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_smv_smv_less_op.h.html#file-smaug-operators-smv-smv-less-op-h"><span class="std std-ref">File smv_less_op.h</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_smv_smv_pooling_op.cpp.html#file-smaug-operators-smv-smv-pooling-op-cpp"><span class="std std-ref">File smv_pooling_op.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_smv_smv_pooling_op.h.html#file-smaug-operators-smv-smv-pooling-op-h"><span class="std std-ref">File smv_pooling_op.h</span></a></p></li>
-<li><p><a class="reference internal" href="file_smaug_operators_smv_smv_pooling_op_test.cpp.html#file-smaug-operators-smv-smv-pooling-op-test-cpp"><span class="std std-ref">File smv_pooling_op_test.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_smv_smv_pooling_tiling.cpp.html#file-smaug-operators-smv-smv-pooling-tiling-cpp"><span class="std std-ref">File smv_pooling_tiling.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_smv_smv_pooling_tiling.h.html#file-smaug-operators-smv-smv-pooling-tiling-h"><span class="std std-ref">File smv_pooling_tiling.h</span></a></p></li>
-<li><p><a class="reference internal" href="file_smaug_operators_smv_smv_pooling_tiling_test.cpp.html#file-smaug-operators-smv-smv-pooling-tiling-test-cpp"><span class="std std-ref">File smv_pooling_tiling_test.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_smv_smv_relu_op.h.html#file-smaug-operators-smv-smv-relu-op-h"><span class="std std-ref">File smv_relu_op.h</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_smv_smv_sigmoid_op.h.html#file-smaug-operators-smv-smv-sigmoid-op-h"><span class="std std-ref">File smv_sigmoid_op.h</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_smv_smv_softmax_op.h.html#file-smaug-operators-smv-smv-softmax-op-h"><span class="std std-ref">File smv_softmax_op.h</span></a></p></li>
@@ -281,11 +260,8 @@
 <li><p><a class="reference internal" href="file_smaug_operators_smv_smv_tiling_base.h.html#file-smaug-operators-smv-smv-tiling-base-h"><span class="std std-ref">File smv_tiling_base.h</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_smv_smv_unary_op_common.cpp.html#file-smaug-operators-smv-smv-unary-op-common-cpp"><span class="std std-ref">File smv_unary_op_common.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_smv_smv_unary_op_common.h.html#file-smaug-operators-smv-smv-unary-op-common-h"><span class="std std-ref">File smv_unary_op_common.h</span></a></p></li>
-<li><p><a class="reference internal" href="file_smaug_operators_smv_smv_unary_op_test.cpp.html#file-smaug-operators-smv-smv-unary-op-test-cpp"><span class="std std-ref">File smv_unary_op_test.cpp</span></a></p></li>
-<li><p><a class="reference internal" href="file_smaug_operators_smv_smv_unary_tiling_test.cpp.html#file-smaug-operators-smv-smv-unary-tiling-test-cpp"><span class="std std-ref">File smv_unary_tiling_test.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_softmax_op.h.html#file-smaug-operators-softmax-op-h"><span class="std std-ref">File softmax_op.h</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_split_op.h.html#file-smaug-operators-split-op-h"><span class="std std-ref">File split_op.h</span></a></p></li>
-<li><p><a class="reference internal" href="file_smaug_operators_split_op_test.cpp.html#file-smaug-operators-split-op-test-cpp"><span class="std std-ref">File split_op_test.cpp</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_operators_tanh_op.h.html#file-smaug-operators-tanh-op-h"><span class="std std-ref">File tanh_op.h</span></a></p></li>
 <li><p><a class="reference internal" href="file_smaug_smaug.cpp.html#file-smaug-smaug-cpp"><span class="std std-ref">File smaug.cpp</span></a></p></li>
 </ul>
@@ -331,6 +307,12 @@
 <li><p><a class="reference internal" href="classsmaug_1_1SplitOp.html#exhale-class-classsmaug-1-1splitop"><span class="std std-ref">Template Class SplitOp</span></a></p></li>
 <li><p><a class="reference internal" href="classsmaug_1_1SwitchOp.html#exhale-class-classsmaug-1-1switchop"><span class="std std-ref">Template Class SwitchOp</span></a></p></li>
 <li><p><a class="reference internal" href="classsmaug_1_1TanhOp.html#exhale-class-classsmaug-1-1tanhop"><span class="std std-ref">Template Class TanhOp</span></a></p></li>
+</ul>
+</div>
+<div class="section" id="enums">
+<h2>Enums<a class="headerlink" href="#enums" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="enum_namespacesmaug_1a86f4101aba33c2e665f72756836cf2ea.html#exhale-enum-namespacesmaug-1a86f4101aba33c2e665f72756836cf2ea"><span class="std std-ref">Enum BackendName</span></a></p></li>
 </ul>
 </div>
 <div class="section" id="defines">

@@ -4,6 +4,10 @@
 File operator.h
 ===============
 
+|exhale_lsh| :ref:`Parent directory <dir_smaug_core>` (``smaug/core``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
 .. contents:: Page Contents
    :local:
    :backlinks: none
@@ -113,4 +117,11 @@ Defines
 
 
 - :ref:`exhale_define_operator_8h_1ae7212042d87b24ea5e079a12e2dffd19`
+
+
+Variables
+---------
+
+
+- :ref:`exhale_variable_namespacesmaug_1a5f5b63c94d52cc03154de1a69300f9ed`
 

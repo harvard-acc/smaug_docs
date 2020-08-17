@@ -4,6 +4,10 @@
 File smv_convolution_op.cpp
 ===========================
 
+|exhale_lsh| :ref:`Parent directory <dir_smaug_operators_smv>` (``smaug/operators/smv``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
 .. contents:: Page Contents
    :local:
    :backlinks: none
@@ -53,4 +57,13 @@ Namespaces
 - :ref:`namespace_smaug__smv`
 
 - :ref:`namespace_smaug__smv__conv`
+
+
+Variables
+---------
+
+
+- :ref:`exhale_variable_namespacesmaug_1_1smv_1_1conv_1aa9355b2539aca8658e715c3cbaba2f89`
+
+- :ref:`exhale_variable_namespacesmaug_1_1smv_1_1conv_1aaebd66dc1512c639ff0481d4fd321533`
 

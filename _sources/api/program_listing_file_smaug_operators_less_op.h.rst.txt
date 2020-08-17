@@ -43,8 +43,10 @@ Program Listing for File less_op.h
        }
    };
    
+   #ifndef DOXYGEN_SHOULD_SKIP_THIS
    REGISTER_SPECIAL_OP(LessOp, ReferenceBackend);
    REGISTER_SPECIAL_OP(LessEqualOp, ReferenceBackend);
+   #endif
    
    }  // namespace smaug
    

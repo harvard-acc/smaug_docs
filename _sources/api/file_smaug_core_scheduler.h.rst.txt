@@ -4,6 +4,10 @@
 File scheduler.h
 ================
 
+|exhale_lsh| :ref:`Parent directory <dir_smaug_core>` (``smaug/core``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
 .. contents:: Page Contents
    :local:
    :backlinks: none
@@ -40,8 +44,6 @@ Included By
 
 
 - :ref:`file_smaug_core_scheduler.cpp`
-
-- :ref:`file_smaug_core_smaug_test.cpp`
 
 - :ref:`file_smaug_smaug.cpp`
 

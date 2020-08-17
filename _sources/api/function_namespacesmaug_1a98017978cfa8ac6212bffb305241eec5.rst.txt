@@ -1,0 +1,13 @@
+.. _exhale_function_namespacesmaug_1a98017978cfa8ac6212bffb305241eec5:
+
+Function smaug::REGISTER_SPECIAL_OP(InnerProductOp, ReferenceBackend)
+=====================================================================
+
+- Defined in :ref:`file_smaug_operators_inner_product_op.h`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: smaug::REGISTER_SPECIAL_OP(InnerProductOp, ReferenceBackend)

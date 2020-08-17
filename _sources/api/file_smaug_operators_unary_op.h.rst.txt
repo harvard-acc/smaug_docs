@@ -4,6 +4,10 @@
 File unary_op.h
 ===============
 
+|exhale_lsh| :ref:`Parent directory <dir_smaug_operators>` (``smaug/operators``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
 .. contents:: Page Contents
    :local:
    :backlinks: none

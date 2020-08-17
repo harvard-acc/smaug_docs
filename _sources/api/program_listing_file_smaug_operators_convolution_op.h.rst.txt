@@ -183,7 +183,9 @@ Program Listing for File convolution_op.h
        SamplingInfo sampling;
    };
    
+   #ifndef DOXYGEN_SHOULD_SKIP_THIS
    REGISTER_SPECIAL_OP(ConvolutionOp, ReferenceBackend);
+   #endif
    
    }  // namespace smaug
    

@@ -29,7 +29,9 @@ Program Listing for File softmax_op.h
        void run() override {}
    };
    
+   #ifndef DOXYGEN_SHOULD_SKIP_THIS
    REGISTER_SPECIAL_OP(SoftmaxOp, ReferenceBackend);
+   #endif
    
    }  // namespace smaug
    

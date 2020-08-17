@@ -4,6 +4,14 @@
 File load_store_fp16_data.h
 ===========================
 
+|exhale_lsh| :ref:`Parent directory <dir_smaug_operators_smv_kernels>` (``smaug/operators/smv/kernels``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+
+Aladdin kernels to load/store FP16 data to/from host memory. 
+ 
+
 .. contents:: Page Contents
    :local:
    :backlinks: none
@@ -48,8 +56,6 @@ Included By
 - :ref:`file_smaug_operators_smv_kernels_eltwise_mul.c`
 
 - :ref:`file_smaug_operators_smv_kernels_load_store_fp16_data.c`
-
-- :ref:`file_smaug_operators_smv_kernels_load_store_fp16_data_test.cpp`
 
 - :ref:`file_smaug_operators_smv_kernels_matrix_multiply.c`
 

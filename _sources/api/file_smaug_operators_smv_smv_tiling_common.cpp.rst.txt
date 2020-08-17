@@ -4,6 +4,10 @@
 File smv_tiling_common.cpp
 ==========================
 
+|exhale_lsh| :ref:`Parent directory <dir_smaug_operators_smv>` (``smaug/operators/smv``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
 .. contents:: Page Contents
    :local:
    :backlinks: none
@@ -41,4 +45,21 @@ Namespaces
 - :ref:`namespace_smaug`
 
 - :ref:`namespace_smaug__smv`
+
+
+Functions
+---------
+
+
+- :ref:`exhale_function_namespacesmaug_1_1smv_1accb743cc0c54b9efd64948ae04973989`
+
+- :ref:`exhale_function_namespacesmaug_1_1smv_1afaf12443b942dae1b9284d309b8769f3`
+
+- :ref:`exhale_function_namespacesmaug_1_1smv_1ad105c90bbde98c27c3bc54762d2bdafd`
+
+- :ref:`exhale_function_namespacesmaug_1_1smv_1a98f8a1335dcc878869d2429b66484ef8`
+
+- :ref:`exhale_function_namespacesmaug_1_1smv_1afa4e7466a2ec63af49fbf42ac9d9ef56`
+
+- :ref:`exhale_function_namespacesmaug_1_1smv_1a147bb1b218a149af498aae3b588c4b2d`
 

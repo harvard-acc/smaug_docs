@@ -3,7 +3,7 @@
 Template Function smaug::product
 ================================
 
-.. did not find file this was defined in
+- Defined in :ref:`file_smaug_utility_utils.h`
 
 
 Function Documentation

@@ -4,6 +4,10 @@
 File inner_product_op.h
 =======================
 
+|exhale_lsh| :ref:`Parent directory <dir_smaug_operators>` (``smaug/operators``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
 .. contents:: Page Contents
    :local:
    :backlinks: none
@@ -49,8 +53,6 @@ Included By
 
 - :ref:`file_smaug_operators_ref_ref_inner_product_op.cpp`
 
-- :ref:`file_smaug_operators_ref_ref_inner_product_op_test.cpp`
-
 - :ref:`file_smaug_operators_smv_smv_inner_product_op.h`
 
 
@@ -68,4 +70,11 @@ Classes
 
 
 - :ref:`exhale_class_classsmaug_1_1InnerProductOp`
+
+
+Functions
+---------
+
+
+- :ref:`exhale_function_namespacesmaug_1a98017978cfa8ac6212bffb305241eec5`
 

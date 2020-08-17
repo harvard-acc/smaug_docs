@@ -4,6 +4,10 @@
 File smv_test_common.h
 ======================
 
+|exhale_lsh| :ref:`Parent directory <dir_smaug_operators_smv>` (``smaug/operators/smv``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
 .. contents:: Page Contents
    :local:
    :backlinks: none
@@ -33,29 +37,7 @@ Included By
 -----------
 
 
-- :ref:`file_smaug_operators_smv_smv_batch_norm_op_test.cpp`
-
-- :ref:`file_smaug_operators_smv_smv_batch_norm_tiling_test.cpp`
-
-- :ref:`file_smaug_operators_smv_smv_convolution_op_test.cpp`
-
-- :ref:`file_smaug_operators_smv_smv_convolution_tiling_test.cpp`
-
-- :ref:`file_smaug_operators_smv_smv_eltwise_ops_test.cpp`
-
-- :ref:`file_smaug_operators_smv_smv_inner_product_op_test.cpp`
-
-- :ref:`file_smaug_operators_smv_smv_inner_product_tiling_test.cpp`
-
-- :ref:`file_smaug_operators_smv_smv_pooling_op_test.cpp`
-
-- :ref:`file_smaug_operators_smv_smv_pooling_tiling_test.cpp`
-
 - :ref:`file_smaug_operators_smv_smv_test_common.cpp`
-
-- :ref:`file_smaug_operators_smv_smv_unary_op_test.cpp`
-
-- :ref:`file_smaug_operators_smv_smv_unary_tiling_test.cpp`
 
 
 

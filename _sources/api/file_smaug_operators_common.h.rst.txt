@@ -4,6 +4,14 @@
 File common.h
 =============
 
+|exhale_lsh| :ref:`Parent directory <dir_smaug_operators>` (``smaug/operators``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+
+Utilities for writing and invoking Aladdin kernels from Operators. 
+ 
+
 .. contents:: Page Contents
    :local:
    :backlinks: none
@@ -37,7 +45,7 @@ Includes
 
 - ``tracer/trace_logger_aladdin.h``
 
-- ``utility`` (:ref:`file_smaug_utility_compression.c`)
+- ``utility`` (:ref:`file_smaug_utility_debug_stream.cpp`)
 
 
 
@@ -212,6 +220,12 @@ Functions
 
 
 - :ref:`exhale_function_common_8h_1ada8be2bd887c9da15e76b293a75732ab`
+
+- :ref:`exhale_function_namespacesmaug_1a4af4bb02d63072ba24d12819d0290382`
+
+- :ref:`exhale_function_namespacesmaug_1a2bb97102553d2df4bfd3de66fdbd5159`
+
+- :ref:`exhale_function_namespacesmaug_1a8e283c69f2d709034e9426931ef6f0fb`
 
 
 Defines

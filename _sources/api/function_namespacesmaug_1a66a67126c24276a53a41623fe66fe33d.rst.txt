@@ -1,0 +1,13 @@
+.. _exhale_function_namespacesmaug_1a66a67126c24276a53a41623fe66fe33d:
+
+Function smaug::REGISTER_SPECIAL_OP(LessOp, ReferenceBackend)
+=============================================================
+
+- Defined in :ref:`file_smaug_operators_less_op.h`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: smaug::REGISTER_SPECIAL_OP(LessOp, ReferenceBackend)

@@ -4,6 +4,10 @@
 File softmax_op.h
 =================
 
+|exhale_lsh| :ref:`Parent directory <dir_smaug_operators>` (``smaug/operators``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
 .. contents:: Page Contents
    :local:
    :backlinks: none
@@ -43,8 +47,6 @@ Included By
 
 - :ref:`file_smaug_operators_ref_ref_softmax_op.cpp`
 
-- :ref:`file_smaug_operators_ref_ref_softmax_op_test.cpp`
-
 - :ref:`file_smaug_operators_smv_smv_softmax_op.h`
 
 
@@ -62,4 +64,11 @@ Classes
 
 
 - :ref:`exhale_class_classsmaug_1_1SoftmaxOp`
+
+
+Functions
+---------
+
+
+- :ref:`exhale_function_namespacesmaug_1ac76f6cec64da99a2e9eb4aef148bab43`
 

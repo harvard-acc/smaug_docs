@@ -4,6 +4,10 @@
 File smv_inner_product_op.cpp
 =============================
 
+|exhale_lsh| :ref:`Parent directory <dir_smaug_operators_smv>` (``smaug/operators/smv``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
 .. contents:: Page Contents
    :local:
    :backlinks: none
@@ -53,4 +57,13 @@ Namespaces
 - :ref:`namespace_smaug__smv`
 
 - :ref:`namespace_smaug__smv__fc`
+
+
+Variables
+---------
+
+
+- :ref:`exhale_variable_namespacesmaug_1_1smv_1_1fc_1a84bf842ad97d35a56f4a521f44614f6c`
+
+- :ref:`exhale_variable_namespacesmaug_1_1smv_1_1fc_1a13e60cb23a27ce99b8588152279fbe00`
 

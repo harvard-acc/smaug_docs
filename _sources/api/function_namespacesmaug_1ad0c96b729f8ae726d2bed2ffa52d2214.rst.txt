@@ -1,0 +1,13 @@
+.. _exhale_function_namespacesmaug_1ad0c96b729f8ae726d2bed2ffa52d2214:
+
+Function smaug::REGISTER_SPECIAL_OP(GreaterEqualOp, ReferenceBackend)
+=====================================================================
+
+- Defined in :ref:`file_smaug_operators_greater_op.h`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: smaug::REGISTER_SPECIAL_OP(GreaterEqualOp, ReferenceBackend)

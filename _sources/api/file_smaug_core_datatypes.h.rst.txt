@@ -4,6 +4,10 @@
 File datatypes.h
 ================
 
+|exhale_lsh| :ref:`Parent directory <dir_smaug_core>` (``smaug/core``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
 .. contents:: Page Contents
    :local:
    :backlinks: none
@@ -40,8 +44,6 @@ Included By
 - :ref:`file_smaug_core_backend.h`
 
 - :ref:`file_smaug_core_network.cpp`
-
-- :ref:`file_smaug_core_smaug_test.cpp`
 
 - :ref:`file_smaug_core_tensor.h`
 
@@ -94,4 +96,11 @@ Classes
 - :ref:`exhale_struct_structsmaug_1_1ToDataType_3_01uint32__t_01_4`
 
 - :ref:`exhale_struct_structsmaug_1_1ToDataType_3_01uint64__t_01_4`
+
+
+Typedefs
+--------
+
+
+- :ref:`exhale_typedef_namespacesmaug_1a16774033d989cef49c26d9d5463410ee`
 

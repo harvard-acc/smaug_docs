@@ -4,6 +4,10 @@
 File convolution_op.h
 =====================
 
+|exhale_lsh| :ref:`Parent directory <dir_smaug_operators>` (``smaug/operators``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
 .. contents:: Page Contents
    :local:
    :backlinks: none
@@ -53,8 +57,6 @@ Included By
 
 - :ref:`file_smaug_operators_ref_ref_convolution_op.cpp`
 
-- :ref:`file_smaug_operators_ref_ref_convolution_op_test.cpp`
-
 - :ref:`file_smaug_operators_smv_smv_convolution_op.h`
 
 
@@ -72,4 +74,11 @@ Classes
 
 
 - :ref:`exhale_class_classsmaug_1_1ConvolutionOp`
+
+
+Functions
+---------
+
+
+- :ref:`exhale_function_namespacesmaug_1a2b3d3c4a74841c32af7fad0a3fb2ab78`
 

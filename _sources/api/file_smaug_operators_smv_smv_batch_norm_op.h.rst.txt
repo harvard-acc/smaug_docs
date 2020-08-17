@@ -4,6 +4,10 @@
 File smv_batch_norm_op.h
 ========================
 
+|exhale_lsh| :ref:`Parent directory <dir_smaug_operators_smv>` (``smaug/operators/smv``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
 .. contents:: Page Contents
    :local:
    :backlinks: none
@@ -43,11 +47,7 @@ Included By
 
 - :ref:`file_smaug_operators_smv_smv_batch_norm_op.cpp`
 
-- :ref:`file_smaug_operators_smv_smv_batch_norm_op_test.cpp`
-
 - :ref:`file_smaug_operators_smv_smv_batch_norm_tiling.cpp`
-
-- :ref:`file_smaug_operators_smv_smv_batch_norm_tiling_test.cpp`
 
 
 

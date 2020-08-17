@@ -201,7 +201,14 @@
 <dt id="_CPPv4I0EN5smaug9PoolingOpE">
 <span id="_CPPv3I0EN5smaug9PoolingOpE"></span><span id="_CPPv2I0EN5smaug9PoolingOpE"></span>template&lt;typename <code class="sig-name descname">Backend</code>&gt;<br /><span class="target" id="classsmaug_1_1PoolingOp"></span><em class="property">class </em><code class="sig-prename descclassname">smaug<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">PoolingOp</code> : <em class="property">public</em> smaug::<a class="reference internal" href="classsmaug_1_1Operator.html#_CPPv4N5smaug8OperatorE" title="smaug::Operator">Operator</a><a class="headerlink" href="#_CPPv4I0EN5smaug9PoolingOpE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Implements a pooling operator.</p>
-<p>The pooling operator reduces the size of the input <a class="reference internal" href="classsmaug_1_1Tensor.html#classsmaug_1_1Tensor"><span class="std std-ref">Tensor</span></a> by applying a windowed filter that reduces all elements in its field of view to a single value. </p>
+<p>The pooling operator reduces the size of the input <a class="reference internal" href="classsmaug_1_1Tensor.html#classsmaug_1_1Tensor"><span class="std std-ref">Tensor</span></a> by applying a windowed filter that reduces all elements in its field of view to a single value.</p>
+<p><dl class="simple">
+<dt><strong>Template Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Backend</span></code>: The Backend specialization of this <a class="reference internal" href="classsmaug_1_1Operator.html#classsmaug_1_1Operator"><span class="std std-ref">Operator</span></a>. </p></li>
+</ul>
+</dd>
+</dl>
+</p>
 <p>Subclassed by <a class="reference internal" href="classsmaug_1_1AvgPoolingOp.html#classsmaug_1_1AvgPoolingOp"><span class="std std-ref">smaug::AvgPoolingOp&lt; Backend &gt;</span></a>, <a class="reference internal" href="classsmaug_1_1MaxPoolingOp.html#classsmaug_1_1MaxPoolingOp"><span class="std std-ref">smaug::MaxPoolingOp&lt; Backend &gt;</span></a></p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Functions</p>

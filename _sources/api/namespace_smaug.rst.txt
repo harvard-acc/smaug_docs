@@ -159,17 +159,11 @@ Classes
 
 - :ref:`exhale_class_classsmaug_1_1SmvBatchNormOp`
 
-- :ref:`exhale_class_classsmaug_1_1SmvBatchNormOpTest`
-
 - :ref:`exhale_class_classsmaug_1_1SmvConvolutionOp`
-
-- :ref:`exhale_class_classsmaug_1_1SmvConvolutionOpTest`
 
 - :ref:`exhale_class_classsmaug_1_1SmvEltwiseAddOp`
 
 - :ref:`exhale_class_classsmaug_1_1SmvEltwiseMulOp`
-
-- :ref:`exhale_class_classsmaug_1_1SmvEltwiseOpsTest`
 
 - :ref:`exhale_class_classsmaug_1_1SmvEluOp`
 
@@ -181,8 +175,6 @@ Classes
 
 - :ref:`exhale_class_classsmaug_1_1SmvInnerProductOp`
 
-- :ref:`exhale_class_classsmaug_1_1SmvInnerProductOpTest`
-
 - :ref:`exhale_class_classsmaug_1_1SmvLessEqualOp`
 
 - :ref:`exhale_class_classsmaug_1_1SmvLessOp`
@@ -190,8 +182,6 @@ Classes
 - :ref:`exhale_class_classsmaug_1_1SmvMaxPoolingOp`
 
 - :ref:`exhale_class_classsmaug_1_1SmvPoolingOp`
-
-- :ref:`exhale_class_classsmaug_1_1SmvPoolingOpTest`
 
 - :ref:`exhale_class_classsmaug_1_1SmvReluOp`
 
@@ -202,8 +192,6 @@ Classes
 - :ref:`exhale_class_classsmaug_1_1SmvSoftmaxOp`
 
 - :ref:`exhale_class_classsmaug_1_1SmvTanhOp`
-
-- :ref:`exhale_class_classsmaug_1_1SmvUnaryOpTest`
 
 - :ref:`exhale_class_classsmaug_1_1SoftmaxOp`
 
@@ -249,9 +237,9 @@ Functions
 
 - :ref:`exhale_function_namespacesmaug_1a2f49dfb9f461b76b26c0df68a50d267a`
 
-- :ref:`exhale_function_namespacesmaug_1adc56c8bd6b2d63a86b80914442a8aee0`
+- :ref:`exhale_function_namespacesmaug_1afd06d17d9a7304d3b4ed558d9178a500`
 
-- :ref:`exhale_function_namespacesmaug_1a5a820152fd6c26ef0b001729c4101342`
+- :ref:`exhale_function_namespacesmaug_1a52b1506161529d755016fd87e3d0b0d9`
 
 - :ref:`exhale_function_namespacesmaug_1ae2ae8d7bd0355c1f51f8bf6637f2b4fa`
 
@@ -319,6 +307,44 @@ Functions
 
 - :ref:`exhale_function_namespacesmaug_1a5e98863e376cb89e28d3681cf2e292a0`
 
+- :ref:`exhale_function_namespacesmaug_1a728806fdfd36084271e4f28c1e70e835`
+
+- :ref:`exhale_function_namespacesmaug_1a2b3d3c4a74841c32af7fad0a3fb2ab78`
+
+- :ref:`exhale_function_namespacesmaug_1aae242fc7f5e899f05c1c8d0a5e6ebf4c`
+
+- :ref:`exhale_function_namespacesmaug_1a1849c6385b1a2f5fb66a786696b426dc`
+
+- :ref:`exhale_function_namespacesmaug_1a7301e44408ce5a29fd1c0fbf45680b37`
+
+- :ref:`exhale_function_namespacesmaug_1a5f13e085ebbd27e1dd3bff915c2c7ab9`
+
+- :ref:`exhale_function_namespacesmaug_1ab3c782752ac8ba629bc1470ab178ea3b`
+
+- :ref:`exhale_function_namespacesmaug_1a2274f4ca27560674f90f944660ab93b3`
+
+- :ref:`exhale_function_namespacesmaug_1ad0c96b729f8ae726d2bed2ffa52d2214`
+
+- :ref:`exhale_function_namespacesmaug_1a98017978cfa8ac6212bffb305241eec5`
+
+- :ref:`exhale_function_namespacesmaug_1a66a67126c24276a53a41623fe66fe33d`
+
+- :ref:`exhale_function_namespacesmaug_1a138632037e9abb23e08370157b028c78`
+
+- :ref:`exhale_function_namespacesmaug_1a40c885eec0d7c1f5825ec27ce78ecf22`
+
+- :ref:`exhale_function_namespacesmaug_1ada148291bfaa0abf3c3604e736dcad70`
+
+- :ref:`exhale_function_namespacesmaug_1a02997db1aa5d28c36d57734afd3ad2f5`
+
+- :ref:`exhale_function_namespacesmaug_1af8ed25d8a034aa6a4e6133a6ab3402c1`
+
+- :ref:`exhale_function_namespacesmaug_1ac76f6cec64da99a2e9eb4aef148bab43`
+
+- :ref:`exhale_function_namespacesmaug_1a7a1f5d60256d48fe88d2fdd3bcbd6d64`
+
+- :ref:`exhale_function_namespacesmaug_1ae4c8c4058a2a8b52d5e10f72c93fe9cf`
+
 - :ref:`exhale_function_namespacesmaug_1a5741f2a1302381ee8184990c767dabf5`
 
 - :ref:`exhale_function_namespacesmaug_1a8b4b5947eec7d4f7335d0752d1297e5d`
@@ -355,35 +381,13 @@ Variables
 ---------
 
 
-- :ref:`exhale_variable_namespacesmaug_1a9ae99bd731e3ffddade86121c6041ee6`
-
-- :ref:`exhale_variable_namespacesmaug_1a7029ac5f11644f259c894c88583e984f`
-
-- :ref:`exhale_variable_namespacesmaug_1a363d52ce79468baf5d200d97632b948b`
-
 - :ref:`exhale_variable_namespacesmaug_1a4fc3a32fd4d7e89ed847d5f177ffe782`
-
-- :ref:`exhale_variable_namespacesmaug_1ab634fc54490c4480dc19051a95897ca5`
-
-- :ref:`exhale_variable_namespacesmaug_1afd1ac5e175fb67d3a5d73a1d2d88e1d2`
-
-- :ref:`exhale_variable_namespacesmaug_1aca135841277b85b059be0bf89078b567`
-
-- :ref:`exhale_variable_namespacesmaug_1a388bcd99044c4b8142bf8d22bba2b18f`
 
 - :ref:`exhale_variable_namespacesmaug_1a24a5d1f6f95b11f80f7714cc1c224be2`
 
 - :ref:`exhale_variable_namespacesmaug_1a04c6ca860aae57d8771e0f0a031afed3`
 
 - :ref:`exhale_variable_namespacesmaug_1af97fe7269f128e23c6dcf01c156f0b60`
-
-- :ref:`exhale_variable_namespacesmaug_1a52f3e937bd1975c335f1c3f84882d2ff`
-
-- :ref:`exhale_variable_namespacesmaug_1a9abe53f8b4726a176e6724c0dc362400`
-
-- :ref:`exhale_variable_namespacesmaug_1a534051d803fc8e6821fdd184ddb3432f`
-
-- :ref:`exhale_variable_namespacesmaug_1a1034b0acdeeee754be5fe1bc4cd88eed`
 
 - :ref:`exhale_variable_namespacesmaug_1acb4ac1228b843b2a6db80bff53f5babd`
 
@@ -397,31 +401,13 @@ Variables
 
 - :ref:`exhale_variable_namespacesmaug_1a908d00caea13101a1b6f81f69afe3bcf`
 
-- :ref:`exhale_variable_namespacesmaug_1a61084bf5652483f016e649f3a559b79c`
-
-- :ref:`exhale_variable_namespacesmaug_1a64dbc329846c0bc5f2b3c8f514b4210f`
-
 - :ref:`exhale_variable_namespacesmaug_1af5eb1c9cf24c46d994d9903cce5b22bd`
-
-- :ref:`exhale_variable_namespacesmaug_1af32f58fd492e09e7d444b3ea45831f1f`
 
 - :ref:`exhale_variable_namespacesmaug_1a23166fc9351b0ea62c3a1d5116c82499`
 
 - :ref:`exhale_variable_namespacesmaug_1a1ce499e2d15b910e11787f1c9a465005`
 
-- :ref:`exhale_variable_namespacesmaug_1aa48698c56574344552c73012df12cec9`
-
-- :ref:`exhale_variable_namespacesmaug_1ac75fa9e13aea85e7a6df77dd84b65d32`
-
 - :ref:`exhale_variable_namespacesmaug_1ae5ca9830db9c1d5f8a516687702cb13d`
-
-- :ref:`exhale_variable_namespacesmaug_1a2d99c6a0b2f8f5088fd25d77ed2d3e30`
-
-- :ref:`exhale_variable_namespacesmaug_1a907eae30d72ab2db4cb378a58f481c20`
-
-- :ref:`exhale_variable_namespacesmaug_1a2f926c3c7313789212d0b1b0c4e8258f`
-
-- :ref:`exhale_variable_namespacesmaug_1aa94372cb826358ab5c8e74b3afaf6fa8`
 
 - :ref:`exhale_variable_namespacesmaug_1a628bab049837c7ce7193778f721dac85`
 

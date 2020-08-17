@@ -193,7 +193,14 @@
 <dt id="_CPPv4I0EN5smaug11BatchNormOpE">
 <span id="_CPPv3I0EN5smaug11BatchNormOpE"></span><span id="_CPPv2I0EN5smaug11BatchNormOpE"></span>template&lt;typename <code class="sig-name descname">Backend</code>&gt;<br /><span class="target" id="classsmaug_1_1BatchNormOp"></span><em class="property">class </em><code class="sig-prename descclassname">smaug<code class="sig-prename descclassname">::</code></code><code class="sig-name descname">BatchNormOp</code> : <em class="property">public</em> smaug::<a class="reference internal" href="classsmaug_1_1FusedActivationOp.html#_CPPv4N5smaug17FusedActivationOpE" title="smaug::FusedActivationOp">FusedActivationOp</a><a class="headerlink" href="#_CPPv4I0EN5smaug11BatchNormOpE" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Implements the batch normalization layer.</p>
-<p>The four different parameter types to BN layers (mean, v ariance, gamma, and beta) are to be provided as separate Tensors. For performance reasons, the variance parameter is often precomputed as 1/sqrt(variance + eps), so hardware does not need to do a square root/division operation. </p>
+<p>The four different parameter types to BN layers (mean, v ariance, gamma, and beta) are to be provided as separate Tensors. For performance reasons, the variance parameter is often precomputed as 1/sqrt(variance + eps), so hardware does not need to do a square root/division operation.</p>
+<p><dl class="simple">
+<dt><strong>Template Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Backend</span></code>: The Backend specialization of this <a class="reference internal" href="classsmaug_1_1Operator.html#classsmaug_1_1Operator"><span class="std std-ref">Operator</span></a>. </p></li>
+</ul>
+</dd>
+</dl>
+</p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric">Public Types</p>
 <dl class="cpp enum">

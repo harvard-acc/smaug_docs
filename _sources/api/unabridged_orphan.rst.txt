@@ -11,47 +11,37 @@ Directories
 .. toctree::
    :maxdepth: 5
 
-   dir__root_project_smaug_core.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   dir__root_project_smaug_operators.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   dir__root_project_smaug_operators_ref.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   dir__root_project_smaug_operators_smiv.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   dir__root_project_smaug_operators_smiv_arch.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   dir__root_project_smaug_operators_smv.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   dir__root_project_smaug_operators_smv_kernels.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   dir__root_project_smaug_utility.rst
-
-.. toctree::
-   :maxdepth: 5
-
    dir_smaug.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   dir_smaug_core.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   dir_smaug_operators.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   dir_smaug_operators_ref.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   dir_smaug_operators_smv.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   dir_smaug_operators_smv_kernels.rst
+
+.. toctree::
+   :maxdepth: 5
+
+   dir_smaug_utility.rst
 
 Files
 *****
@@ -110,22 +100,7 @@ Files
 .. toctree::
    :maxdepth: 5
 
-   file_smaug_utility_compression.c.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   file_smaug_utility_compression.h.rst
-
-.. toctree::
-   :maxdepth: 5
-
    file_smaug_operators_concat_op.h.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   file_smaug_operators_concat_op_test.cpp.rst
 
 .. toctree::
    :maxdepth: 5
@@ -135,22 +110,7 @@ Files
 .. toctree::
    :maxdepth: 5
 
-   file_smaug_operators_control_flow_ops_test.cpp.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   file_smaug_operators_smiv_convolution.c.rst
-
-.. toctree::
-   :maxdepth: 5
-
    file_smaug_operators_convolution_op.h.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   file_smaug_operators_smiv_convolution_simd.c.rst
 
 .. toctree::
    :maxdepth: 5
@@ -176,16 +136,6 @@ Files
    :maxdepth: 5
 
    file_smaug_utility_debug_stream.h.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   file_smaug_operators_smiv_arch_decompression.c.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   file_smaug_operators_smiv_decompression.c.rst
 
 .. toctree::
    :maxdepth: 5
@@ -250,17 +200,12 @@ Files
 .. toctree::
    :maxdepth: 5
 
-   file_smaug_operators_smiv_arch_inner_product.c.rst
-
-.. toctree::
-   :maxdepth: 5
-
    file_smaug_operators_inner_product_op.h.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file_intro.dox.rst
+   file_docs_source_intro.dox.rst
 
 .. toctree::
    :maxdepth: 5
@@ -276,11 +221,6 @@ Files
    :maxdepth: 5
 
    file_smaug_operators_smv_kernels_load_store_fp16_data.h.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   file_smaug_operators_smv_kernels_load_store_fp16_data_test.cpp.rst
 
 .. toctree::
    :maxdepth: 5
@@ -310,11 +250,6 @@ Files
 .. toctree::
    :maxdepth: 5
 
-   file_smaug_core_network_test.cpp.rst
-
-.. toctree::
-   :maxdepth: 5
-
    file_smaug_core_operator.cpp.rst
 
 .. toctree::
@@ -325,7 +260,7 @@ Files
 .. toctree::
    :maxdepth: 5
 
-   file_operators.dox.rst
+   file_docs_source_operators.dox.rst
 
 .. toctree::
    :maxdepth: 5
@@ -345,11 +280,6 @@ Files
 .. toctree::
    :maxdepth: 5
 
-   file_smaug_operators_smiv_reduction.c.rst
-
-.. toctree::
-   :maxdepth: 5
-
    file_smaug_operators_ref_ref_activation_fun_op.cpp.rst
 
 .. toctree::
@@ -365,27 +295,12 @@ Files
 .. toctree::
    :maxdepth: 5
 
-   file_smaug_operators_ref_ref_batch_norm_op_test.cpp.rst
-
-.. toctree::
-   :maxdepth: 5
-
    file_smaug_operators_ref_ref_convolution_op.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file_smaug_operators_ref_ref_convolution_op_test.cpp.rst
-
-.. toctree::
-   :maxdepth: 5
-
    file_smaug_operators_ref_ref_depthwise_convolution_op.cpp.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   file_smaug_operators_ref_ref_depthwise_convolution_op_test.cpp.rst
 
 .. toctree::
    :maxdepth: 5
@@ -396,11 +311,6 @@ Files
    :maxdepth: 5
 
    file_smaug_operators_ref_ref_eltwise_mul_op.cpp.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   file_smaug_operators_ref_ref_eltwise_ops_test.cpp.rst
 
 .. toctree::
    :maxdepth: 5
@@ -420,22 +330,12 @@ Files
 .. toctree::
    :maxdepth: 5
 
-   file_smaug_operators_ref_ref_inner_product_op_test.cpp.rst
-
-.. toctree::
-   :maxdepth: 5
-
    file_smaug_operators_ref_ref_less_op.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
    file_smaug_operators_ref_ref_pooling_op.cpp.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   file_smaug_operators_ref_ref_pooling_op_test.cpp.rst
 
 .. toctree::
    :maxdepth: 5
@@ -451,11 +351,6 @@ Files
    :maxdepth: 5
 
    file_smaug_operators_ref_ref_softmax_op.cpp.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   file_smaug_operators_ref_ref_softmax_op_test.cpp.rst
 
 .. toctree::
    :maxdepth: 5
@@ -485,27 +380,12 @@ Files
 .. toctree::
    :maxdepth: 5
 
-   file_smaug_operators_reorder_op_test.cpp.rst
-
-.. toctree::
-   :maxdepth: 5
-
    file_smaug_operators_repeat_op.h.rst
 
 .. toctree::
    :maxdepth: 5
 
-   file_smaug_operators_repeat_op_test.cpp.rst
-
-.. toctree::
-   :maxdepth: 5
-
    file_smaug_operators_reshape_op.h.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   file_smaug_operators_reshape_op_test.cpp.rst
 
 .. toctree::
    :maxdepth: 5
@@ -530,17 +410,7 @@ Files
 .. toctree::
    :maxdepth: 5
 
-   file_smaug_core_smaug_test.cpp.rst
-
-.. toctree::
-   :maxdepth: 5
-
    file_smaug_core_smaug_test.h.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   file_smaug_operators_smiv_arch_smiv.cpp.rst
 
 .. toctree::
    :maxdepth: 5
@@ -565,22 +435,12 @@ Files
 .. toctree::
    :maxdepth: 5
 
-   file_smaug_operators_smv_smv_batch_norm_op_test.cpp.rst
-
-.. toctree::
-   :maxdepth: 5
-
    file_smaug_operators_smv_smv_batch_norm_tiling.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
    file_smaug_operators_smv_smv_batch_norm_tiling.h.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   file_smaug_operators_smv_smv_batch_norm_tiling_test.cpp.rst
 
 .. toctree::
    :maxdepth: 5
@@ -595,22 +455,12 @@ Files
 .. toctree::
    :maxdepth: 5
 
-   file_smaug_operators_smv_smv_convolution_op_test.cpp.rst
-
-.. toctree::
-   :maxdepth: 5
-
    file_smaug_operators_smv_smv_convolution_tiling.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
    file_smaug_operators_smv_smv_convolution_tiling.h.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   file_smaug_operators_smv_smv_convolution_tiling_test.cpp.rst
 
 .. toctree::
    :maxdepth: 5
@@ -631,11 +481,6 @@ Files
    :maxdepth: 5
 
    file_smaug_operators_smv_smv_eltwise_mul_op.h.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   file_smaug_operators_smv_smv_eltwise_ops_test.cpp.rst
 
 .. toctree::
    :maxdepth: 5
@@ -665,22 +510,12 @@ Files
 .. toctree::
    :maxdepth: 5
 
-   file_smaug_operators_smv_smv_inner_product_op_test.cpp.rst
-
-.. toctree::
-   :maxdepth: 5
-
    file_smaug_operators_smv_smv_inner_product_tiling.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
    file_smaug_operators_smv_smv_inner_product_tiling.h.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   file_smaug_operators_smv_smv_inner_product_tiling_test.cpp.rst
 
 .. toctree::
    :maxdepth: 5
@@ -710,22 +545,12 @@ Files
 .. toctree::
    :maxdepth: 5
 
-   file_smaug_operators_smv_smv_pooling_op_test.cpp.rst
-
-.. toctree::
-   :maxdepth: 5
-
    file_smaug_operators_smv_smv_pooling_tiling.cpp.rst
 
 .. toctree::
    :maxdepth: 5
 
    file_smaug_operators_smv_smv_pooling_tiling.h.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   file_smaug_operators_smv_smv_pooling_tiling_test.cpp.rst
 
 .. toctree::
    :maxdepth: 5
@@ -795,27 +620,12 @@ Files
 .. toctree::
    :maxdepth: 5
 
-   file_smaug_operators_smv_smv_unary_op_test.cpp.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   file_smaug_operators_smv_smv_unary_tiling_test.cpp.rst
-
-.. toctree::
-   :maxdepth: 5
-
    file_smaug_operators_softmax_op.h.rst
 
 .. toctree::
    :maxdepth: 5
 
    file_smaug_operators_split_op.h.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   file_smaug_operators_split_op_test.cpp.rst
 
 .. toctree::
    :maxdepth: 5
@@ -831,11 +641,6 @@ Files
    :maxdepth: 5
 
    file_smaug_core_tensor.h.rst
-
-.. toctree::
-   :maxdepth: 5
-
-   file_smaug_core_tensor_test.cpp.rst
 
 .. toctree::
    :maxdepth: 5

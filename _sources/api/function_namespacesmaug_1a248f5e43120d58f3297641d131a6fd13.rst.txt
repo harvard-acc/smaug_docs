@@ -3,7 +3,7 @@
 Function smaug::buildNetwork
 ============================
 
-.. did not find file this was defined in
+- Defined in :ref:`file_smaug_core_network_builder.h`
 
 
 Function Documentation

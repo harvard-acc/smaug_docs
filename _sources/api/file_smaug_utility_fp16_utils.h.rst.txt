@@ -4,6 +4,10 @@
 File fp16_utils.h
 =================
 
+|exhale_lsh| :ref:`Parent directory <dir_smaug_utility>` (``smaug/utility``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
 .. contents:: Page Contents
    :local:
    :backlinks: none
@@ -36,8 +40,6 @@ Included By
 
 
 - :ref:`file_smaug_operators_smv_kernels_load_store_fp16_data.h`
-
-- :ref:`file_smaug_utility_compression.h`
 
 
 

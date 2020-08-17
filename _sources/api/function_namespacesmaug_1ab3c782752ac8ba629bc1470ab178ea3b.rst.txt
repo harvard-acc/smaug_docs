@@ -1,0 +1,13 @@
+.. _exhale_function_namespacesmaug_1ab3c782752ac8ba629bc1470ab178ea3b:
+
+Function smaug::REGISTER_SPECIAL_OP(SeluOp, ReferenceBackend)
+=============================================================
+
+- Defined in :ref:`file_smaug_operators_elu_op.h`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: smaug::REGISTER_SPECIAL_OP(SeluOp, ReferenceBackend)

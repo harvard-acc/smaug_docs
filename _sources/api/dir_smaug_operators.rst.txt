@@ -1,0 +1,53 @@
+.. _dir_smaug_operators:
+
+
+Directory operators
+===================
+
+
+|exhale_lsh| :ref:`Parent directory <dir_smaug>` (``smaug``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+*Directory path:* ``smaug/operators``
+
+Subdirectories
+--------------
+
+- :ref:`dir_smaug_operators_ref`
+- :ref:`dir_smaug_operators_smv`
+
+
+Files
+-----
+
+- :ref:`file_smaug_operators_batch_norm_op.h`
+- :ref:`file_smaug_operators_common.cpp`
+- :ref:`file_smaug_operators_common.h`
+- :ref:`file_smaug_operators_concat_op.h`
+- :ref:`file_smaug_operators_control_flow_ops.h`
+- :ref:`file_smaug_operators_convolution_op.h`
+- :ref:`file_smaug_operators_data_op.h`
+- :ref:`file_smaug_operators_depthwise_convolution_op.h`
+- :ref:`file_smaug_operators_eltwise_add_op.h`
+- :ref:`file_smaug_operators_eltwise_mul_op.h`
+- :ref:`file_smaug_operators_eltwise_op.h`
+- :ref:`file_smaug_operators_elu_op.h`
+- :ref:`file_smaug_operators_fused_activation_op.h`
+- :ref:`file_smaug_operators_greater_op.h`
+- :ref:`file_smaug_operators_inner_product_op.h`
+- :ref:`file_smaug_operators_less_op.h`
+- :ref:`file_smaug_operators_pooling_op.h`
+- :ref:`file_smaug_operators_relu_op.h`
+- :ref:`file_smaug_operators_reorder_op.h`
+- :ref:`file_smaug_operators_reorder_op_impl.cpp`
+- :ref:`file_smaug_operators_reorder_op_impl.h`
+- :ref:`file_smaug_operators_repeat_op.h`
+- :ref:`file_smaug_operators_reshape_op.h`
+- :ref:`file_smaug_operators_sigmoid_op.h`
+- :ref:`file_smaug_operators_softmax_op.h`
+- :ref:`file_smaug_operators_split_op.h`
+- :ref:`file_smaug_operators_tanh_op.h`
+- :ref:`file_smaug_operators_unary_op.h`
+
+

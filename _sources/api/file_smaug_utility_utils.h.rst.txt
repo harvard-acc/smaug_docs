@@ -4,6 +4,10 @@
 File utils.h
 ============
 
+|exhale_lsh| :ref:`Parent directory <dir_smaug_utility>` (``smaug/utility``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
 .. contents:: Page Contents
    :local:
    :backlinks: none
@@ -74,6 +78,21 @@ Classes
 
 
 - :ref:`exhale_class_classsmaug_1_1gem5_1_1ScopedStats`
+
+
+Functions
+---------
+
+
+- :ref:`exhale_function_namespacesmaug_1a5e98863e376cb89e28d3681cf2e292a0`
+
+- :ref:`exhale_function_namespacesmaug_1a8b4b5947eec7d4f7335d0752d1297e5d`
+
+- :ref:`exhale_function_namespacesmaug_1a4f80ec01d27dac26894b4ac7b78837a3`
+
+- :ref:`exhale_function_namespacesmaug_1a011c1e75b42bfcbd9583d966d24e73fc`
+
+- :ref:`exhale_function_namespacesmaug_1a9e77820bf0c90b67e0d04a9c1c758423`
 
 
 Variables

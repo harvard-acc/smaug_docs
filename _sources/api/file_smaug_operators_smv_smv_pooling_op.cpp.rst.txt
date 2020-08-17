@@ -4,6 +4,10 @@
 File smv_pooling_op.cpp
 =======================
 
+|exhale_lsh| :ref:`Parent directory <dir_smaug_operators_smv>` (``smaug/operators/smv``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
 .. contents:: Page Contents
    :local:
    :backlinks: none
@@ -51,4 +55,11 @@ Namespaces
 - :ref:`namespace_smaug__smv`
 
 - :ref:`namespace_smaug__smv__pool`
+
+
+Variables
+---------
+
+
+- :ref:`exhale_variable_namespacesmaug_1_1smv_1_1pool_1a64a4c38cf4fe0dbd3348e4e7da4c177b`
 

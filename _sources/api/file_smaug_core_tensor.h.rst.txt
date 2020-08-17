@@ -4,6 +4,10 @@
 File tensor.h
 =============
 
+|exhale_lsh| :ref:`Parent directory <dir_smaug_core>` (``smaug/core``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
 .. contents:: Page Contents
    :local:
    :backlinks: none
@@ -55,8 +59,6 @@ Included By
 
 - :ref:`file_smaug_core_network_builder.cpp`
 
-- :ref:`file_smaug_core_network_test.cpp`
-
 - :ref:`file_smaug_core_operator.h`
 
 - :ref:`file_smaug_core_scheduler.cpp`
@@ -64,8 +66,6 @@ Included By
 - :ref:`file_smaug_core_smaug_test.h`
 
 - :ref:`file_smaug_core_tensor.cpp`
-
-- :ref:`file_smaug_core_tensor_test.cpp`
 
 - :ref:`file_smaug_core_tensor_utils.cpp`
 
@@ -75,77 +75,29 @@ Included By
 
 - :ref:`file_smaug_operators_batch_norm_op.h`
 
-- :ref:`file_smaug_operators_concat_op_test.cpp`
-
-- :ref:`file_smaug_operators_control_flow_ops_test.cpp`
-
 - :ref:`file_smaug_operators_data_op.h`
 
 - :ref:`file_smaug_operators_inner_product_op.h`
 
 - :ref:`file_smaug_operators_pooling_op.h`
 
-- :ref:`file_smaug_operators_ref_ref_batch_norm_op_test.cpp`
-
-- :ref:`file_smaug_operators_ref_ref_convolution_op_test.cpp`
-
-- :ref:`file_smaug_operators_ref_ref_depthwise_convolution_op_test.cpp`
-
-- :ref:`file_smaug_operators_ref_ref_eltwise_ops_test.cpp`
-
-- :ref:`file_smaug_operators_ref_ref_inner_product_op_test.cpp`
-
-- :ref:`file_smaug_operators_ref_ref_pooling_op_test.cpp`
-
-- :ref:`file_smaug_operators_ref_ref_softmax_op_test.cpp`
-
 - :ref:`file_smaug_operators_reorder_op_impl.cpp`
 
 - :ref:`file_smaug_operators_reorder_op_impl.h`
 
-- :ref:`file_smaug_operators_reorder_op_test.cpp`
-
-- :ref:`file_smaug_operators_repeat_op_test.cpp`
-
-- :ref:`file_smaug_operators_reshape_op_test.cpp`
-
-- :ref:`file_smaug_operators_smv_smv_batch_norm_op_test.cpp`
-
 - :ref:`file_smaug_operators_smv_smv_batch_norm_tiling.h`
-
-- :ref:`file_smaug_operators_smv_smv_batch_norm_tiling_test.cpp`
-
-- :ref:`file_smaug_operators_smv_smv_convolution_op_test.cpp`
 
 - :ref:`file_smaug_operators_smv_smv_convolution_tiling.h`
 
-- :ref:`file_smaug_operators_smv_smv_convolution_tiling_test.cpp`
-
-- :ref:`file_smaug_operators_smv_smv_eltwise_ops_test.cpp`
-
-- :ref:`file_smaug_operators_smv_smv_inner_product_op_test.cpp`
-
 - :ref:`file_smaug_operators_smv_smv_inner_product_tiling.h`
 
-- :ref:`file_smaug_operators_smv_smv_inner_product_tiling_test.cpp`
-
-- :ref:`file_smaug_operators_smv_smv_pooling_op_test.cpp`
-
 - :ref:`file_smaug_operators_smv_smv_pooling_tiling.h`
-
-- :ref:`file_smaug_operators_smv_smv_pooling_tiling_test.cpp`
 
 - :ref:`file_smaug_operators_smv_smv_test_common.h`
 
 - :ref:`file_smaug_operators_smv_smv_tiling_base.h`
 
 - :ref:`file_smaug_operators_smv_smv_tiling_common.h`
-
-- :ref:`file_smaug_operators_smv_smv_unary_op_test.cpp`
-
-- :ref:`file_smaug_operators_smv_smv_unary_tiling_test.cpp`
-
-- :ref:`file_smaug_operators_split_op_test.cpp`
 
 
 

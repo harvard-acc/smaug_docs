@@ -4,6 +4,10 @@
 File smv_batch_norm_op.cpp
 ==========================
 
+|exhale_lsh| :ref:`Parent directory <dir_smaug_operators_smv>` (``smaug/operators/smv``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
 .. contents:: Page Contents
    :local:
    :backlinks: none
@@ -53,4 +57,11 @@ Namespaces
 - :ref:`namespace_smaug__smv`
 
 - :ref:`namespace_smaug__smv__bn`
+
+
+Variables
+---------
+
+
+- :ref:`exhale_variable_namespacesmaug_1_1smv_1_1bn_1a5feff55ba4fe111be0a1115552c2f26f`
 

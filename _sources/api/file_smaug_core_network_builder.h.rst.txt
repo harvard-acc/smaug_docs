@@ -4,6 +4,10 @@
 File network_builder.h
 ======================
 
+|exhale_lsh| :ref:`Parent directory <dir_smaug_core>` (``smaug/core``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
 .. contents:: Page Contents
    :local:
    :backlinks: none
@@ -41,8 +45,6 @@ Included By
 
 - :ref:`file_smaug_core_network_builder.cpp`
 
-- :ref:`file_smaug_core_smaug_test.cpp`
-
 - :ref:`file_smaug_smaug.cpp`
 
 
@@ -53,4 +55,11 @@ Namespaces
 
 
 - :ref:`namespace_smaug`
+
+
+Functions
+---------
+
+
+- :ref:`exhale_function_namespacesmaug_1a248f5e43120d58f3297641d131a6fd13`
 

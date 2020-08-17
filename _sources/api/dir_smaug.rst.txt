@@ -10,9 +10,9 @@ Directory smaug
 Subdirectories
 --------------
 
-- :ref:`dir__root_project_smaug_core`
-- :ref:`dir__root_project_smaug_operators`
-- :ref:`dir__root_project_smaug_utility`
+- :ref:`dir_smaug_core`
+- :ref:`dir_smaug_operators`
+- :ref:`dir_smaug_utility`
 
 
 Files

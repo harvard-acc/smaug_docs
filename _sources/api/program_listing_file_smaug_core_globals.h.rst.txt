@@ -10,6 +10,7 @@ Program Listing for File globals.h
 
 .. code-block:: cpp
 
+   
    #ifndef _CORE_GLOBALS_H_
    #define _CORE_GLOBALS_H_
    

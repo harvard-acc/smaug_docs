@@ -43,8 +43,10 @@ Program Listing for File greater_op.h
        }
    };
    
+   #ifndef DOXYGEN_SHOULD_SKIP_THIS
    REGISTER_SPECIAL_OP(GreaterOp, ReferenceBackend);
    REGISTER_SPECIAL_OP(GreaterEqualOp, ReferenceBackend);
+   #endif
    
    }  // namespace smaug
    

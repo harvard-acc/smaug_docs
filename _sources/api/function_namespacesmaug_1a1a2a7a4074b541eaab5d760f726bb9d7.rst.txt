@@ -3,7 +3,7 @@
 Function smaug::fp32
 ====================
 
-.. did not find file this was defined in
+- Defined in :ref:`file_smaug_core_smaug_test.h`
 
 
 Function Documentation

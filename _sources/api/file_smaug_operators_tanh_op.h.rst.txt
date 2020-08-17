@@ -4,6 +4,10 @@
 File tanh_op.h
 ==============
 
+|exhale_lsh| :ref:`Parent directory <dir_smaug_operators>` (``smaug/operators``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
 .. contents:: Page Contents
    :local:
    :backlinks: none
@@ -41,8 +45,6 @@ Included By
 
 - :ref:`file_smaug_core_network_builder.cpp`
 
-- :ref:`file_smaug_operators_ref_ref_eltwise_ops_test.cpp`
-
 - :ref:`file_smaug_operators_ref_ref_tanh_op.cpp`
 
 - :ref:`file_smaug_operators_smv_smv_tanh_op.h`
@@ -64,4 +66,13 @@ Classes
 - :ref:`exhale_class_classsmaug_1_1HardTanhOp`
 
 - :ref:`exhale_class_classsmaug_1_1TanhOp`
+
+
+Functions
+---------
+
+
+- :ref:`exhale_function_namespacesmaug_1ae4c8c4058a2a8b52d5e10f72c93fe9cf`
+
+- :ref:`exhale_function_namespacesmaug_1a7a1f5d60256d48fe88d2fdd3bcbd6d64`
 

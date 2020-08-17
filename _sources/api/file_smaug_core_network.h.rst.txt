@@ -4,6 +4,10 @@
 File network.h
 ==============
 
+|exhale_lsh| :ref:`Parent directory <dir_smaug_core>` (``smaug/core``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
 .. contents:: Page Contents
    :local:
    :backlinks: none
@@ -41,7 +45,7 @@ Includes
 
 - ``string``
 
-- ``utility`` (:ref:`file_smaug_utility_compression.c`)
+- ``utility`` (:ref:`file_smaug_utility_debug_stream.cpp`)
 
 - ``vector``
 
@@ -80,6 +84,4 @@ Classes
 - :ref:`exhale_class_classsmaug_1_1DataflowGraphWriter`
 
 - :ref:`exhale_class_classsmaug_1_1Network`
-
-- :ref:`exhale_class_classsmaug_1_1ReorderOp`
 

@@ -3,7 +3,7 @@
 Variable smaug::smv::kInnerProductHw
 ====================================
 
-.. did not find file this was defined in
+- Defined in :ref:`file_smaug_core_backend.cpp`
 
 
 Variable Documentation

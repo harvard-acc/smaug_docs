@@ -1,0 +1,13 @@
+.. _exhale_function_namespacesmaug_1ae4c8c4058a2a8b52d5e10f72c93fe9cf:
+
+Function smaug::REGISTER_SPECIAL_OP(HardTanhOp, ReferenceBackend)
+=================================================================
+
+- Defined in :ref:`file_smaug_operators_tanh_op.h`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: smaug::REGISTER_SPECIAL_OP(HardTanhOp, ReferenceBackend)

@@ -4,6 +4,10 @@
 File globals.cpp
 ================
 
+|exhale_lsh| :ref:`Parent directory <dir_smaug_core>` (``smaug/core``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
 .. contents:: Page Contents
    :local:
    :backlinks: none
@@ -37,4 +41,19 @@ Namespaces
 
 
 - :ref:`namespace_smaug`
+
+
+Variables
+---------
+
+
+- :ref:`exhale_variable_namespacesmaug_1a24a5d1f6f95b11f80f7714cc1c224be2`
+
+- :ref:`exhale_variable_namespacesmaug_1a1ce499e2d15b910e11787f1c9a465005`
+
+- :ref:`exhale_variable_namespacesmaug_1ae5ca9830db9c1d5f8a516687702cb13d`
+
+- :ref:`exhale_variable_namespacesmaug_1a628bab049837c7ce7193778f721dac85`
+
+- :ref:`exhale_variable_namespacesmaug_1a653fab1411f7db81b00045f5f62d2a8c`
 

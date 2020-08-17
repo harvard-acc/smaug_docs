@@ -4,6 +4,14 @@
 File globals.h
 ==============
 
+|exhale_lsh| :ref:`Parent directory <dir_smaug_core>` (``smaug/core``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+
+SMAUG Global variables. 
+ 
+
 .. contents:: Page Contents
    :local:
    :backlinks: none
@@ -47,4 +55,11 @@ Namespaces
 
 
 - :ref:`namespace_smaug`
+
+
+Variables
+---------
+
+
+- :ref:`exhale_variable_namespacesmaug_1af5eb1c9cf24c46d994d9903cce5b22bd`
 

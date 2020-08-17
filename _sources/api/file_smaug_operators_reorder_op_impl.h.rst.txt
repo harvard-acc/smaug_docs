@@ -4,6 +4,10 @@
 File reorder_op_impl.h
 ======================
 
+|exhale_lsh| :ref:`Parent directory <dir_smaug_operators>` (``smaug/operators``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
 .. contents:: Page Contents
    :local:
    :backlinks: none
@@ -47,4 +51,19 @@ Namespaces
 
 
 - :ref:`namespace_smaug`
+
+
+Functions
+---------
+
+
+- :ref:`exhale_function_namespacesmaug_1a47a4346d38fd8d3ccc9001bb74d2640f`
+
+- :ref:`exhale_function_namespacesmaug_1a5f24d74a88b2a534486ecea78cfa084b`
+
+- :ref:`exhale_function_namespacesmaug_1a30ff1a64d42f7896e343f67e57375824`
+
+- :ref:`exhale_function_namespacesmaug_1ab15c975da42de6e96514e03b8bb584e0`
+
+- :ref:`exhale_function_namespacesmaug_1ac3692aab0636b225f8b806f088f2fdc9`
 

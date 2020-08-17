@@ -4,6 +4,10 @@
 File eltwise_mul.c
 ==================
 
+|exhale_lsh| :ref:`Parent directory <dir_smaug_operators_smv_kernels>` (``smaug/operators/smv/kernels``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
 .. contents:: Page Contents
    :local:
    :backlinks: none

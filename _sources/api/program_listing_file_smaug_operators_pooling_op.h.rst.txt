@@ -143,8 +143,10 @@ Program Listing for File pooling_op.h
        void run() override{};
    };
    
+   #ifndef DOXYGEN_SHOULD_SKIP_THIS
    REGISTER_SPECIAL_OP(MaxPoolingOp, ReferenceBackend);
    REGISTER_SPECIAL_OP(AvgPoolingOp, ReferenceBackend);
+   #endif
    
    }  // namespace smaug
    

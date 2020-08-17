@@ -4,6 +4,14 @@
 File tensor_utils.h
 ===================
 
+|exhale_lsh| :ref:`Parent directory <dir_smaug_core>` (``smaug/core``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+
+Utility functions for copying/printing/tiling tensors. 
+ 
+
 .. contents:: Page Contents
    :local:
    :backlinks: none
@@ -87,9 +95,17 @@ Functions
 ---------
 
 
+- :ref:`exhale_function_namespacesmaug_1ad4d176a53be84b0814fcac7852e30644`
+
+- :ref:`exhale_function_namespacesmaug_1ae675b316024bb1518d583ef5c1d1bfd8`
+
 - :ref:`exhale_function_tensor__utils_8h_1a7e79bd939daabb3638dcc9dcfc6dd22b`
 
 - :ref:`exhale_function_tensor__utils_8h_1a5c6c0d469b7563300746cf2aeb94679c`
 
 - :ref:`exhale_function_tensor__utils_8h_1a4199609a9befa60f80d7f29658c96a76`
+
+- :ref:`exhale_function_namespacesmaug_1aa1966d77fa9044c5c9c9a0a4ad81cb19`
+
+- :ref:`exhale_function_namespacesmaug_1ad21ad0122a3d64e114419c7d7f5f9c7b`
 

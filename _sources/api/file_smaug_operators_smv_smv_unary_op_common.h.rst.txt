@@ -4,6 +4,10 @@
 File smv_unary_op_common.h
 ==========================
 
+|exhale_lsh| :ref:`Parent directory <dir_smaug_operators_smv>` (``smaug/operators/smv``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
 .. contents:: Page Contents
    :local:
    :backlinks: none
@@ -54,8 +58,6 @@ Included By
 - :ref:`file_smaug_operators_smv_smv_tanh_op.h`
 
 - :ref:`file_smaug_operators_smv_smv_unary_op_common.cpp`
-
-- :ref:`file_smaug_operators_smv_smv_unary_tiling_test.cpp`
 
 
 

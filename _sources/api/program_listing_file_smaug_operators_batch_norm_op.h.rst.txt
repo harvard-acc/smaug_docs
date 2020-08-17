@@ -119,7 +119,9 @@ Program Listing for File batch_norm_op.h
        SamplingInfo sampling;
    };
    
+   #ifndef DOXYGEN_SHOULD_SKIP_THIS
    REGISTER_SPECIAL_OP(BatchNormOp, ReferenceBackend);
+   #endif
    
    }  // namespace smaug
    

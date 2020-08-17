@@ -52,8 +52,10 @@ Program Listing for File elu_op.h
        float lambda;
    };
    
+   #ifndef DOXYGEN_SHOULD_SKIP_THIS
    REGISTER_SPECIAL_OP(EluOp, ReferenceBackend);
    REGISTER_SPECIAL_OP(SeluOp, ReferenceBackend);
+   #endif
    
    }  // namespace smaug
    

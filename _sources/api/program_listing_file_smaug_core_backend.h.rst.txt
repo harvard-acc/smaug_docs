@@ -31,6 +31,7 @@ Program Listing for File backend.h
        UnknownBackend,
    };
    
+   #ifndef DOXYGEN_SHOULD_SKIP_THIS
    class Workspace;
    template <typename Backend> class ConvolutionOp;
    template <typename Backend> class DataOp;
@@ -60,6 +61,7 @@ Program Listing for File backend.h
    template <typename Backend> class SeluOp;
    template <typename Backend> class TanhOp;
    template <typename Backend> class HardTanhOp;
+   #endif
    
    namespace ref {
    extern const unsigned kConvolutionHw;
@@ -130,6 +132,7 @@ Program Listing for File backend.h
    extern float* spad2;
    }  // namespace smv
    
+   #ifndef DOXYGEN_SHOULD_SKIP_THIS
    class SmvConvolutionOp;
    class SmvInnerProductOp;
    class SmvMaxPoolingOp;
@@ -148,6 +151,7 @@ Program Listing for File backend.h
    class SmvLessEqualOp;
    class SmvGreaterOp;
    class SmvGreaterEqualOp;
+   #endif
    
    class SmvBackend {
    

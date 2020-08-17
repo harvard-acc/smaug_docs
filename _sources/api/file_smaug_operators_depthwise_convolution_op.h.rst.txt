@@ -4,6 +4,10 @@
 File depthwise_convolution_op.h
 ===============================
 
+|exhale_lsh| :ref:`Parent directory <dir_smaug_operators>` (``smaug/operators``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
 .. contents:: Page Contents
    :local:
    :backlinks: none
@@ -39,8 +43,6 @@ Included By
 
 - :ref:`file_smaug_operators_ref_ref_depthwise_convolution_op.cpp`
 
-- :ref:`file_smaug_operators_ref_ref_depthwise_convolution_op_test.cpp`
-
 
 
 
@@ -56,4 +58,11 @@ Classes
 
 
 - :ref:`exhale_class_classsmaug_1_1DepthwiseConvolutionOp`
+
+
+Functions
+---------
+
+
+- :ref:`exhale_function_namespacesmaug_1aae242fc7f5e899f05c1c8d0a5e6ebf4c`
 

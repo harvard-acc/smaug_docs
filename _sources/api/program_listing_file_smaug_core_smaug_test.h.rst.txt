@@ -10,6 +10,7 @@ Program Listing for File smaug_test.h
 
 .. code-block:: cpp
 
+   
    #include <fstream>
    
    #include "catch.hpp"

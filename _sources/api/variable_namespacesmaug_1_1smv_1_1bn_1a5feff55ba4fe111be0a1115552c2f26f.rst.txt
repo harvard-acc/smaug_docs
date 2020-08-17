@@ -3,7 +3,7 @@
 Variable smaug::smv::bn::kVectorSize
 ====================================
 
-.. did not find file this was defined in
+- Defined in :ref:`file_smaug_operators_smv_smv_batch_norm_op.cpp`
 
 
 Variable Documentation

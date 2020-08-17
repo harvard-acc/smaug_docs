@@ -194,9 +194,11 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">a_start</span></code>: If a contains more activations than b, start from this one. Otherwise this should always be zero. </p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">result_start</span></code>: If the results contain more neurons than the b, start writing results from this one. Otherwise this should always be zero. </p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">accumulate</span></code>: If the original b tensor is tiled on activations, this should be set to true in order to avoid resetting the result buffer for knon-first b tiles. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">read_inputs</span></code>: Load inputs from the host. Set to false if the input activations can be reused from the last invocation. </p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">send_results</span></code>: Send the results to the host memory if this is true. </p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">act_function</span></code>: Activation function the operator runs. </p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">act_params</span></code>: Parameters for the activation function. </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sampling</span></code>: Simulation samplng settings. </p></li>
 </ul>
 </dd>
 </dl>

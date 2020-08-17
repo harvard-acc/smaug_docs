@@ -3,7 +3,7 @@
 Template Function smaug::invokeKernel(int, unsigned, const Kernel&, Args&&...)
 ==============================================================================
 
-.. did not find file this was defined in
+- Defined in :ref:`file_smaug_operators_common.h`
 
 
 Function Documentation

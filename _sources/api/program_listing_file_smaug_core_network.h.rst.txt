@@ -27,9 +27,6 @@ Program Listing for File network.h
    
    namespace smaug {
    
-   template <typename Backend>
-   class ReorderOp;
-   
    class DataflowGraphWriter {
       public:
        DataflowGraphWriter(const Graph& _graph) : graph(_graph) {}

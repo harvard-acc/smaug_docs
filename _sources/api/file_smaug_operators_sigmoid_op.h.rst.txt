@@ -4,6 +4,10 @@
 File sigmoid_op.h
 =================
 
+|exhale_lsh| :ref:`Parent directory <dir_smaug_operators>` (``smaug/operators``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
 .. contents:: Page Contents
    :local:
    :backlinks: none
@@ -41,8 +45,6 @@ Included By
 
 - :ref:`file_smaug_core_network_builder.cpp`
 
-- :ref:`file_smaug_operators_ref_ref_eltwise_ops_test.cpp`
-
 - :ref:`file_smaug_operators_ref_ref_sigmoid_op.cpp`
 
 - :ref:`file_smaug_operators_smv_smv_sigmoid_op.h`
@@ -62,4 +64,11 @@ Classes
 
 
 - :ref:`exhale_class_classsmaug_1_1SigmoidOp`
+
+
+Functions
+---------
+
+
+- :ref:`exhale_function_namespacesmaug_1af8ed25d8a034aa6a4e6133a6ab3402c1`
 

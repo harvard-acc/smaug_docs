@@ -1,0 +1,13 @@
+.. _exhale_function_namespacesmaug_1afd06d17d9a7304d3b4ed558d9178a500:
+
+Function smaug::convertFp16ToFp32Tensor
+=======================================
+
+- Defined in :ref:`file_smaug_core_smaug_test.h`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: smaug::convertFp16ToFp32Tensor(Tensor *, Workspace *)

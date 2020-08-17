@@ -111,7 +111,10 @@ Program Listing for File inner_product_op.h
        SamplingInfo sampling;
    };
    
+   #ifndef DOXYGEN_SHOULD_SKIP_THIS
    REGISTER_SPECIAL_OP(InnerProductOp, ReferenceBackend);
+   #endif
+   
    
    }  // namespace smaug
    

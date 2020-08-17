@@ -35,7 +35,10 @@ Program Listing for File relu_op.h
        float slope;
    };
    
+   #ifndef DOXYGEN_SHOULD_SKIP_THIS
    REGISTER_SPECIAL_OP(ReluOp, ReferenceBackend);
+   #endif
+   
    
    }  // namespace smaug
    

@@ -1,0 +1,13 @@
+.. _exhale_function_namespacesmaug_1a1849c6385b1a2f5fb66a786696b426dc:
+
+Function smaug::REGISTER_SPECIAL_OP(EltwiseAddOp, ReferenceBackend)
+===================================================================
+
+- Defined in :ref:`file_smaug_operators_eltwise_add_op.h`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: smaug::REGISTER_SPECIAL_OP(EltwiseAddOp, ReferenceBackend)
