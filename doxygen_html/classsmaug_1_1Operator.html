@@ -118,7 +118,7 @@ virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>validate</b> 
 <tr class="memdesc:a4a090722c464c6e713f54c376230d36c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the <a class="el" href="classsmaug_1_1Operator.html" title="Operator is the base class for all graph operators supported by SMAUG.">Operator</a> is dead.  <a href="classsmaug_1_1Operator.html#a4a090722c464c6e713f54c376230d36c">More...</a><br /></td></tr>
 <tr class="separator:a4a090722c464c6e713f54c376230d36c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af7f60d2188f71e0a3023e44063cd3862"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; <a class="el" href="classsmaug_1_1TensorBase.html">TensorBase</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsmaug_1_1Operator.html#af7f60d2188f71e0a3023e44063cd3862">getParameterizableInputs</a> ()</td></tr>
-<tr class="memdesc:af7f60d2188f71e0a3023e44063cd3862"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a list of Tensors that are parameterizable (i.e.  <a href="classsmaug_1_1Operator.html#af7f60d2188f71e0a3023e44063cd3862">More...</a><br /></td></tr>
+<tr class="memdesc:af7f60d2188f71e0a3023e44063cd3862"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a list of Tensors whose values that are parameterizable.  <a href="classsmaug_1_1Operator.html#af7f60d2188f71e0a3023e44063cd3862">More...</a><br /></td></tr>
 <tr class="separator:af7f60d2188f71e0a3023e44063cd3862"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a59f4ac87095bbfe3edc79fa75cdcca10"><td class="memItemLeft" align="right" valign="top"><a id="a59f4ac87095bbfe3edc79fa75cdcca10"></a>
 virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsmaug_1_1Operator.html#a59f4ac87095bbfe3edc79fa75cdcca10">getNumParameters</a> () const</td></tr>
@@ -300,10 +300,10 @@ MemoryType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href
 </table>
 </div><div class="memdoc">
 
-<p>Return a list of Tensors that are parameterizable (i.e. </p>
-<p>weights). </p>
+<p>Return a list of Tensors whose values that are parameterizable. </p>
+<p>Parameterizable Tensors often include "weights", but typically do not include outputs of other Tensors. </p>
 
-<p class="definition">Definition at line <a class="el" href="operator_8h_source.html#l00072">72</a> of file <a class="el" href="operator_8h_source.html">operator.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="operator_8h_source.html#l00077">77</a> of file <a class="el" href="operator_8h_source.html">operator.h</a>.</p>
 
 </div>
 </div>
@@ -394,7 +394,7 @@ MemoryType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href
 <p>Set the number of input tensors that this operator is waiting on. </p>
 <p>When this value drops to zero, this operator is ready to be scheduled. </p>
 
-<p class="definition">Definition at line <a class="el" href="operator_8h_source.html#l00087">87</a> of file <a class="el" href="operator_8h_source.html">operator.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="operator_8h_source.html#l00092">92</a> of file <a class="el" href="operator_8h_source.html">operator.h</a>.</p>
 
 </div>
 </div>
@@ -422,7 +422,7 @@ MemoryType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href
 <p>An ordered list of input tensors consumed by this operator. </p>
 <p>Operators may assign semantic meaning to specific input tensors at specific positions in this array, e.g. index 0 is the input data <a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a> and index 1 is the weight <a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="operator_8h_source.html#l00123">123</a> of file <a class="el" href="operator_8h_source.html">operator.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="operator_8h_source.html#l00128">128</a> of file <a class="el" href="operator_8h_source.html">operator.h</a>.</p>
 
 </div>
 </div>
@@ -449,7 +449,7 @@ MemoryType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href
 <p>An ordered list of output tensors produced by this operator. </p>
 <p>Like input tensors, operators can assign semantic meaning to tensors at specific positions here. </p>
 
-<p class="definition">Definition at line <a class="el" href="operator_8h_source.html#l00130">130</a> of file <a class="el" href="operator_8h_source.html">operator.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="operator_8h_source.html#l00135">135</a> of file <a class="el" href="operator_8h_source.html">operator.h</a>.</p>
 
 </div>
 </div>

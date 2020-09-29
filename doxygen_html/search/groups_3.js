@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['utilities_20for_20writing_20aladdin_20kernels_2e_725',['Utilities for writing Aladdin kernels.',['../group__AladdinHelpers.html',1,'']]]
+  ['simd_20floating_20point_20precision_20conversions_729',['SIMD Floating Point Precision Conversions',['../group__VectorFPConversionMacros.html',1,'']]]
 ];

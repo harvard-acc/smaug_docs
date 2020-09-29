@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['vectorfpconversionmacros_726',['VectorFPConversionMacros',['../group__VectorFPConversionMacros.html',1,'']]]
+  ['utilities_20for_20writing_20aladdin_20kernels_2e_730',['Utilities for writing Aladdin kernels.',['../group__AladdinHelpers.html',1,'']]]
 ];
