@@ -70,7 +70,7 @@ $(function() {
 <div class="title">Building a custom operator </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>In this document, we will describe how to build a custom operator with a custom hardware accelerator model implementing the logic.</p>
+<div class="textblock"><p>In this document, we will describe how to build a custom operator with a custom hardware accelerator model implementing the logic. Our custom operator will perform an element-wise add of two tensors.</p>
 <h1><a class="anchor" id="backends"></a>
 SMAUG backends</h1>
 <p>A backend is a way to logically group together a set of related operators and/or enforce shared properties on instantiations of operators. For example, a backend may logically require that operators share a common set of compute resources/global variables, impose the same zero-padding requirements on data, and more. SMAUG ships with two backends:</p>
@@ -91,9 +91,9 @@ The Operator class</h1>
 </div><!-- fragment --><p>Note that operator constructors are invoked by a <code>Backend::createXXXOperator</code> function (created when registering a new operator in the backend). Every <a class="el" href="classsmaug_1_1Operator.html" title="Operator is the base class for all graph operators supported by SMAUG.">Operator</a>'s constructor must accept the same two arguments: name and workspace, and it must invoke the parent class's constructor.</p>
 <p>More importantly, note that at construction time, we do not set or create tensors as parameters to operators. Instead, we set the dimensions of tensors and create than at a later time. Here, we provided a setter for the dimensions of a 4D convolution's weights - filter size (1x2x3) and number of output feature maps (4). But we do not set the dimensions for the input or output activation tensors. The dimensions of the input tensor depend on the previous operator in the graph, and the dimensions of the output in turn depends on the input. At operator construction time, these relationships are not yet known.</p>
 <p>Once all operators are constructed, how does SMAUG connect an output tensor of operator A to the input tensor of operator B? What happens if operator B has many input tensors, each of which have different meanings? The answer is that the base <a class="el" href="classsmaug_1_1Operator.html" title="Operator is the base class for all graph operators supported by SMAUG.">Operator</a> class contains an ordered list of inputs and outputs. Each operator implementation publishes the number of inputs and outputs it has along with the meaning of each one (e.g. input tensor 0 represents activations and input tensor 1 represents weights). This ordering is reflected in to the Python API and encoded in the model topology proto. SMAUG uses this information to link operators together with the Operator::setInput and Operator::setOutput APIs. This information is typically encoded as enums:</p>
-<div class="fragment"><div class="line"><span class="keyword">enum</span> {kInputs, kWeights, kNumInputs};</div>
+<div class="fragment"><div class="line"><span class="keyword">enum</span> {kInput0, kInput1, kNumInputs};</div>
 <div class="line"><span class="keyword">enum</span> {kOutput, kNumOutputs};</div>
-</div><!-- fragment --><p>Putting this all together, below is a simple example of a custom <a class="el" href="classsmaug_1_1Operator.html" title="Operator is the base class for all graph operators supported by SMAUG.">Operator</a> that has no backend-specific behavior.</p>
+</div><!-- fragment --><p>Putting this all together, below is a simple example of a custom <a class="el" href="classsmaug_1_1Operator.html" title="Operator is the base class for all graph operators supported by SMAUG.">Operator</a> that has no backend-specific behavior. Place this code into <code>smaug/operators/my_custom_operator.h</code>.</p>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &quot;core/operator.h&quot;</span></div>
 <div class="line"><span class="preprocessor">#include &quot;core/workspace.h&quot;</span></div>
 <div class="line"> </div>
@@ -111,14 +111,20 @@ The Operator class</h1>
 <div class="line">  <span class="keywordtype">void</span> setParam1(<span class="keywordtype">int</span> val) { param1 = val; }</div>
 <div class="line">  <span class="keywordtype">void</span> setParam2(<span class="keywordtype">int</span> val) { param2 = val; }</div>
 <div class="line"> </div>
-<div class="line">  <span class="comment">// Required overrides. Leave them blank for now; we&#39;ll implement them later.</span></div>
+<div class="line">  <span class="comment">// A required function that implements the actual Operator logic.  Leave this</span></div>
+<div class="line">  <span class="comment">// blank for now.</span></div>
 <div class="line">  <span class="keywordtype">void</span> run()<span class="keyword"> override </span>{}</div>
+<div class="line"> </div>
+<div class="line">  <span class="comment">// Optional override for testing purposes.</span></div>
 <div class="line">  <span class="keywordtype">void</span> createAllTensors()<span class="keyword"> override </span>{}</div>
+<div class="line"> </div>
+<div class="line">  <span class="comment">// Optional but recommended function to verify operator parameters.</span></div>
+<div class="line">  <span class="keywordtype">bool</span> validate()<span class="keyword"> override </span>{}</div>
 <div class="line"> </div>
 <div class="line">  <span class="comment">// An optional function to tile the input tensors.</span></div>
 <div class="line">  <span class="keywordtype">void</span> tile()<span class="keyword"> override </span>{}</div>
 <div class="line"> </div>
-<div class="line">  <span class="keyword">enum</span> {kInputs, kWeights, kNumInputs};</div>
+<div class="line">  <span class="keyword">enum</span> {kInput0, kInput1, kNumInputs};</div>
 <div class="line">  <span class="keyword">enum</span> {kOutput, kNumOutputs};</div>
 <div class="line"> </div>
 <div class="line"> <span class="keyword">private</span>:</div>
@@ -148,15 +154,110 @@ The Operator class</h1>
 <p>In order to use your new operator in a model, you also need to add an API to create it in the Python API. See the Python documentation for details.</p>
 <h1><a class="anchor" id="logic"></a>
 Implementing the operator logic</h1>
-<p>We've written the skeleton of a new custom operator, but it currently doesn't do anything. Let's suppose that <code>MyCustomOperator</code> will take two tensors and add them elementwise. In this section, we'll learn how to write the function that performs this operation. We'll first learn how to write it to run on a CPU-only (no hardware-acceleration) to familiarize ourselves with SMAUG APIs. Afterwards, we'll modify this to work with the gem5-Aladdin family of tools.</p>
-<h2><a class="anchor" id="Software-only"></a>
-implementation</h2>
-<h2><a class="anchor" id="Hardware-accelerated"></a>
-implementation</h2>
+<p>We've written the skeleton of a new custom operator, but it currently doesn't do anything. Our custom operator is supposed to take two tensors and add them elementwise. In this section, we'll learn how to implement this. We'll first write and test a CPU-only implementation (no interaction with Aladdin) to familiarize ourselves with SMAUG APIs. Afterwards, we'll modify this to work with the gem5-Aladdin family of tools.</p>
+<h2><a class="anchor" id="sw_implementation"></a>
+Software-only implementation</h2>
+<p>The first step of implementing the actual operator is to create the tensors to store the output. In practice, the Python API will compute shapes for all Tensors, and the network builder will handle creation and population of <a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a> objects into each <a class="el" href="classsmaug_1_1Operator.html" title="Operator is the base class for all graph operators supported by SMAUG.">Operator</a>. However, for testing purposes, we also implement a <code>createAllTensors</code> virtual function to do this all in a single step. For an elementwise add, the output tensor's shape is the same as the inputs.</p>
+<div class="fragment"><div class="line"><span class="keywordtype">void</span> createAllTensors()<span class="keyword"> override </span>{</div>
+<div class="line">  Tensor* output = <span class="keyword">new</span> Tensor(name, inputs.at(Input0)-&gt;getShape());</div>
+<div class="line">  output.at(kOutput) = output;</div>
+<div class="line">  workspace-&gt;addTensor(output);</div>
+<div class="line">}</div>
+</div><!-- fragment --><p>We should also verify that the inputs to our operator match our expectations. There are several common properties to validate:</p>
+<ol type="1">
+<li><a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a> shapes.</li>
+<li>Data layout. The operator must support the order of the dimensions in which the elements of the tensor are arranged.</li>
+<li>Data type. The operator implementation (which represents a hardware model) must have explicit support for whatever data types are desired.</li>
+</ol>
+<p>In our example, an elementwise addition requires that the two input tensors be of the same shape, the data type to be single-precision float, but supports all data layouts. It doesn't matter whether the data is stored as NCHW/NHWC/NC, because the operation is elementwise.</p>
+<p>This validation is provided by a <code>validate</code> API which runs after the network is fully constructed:</p>
+<div class="fragment"><div class="line"><span class="keywordtype">bool</span> validate()<span class="keyword"> override </span>{</div>
+<div class="line">  Tensor* input0 = getInput(kInput0);</div>
+<div class="line">  Tensor* input1 = getInput(kInput1);</div>
+<div class="line">  <span class="keywordflow">return</span> (input0.getShape() == input1.getShape() ||</div>
+<div class="line">          input0.getDataType() != DataType::Float32 ||</div>
+<div class="line">          input1.getDataType() != DataType::Float32);</div>
+<div class="line">}</div>
+</div><!-- fragment --><p>Now, we can write the <code>run</code> function which implements the operator's function itself.</p>
+<div class="fragment"><div class="line"><span class="keywordtype">void</span> elementwise_add(<span class="keywordtype">float</span>* input0, <span class="keywordtype">float</span>* input1, <span class="keywordtype">float</span>* output, <span class="keywordtype">int</span> size) {</div>
+<div class="line">  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; size; i++) {</div>
+<div class="line">    output[i] = input0[i] + input1[i];</div>
+<div class="line">  }</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">void</span> run()<span class="keyword"> override </span>{</div>
+<div class="line">  Tensor* input0 = getInput(kInput0);</div>
+<div class="line">  Tensor* input1 = getInput(kInput1);</div>
+<div class="line">  Tensor* output = getOutput(kInput1);</div>
+<div class="line"> </div>
+<div class="line">  <span class="comment">// Get handles to the actual underlying data storage. This performs a</span></div>
+<div class="line">  <span class="comment">// dynamic_cast to the specified data type, which we verified is safe inside</span></div>
+<div class="line">  <span class="comment">// validate().</span></div>
+<div class="line">  <span class="keywordtype">float</span>* input0Data = input0-&gt;data&lt;<span class="keywordtype">float</span>&gt;();</div>
+<div class="line">  <span class="keywordtype">float</span>* input1Data = input1-&gt;data&lt;<span class="keywordtype">float</span>&gt;();</div>
+<div class="line">  <span class="keywordtype">float</span>* outputData = output-&gt;data&lt;<span class="keywordtype">float</span>&gt;();</div>
+<div class="line"> </div>
+<div class="line">  elementwise_add(input0Data, input1Data, output, output.getShape().size());</div>
+<div class="line">}</div>
+</div><!-- fragment --><h2><a class="anchor" id="testing"></a>
+Test it out</h2>
+<p>With the implementation complete, let's try it out with a unit test. SMAUG uses the Catch2 framework for unit testing, and the <code><a class="el" href="classsmaug_1_1SmaugTest.html" title="The Catch2 test fixture used by all C++ unit tests.">SmaugTest</a></code> fixture provides a range of useful testing utilities. Open up a new cpp file (my_custom_operator_test.cpp):</p>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &quot;catch.hpp&quot;</span></div>
+<div class="line"><span class="preprocessor">#include &quot;smaug/core/backend.h&quot;</span></div>
+<div class="line"><span class="preprocessor">#include &quot;smaug/core/tensor.h&quot;</span></div>
+<div class="line"><span class="preprocessor">#include &quot;<a class="code" href="smaug__test_8h.html">smaug/core/smaug_test.h</a>&quot;</span></div>
+<div class="line"><span class="preprocessor">#include &quot;smaug/operators/my_custom_operator.h&quot;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">using namespace </span><a class="code" href="namespacesmaug.html">smaug</a>;</div>
+<div class="line"> </div>
+<div class="line">TEST_CASE_METHOD(<a class="code" href="classsmaug_1_1SmaugTest.html">SmaugTest</a>, MyCustomOperator) {</div>
+<div class="line">  <span class="comment">// DataLayout::NC is a simple 2D layout, where N = batches and C = a column</span></div>
+<div class="line">  <span class="comment">// of data.</span></div>
+<div class="line">  <a class="code" href="classsmaug_1_1TensorShape.html">TensorShape</a> shape(1, 10, DataLayout::NC);</div>
+<div class="line">  <a class="code" href="classsmaug_1_1Tensor.html">Tensor</a>* input0 = <span class="keyword">new</span> <a class="code" href="classsmaug_1_1Tensor.html">Tensor</a>(<span class="stringliteral">&quot;tensor&quot;</span>, shape);</div>
+<div class="line">  <span class="comment">// Allocate the memory for a 1x10 array of floats.</span></div>
+<div class="line">  input0-&gt;<a class="code" href="classsmaug_1_1Tensor.html#a549ac11e7bd713ff994c25d1fc6bac9f">allocateStorage</a>&lt;<span class="keywordtype">float</span>&gt;();</div>
+<div class="line">  <span class="comment">// Add some testing data.</span></div>
+<div class="line">  input0-&gt;<a class="code" href="classsmaug_1_1Tensor.html#aa97298c8066cd04cc678b05b5a1f9e61">fillData</a>&lt;<span class="keywordtype">float</span>&gt;({1,2,3,4,5,6,7,8,9,10});</div>
+<div class="line">  workspace()-&gt;addTensor(input0);</div>
+<div class="line"> </div>
+<div class="line">  <span class="comment">// Repeat this for a second input tensor.</span></div>
+<div class="line">  <a class="code" href="classsmaug_1_1Tensor.html">Tensor</a>* input1 = <span class="keyword">new</span> <a class="code" href="classsmaug_1_1Tensor.html">Tensor</a>(<span class="stringliteral">&quot;tensor&quot;</span>, shape);</div>
+<div class="line">  input1-&gt;<a class="code" href="classsmaug_1_1Tensor.html#a549ac11e7bd713ff994c25d1fc6bac9f">allocateStorage</a>&lt;<span class="keywordtype">float</span>&gt;();</div>
+<div class="line">  input1-&gt;<a class="code" href="classsmaug_1_1Tensor.html#aa97298c8066cd04cc678b05b5a1f9e61">fillData</a>&lt;<span class="keywordtype">float</span>&gt;({2,3,4,5,6,7,8,9,10,11});</div>
+<div class="line">  workspace()-&gt;addTensor(input1);</div>
+<div class="line"> </div>
+<div class="line">  <span class="comment">// Create the operator and fill it with our tensors.</span></div>
+<div class="line">  <span class="keyword">using</span> TestOp = MyCustomOperator&lt;ReferenceBackend&gt;;</div>
+<div class="line">  <span class="keyword">auto</span> op = <span class="keyword">new</span> TestOp(<span class="stringliteral">&quot;eltwise_add&quot;</span>, workspace());</div>
+<div class="line">  op-&gt;setInput(input0, TestOp::kInputs0);</div>
+<div class="line">  op-&gt;setInput(input1, TestOp::kInputs1);</div>
+<div class="line">  op-&gt;createAllTensors();</div>
+<div class="line">  <span class="comment">// Allocates memory for all the output tensors created by createAllTensors.</span></div>
+<div class="line">  allocateAllTensors(op);</div>
+<div class="line">  </div>
+<div class="line">  op-&gt;run();</div>
+<div class="line"> </div>
+<div class="line">  <span class="comment">// Compare the output of the operator against expected values.</span></div>
+<div class="line">  std::vector&lt;float&gt; expectedOutput = {3,5,7,9,11,13,15,17,19,21};</div>
+<div class="line">  <a class="code" href="classsmaug_1_1Tensor.html">Tensor</a>* output = op-&gt;getOutput(TestOp::kOutput);</div>
+<div class="line">  <span class="comment">// This performs an approximate comparison between the tensor&#39;s output and</span></div>
+<div class="line">  <span class="comment">// the expected values.</span></div>
+<div class="line">  verifyOutputs(output, expectedOutput);</div>
+<div class="line">}</div>
+</div><!-- fragment --><p>Add your new test to the <code>TESTS</code> variable in <code>make/Make.common</code>. Then build the unit tests with <code>make tests</code> and run <code>./smaug/operators/my_custom_operator_test</code>.</p>
+<h2><a class="anchor" id="hw_implementation"></a>
+Hardware-accelerated implementation</h2>
 <h1><a class="anchor" id="try_it_out"></a>
 Try it out</h1>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
+<div class="ttc" id="aclasssmaug_1_1Tensor_html"><div class="ttname"><a href="classsmaug_1_1Tensor.html">smaug::Tensor</a></div><div class="ttdoc">Tensor represents a single multi-dimensional array of data.</div><div class="ttdef"><b>Definition:</b> <a href="tensor_8h_source.html#l00344">tensor.h:344</a></div></div>
+<div class="ttc" id="aclasssmaug_1_1SmaugTest_html"><div class="ttname"><a href="classsmaug_1_1SmaugTest.html">smaug::SmaugTest</a></div><div class="ttdoc">The Catch2 test fixture used by all C++ unit tests.</div><div class="ttdef"><b>Definition:</b> <a href="smaug__test_8h_source.html#l00043">smaug_test.h:43</a></div></div>
+<div class="ttc" id="aclasssmaug_1_1Tensor_html_a549ac11e7bd713ff994c25d1fc6bac9f"><div class="ttname"><a href="classsmaug_1_1Tensor.html#a549ac11e7bd713ff994c25d1fc6bac9f">smaug::Tensor::allocateStorage</a></div><div class="ttdeci">T * allocateStorage()</div><div class="ttdoc">Allocates memory to store Tensor data.</div><div class="ttdef"><b>Definition:</b> <a href="tensor_8h_source.html#l00473">tensor.h:473</a></div></div>
+<div class="ttc" id="aclasssmaug_1_1TensorShape_html"><div class="ttname"><a href="classsmaug_1_1TensorShape.html">smaug::TensorShape</a></div><div class="ttdoc">TensorShape describes the shape of a Tensor.</div><div class="ttdef"><b>Definition:</b> <a href="tensor_8h_source.html#l00035">tensor.h:35</a></div></div>
+<div class="ttc" id="aclasssmaug_1_1Tensor_html_aa97298c8066cd04cc678b05b5a1f9e61"><div class="ttname"><a href="classsmaug_1_1Tensor.html#aa97298c8066cd04cc678b05b5a1f9e61">smaug::Tensor::fillData</a></div><div class="ttdeci">void fillData(T *externalData, int size)</div><div class="ttdoc">Fills the Tensor with externalData.</div><div class="ttdef"><b>Definition:</b> <a href="tensor_8h_source.html#l00400">tensor.h:400</a></div></div>
+<div class="ttc" id="asmaug__test_8h_html"><div class="ttname"><a href="smaug__test_8h.html">smaug_test.h</a></div><div class="ttdoc">SMAUG unit test fixture.</div></div>
 <div class="ttc" id="anamespacesmaug_html"><div class="ttname"><a href="namespacesmaug.html">smaug</a></div><div class="ttdoc">The smaug namespace is the parent namespace of all C++ code in SMAUG.</div><div class="ttdef"><b>Definition:</b> <a href="backend_8cpp_source.html#l00037">backend.cpp:37</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
