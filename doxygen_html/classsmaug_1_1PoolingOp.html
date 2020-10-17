@@ -121,7 +121,7 @@ int&#160;</td><td class="memItemRight" valign="bottom"><b>getNumOfmaps</b> () co
 void&#160;</td><td class="memItemRight" valign="bottom"><b>createOutputTensors</b> ()</td></tr>
 <tr class="separator:a1c9041643c6f6e85e7f2f5787a1b310e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8d8f987170b7f6af770926872129ec81"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsmaug_1_1PoolingOp.html#a8d8f987170b7f6af770926872129ec81">createAllTensors</a> () override</td></tr>
-<tr class="memdesc:a8d8f987170b7f6af770926872129ec81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates all the input and output tensors specific to this operator.  <a href="classsmaug_1_1PoolingOp.html#a8d8f987170b7f6af770926872129ec81">More...</a><br /></td></tr>
+<tr class="memdesc:a8d8f987170b7f6af770926872129ec81"><td class="mdescLeft">&#160;</td><td class="mdescRight">For tests: creates all input and output tensors for this operator.  <a href="classsmaug_1_1PoolingOp.html#a8d8f987170b7f6af770926872129ec81">More...</a><br /></td></tr>
 <tr class="separator:a8d8f987170b7f6af770926872129ec81"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a537c867f59ace89cc008cafc8307fa1b"><td class="memItemLeft" align="right" valign="top"><a id="a537c867f59ace89cc008cafc8307fa1b"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>isSamplingSupported</b> () const override</td></tr>
@@ -337,11 +337,12 @@ template&lt;typename Backend &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Creates all the input and output tensors specific to this operator. </p>
+<p>For tests: creates all input and output tensors for this operator. </p>
+<p>When running a network, all tensor shapes are specified in the network topology proto, and the network builder will automatically create them for you. In unit tests, this is a convenience method to avoid needing to create <a class="el" href="classsmaug_1_1TensorShape.html" title="TensorShape describes the shape of a Tensor.">TensorShape</a> protos.</p>
 <p>This should only be called once the <a class="el" href="classsmaug_1_1Operator.html" title="Operator is the base class for all graph operators supported by SMAUG.">Operator</a> is fully initialized with all required parameters. It is responsible for creating only the tensors it "owns". All operators "own" their output tensors, but not necessarily all of their input tensors. For example, a convolution operator "owns" its weight tensors, but not the input activations (which are the output of a previous <a class="el" href="classsmaug_1_1Operator.html" title="Operator is the base class for all graph operators supported by SMAUG.">Operator</a>).</p>
 <p>Note that "ownership" of a <a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a> does not mean the <a class="el" href="classsmaug_1_1Operator.html" title="Operator is the base class for all graph operators supported by SMAUG.">Operator</a> holds a std::unique_ptr to the <a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a>; it simply means it is solely responsible for constructing and allocating memory for it. </p>
 
-<p>Implements <a class="el" href="classsmaug_1_1Operator.html#af6fcdf37b85278b15ac06d64f5d0f77f">smaug::Operator</a>.</p>
+<p>Reimplemented from <a class="el" href="classsmaug_1_1Operator.html#addeee8939dfa571f4f039e1dab4dfb20">smaug::Operator</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="pooling__op_8h_source.html#l00093">93</a> of file <a class="el" href="pooling__op_8h_source.html">pooling_op.h</a>.</p>
 
