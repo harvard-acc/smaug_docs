@@ -95,36 +95,12 @@ $(function() {
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    }</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;}</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keywordtype">bool</span> Operator::tensorsAllConstructed(</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keyword">const</span> std::vector&lt;TensorBase*&gt;&amp; tensors)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> tensor : tensors) {</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keywordflow">if</span> (!tensor || !tensor-&gt;containsData())</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    }</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keywordtype">bool</span> Operator::validateInputsOutputs()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordtype">bool</span> success = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">if</span> (!tensorsAllConstructed(<a class="code" href="classsmaug_1_1Operator.html#a17b7935d1065ef3746acdad304306662">inputs</a>)) {</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        success = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        std::cerr &lt;&lt; <span class="stringliteral">&quot;[ERROR]: Inputs to &quot;</span> &lt;&lt; getName()</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                  &lt;&lt; <span class="stringliteral">&quot; were not all constructed!\n&quot;</span>;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    }</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordflow">if</span> (!tensorsAllConstructed(<a class="code" href="classsmaug_1_1Operator.html#afd9e8862229d4e485ded6fb8d0f40268">outputs</a>)) {</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        success = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        std::cerr &lt;&lt; <span class="stringliteral">&quot;[ERROR]: Outputs to &quot;</span> &lt;&lt; getName()</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                  &lt;&lt; <span class="stringliteral">&quot; were not all constructed!\n&quot;</span>;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    }</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordflow">return</span> success;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;}</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}  <span class="comment">// namespace smaug</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;}  <span class="comment">// namespace smaug</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="aclasssmaug_1_1Operator_html_a59f4ac87095bbfe3edc79fa75cdcca10"><div class="ttname"><a href="classsmaug_1_1Operator.html#a59f4ac87095bbfe3edc79fa75cdcca10">smaug::Operator::getNumParameters</a></div><div class="ttdeci">virtual int getNumParameters() const</div><div class="ttdoc">This returns the number of parameterizable weights in the operator.</div><div class="ttdef"><b>Definition:</b> <a href="operator_8h_source.html#l00085">operator.h:85</a></div></div>
-<div class="ttc" id="aclasssmaug_1_1Operator_html_afd9e8862229d4e485ded6fb8d0f40268"><div class="ttname"><a href="classsmaug_1_1Operator.html#afd9e8862229d4e485ded6fb8d0f40268">smaug::Operator::outputs</a></div><div class="ttdeci">std::vector&lt; TensorBase * &gt; outputs</div><div class="ttdoc">An ordered list of output tensors produced by this operator.</div><div class="ttdef"><b>Definition:</b> <a href="operator_8h_source.html#l00140">operator.h:140</a></div></div>
+<div class="ttc" id="aclasssmaug_1_1Operator_html_a59f4ac87095bbfe3edc79fa75cdcca10"><div class="ttname"><a href="classsmaug_1_1Operator.html#a59f4ac87095bbfe3edc79fa75cdcca10">smaug::Operator::getNumParameters</a></div><div class="ttdeci">virtual int getNumParameters() const</div><div class="ttdoc">This returns the number of parameterizable weights in the operator.</div><div class="ttdef"><b>Definition:</b> <a href="operator_8h_source.html#l00089">operator.h:89</a></div></div>
+<div class="ttc" id="aclasssmaug_1_1Operator_html_afd9e8862229d4e485ded6fb8d0f40268"><div class="ttname"><a href="classsmaug_1_1Operator.html#afd9e8862229d4e485ded6fb8d0f40268">smaug::Operator::outputs</a></div><div class="ttdeci">std::vector&lt; TensorBase * &gt; outputs</div><div class="ttdoc">An ordered list of output tensors produced by this operator.</div><div class="ttdef"><b>Definition:</b> <a href="operator_8h_source.html#l00141">operator.h:141</a></div></div>
 <div class="ttc" id="anamespacesmaug_html"><div class="ttname"><a href="namespacesmaug.html">smaug</a></div><div class="ttdoc">The smaug namespace is the parent namespace of all C++ code in SMAUG.</div><div class="ttdef"><b>Definition:</b> <a href="backend_8cpp_source.html#l00037">backend.cpp:37</a></div></div>
-<div class="ttc" id="aclasssmaug_1_1Operator_html_a17b7935d1065ef3746acdad304306662"><div class="ttname"><a href="classsmaug_1_1Operator.html#a17b7935d1065ef3746acdad304306662">smaug::Operator::inputs</a></div><div class="ttdeci">std::vector&lt; TensorBase * &gt; inputs</div><div class="ttdoc">An ordered list of input tensors consumed by this operator.</div><div class="ttdef"><b>Definition:</b> <a href="operator_8h_source.html#l00133">operator.h:133</a></div></div>
+<div class="ttc" id="aclasssmaug_1_1Operator_html_a17b7935d1065ef3746acdad304306662"><div class="ttname"><a href="classsmaug_1_1Operator.html#a17b7935d1065ef3746acdad304306662">smaug::Operator::inputs</a></div><div class="ttdeci">std::vector&lt; TensorBase * &gt; inputs</div><div class="ttdoc">An ordered list of input tensors consumed by this operator.</div><div class="ttdef"><b>Definition:</b> <a href="operator_8h_source.html#l00134">operator.h:134</a></div></div>
 <div class="ttc" id="aclasssmaug_1_1Operator_html_a4a090722c464c6e713f54c376230d36c"><div class="ttname"><a href="classsmaug_1_1Operator.html#a4a090722c464c6e713f54c376230d36c">smaug::Operator::isDead</a></div><div class="ttdeci">virtual bool isDead()</div><div class="ttdoc">Returns true if the Operator is dead.</div><div class="ttdef"><b>Definition:</b> <a href="operator_8cpp_source.html#l00005">operator.cpp:5</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

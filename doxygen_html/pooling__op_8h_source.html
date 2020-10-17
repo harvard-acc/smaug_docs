@@ -108,9 +108,9 @@ $(function() {
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        poolingColStride = colStride;</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    }</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordtype">bool</span> validate()<span class="keyword"> override </span>{</div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="classsmaug_1_1PoolingOp.html#aa8fa51f906c50a26949f92df5e353b1c">   49</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classsmaug_1_1PoolingOp.html#aa8fa51f906c50a26949f92df5e353b1c">validate</a>()<span class="keyword"> override </span>{</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordflow">return</span> (poolingColSize &gt; 0 &amp;&amp; poolingRowStride &gt; 0 &amp;&amp;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                poolingColStride &gt; 0 &amp;&amp; Operator::validate());</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                poolingColStride &gt; 0 &amp;&amp; <a class="code" href="classsmaug_1_1Operator.html#adae35edf8605e9542b548ae43b1f21c3">Operator::validate</a>());</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    }</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">int</span> getNumOfmaps()<span class="keyword"> const </span>{</div>
@@ -122,8 +122,8 @@ $(function() {
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordflow">return</span> input-&gt;dim(chanIdx);</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    }</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <a class="code" href="classsmaug_1_1TensorShape.html">TensorShape</a> inferOutputShape()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="keyword">const</span> <a class="code" href="classsmaug_1_1TensorShape.html">TensorShape</a>&amp; inputShape = <a class="code" href="classsmaug_1_1Operator.html#a17b7935d1065ef3746acdad304306662">inputs</a>.at(Inputs)-&gt;getShape();</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    TensorShape inferOutputShape()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="keyword">const</span> TensorShape&amp; inputShape = <a class="code" href="classsmaug_1_1Operator.html#a17b7935d1065ef3746acdad304306662">inputs</a>.at(Inputs)-&gt;getShape();</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="keywordtype">bool</span> isNCHW = inputShape.getLayout() == DataLayout::NCHW;</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="keywordtype">int</span> inputRows = isNCHW ? inputShape[2] : inputShape[1];</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keywordtype">int</span> inputCols = isNCHW ? inputShape[3] : inputShape[2];</div>
@@ -133,11 +133,11 @@ $(function() {
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        assert(outputRows &gt; 0 &amp;&amp; outputCols &gt; 0 &amp;&amp;</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;               <span class="stringliteral">&quot;Pooling layer field size exceeds the input image dimensions!&quot;</span>);</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keywordflow">if</span> (isNCHW) {</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="classsmaug_1_1TensorShape.html">TensorShape</a>(</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            <span class="keywordflow">return</span> TensorShape(</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                    { inputShape[0], inputChans, outputRows, outputCols },</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                    inputShape.getLayout(), Backend::Alignment);</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="classsmaug_1_1TensorShape.html">TensorShape</a>(</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            <span class="keywordflow">return</span> TensorShape(</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                    { inputShape[0], outputRows, outputCols, inputChans },</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                    inputShape.getLayout(), Backend::Alignment);</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        }</div>
@@ -146,8 +146,8 @@ $(function() {
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordtype">void</span> createOutputTensors() {</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="classsmaug_1_1Operator.html#afd9e8862229d4e485ded6fb8d0f40268">outputs</a>.at(Outputs))</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <a class="code" href="classsmaug_1_1TensorShape.html">TensorShape</a> shape = inferOutputShape();</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <a class="code" href="classsmaug_1_1Tensor.html">Tensor</a>* output = <span class="keyword">new</span> <a class="code" href="classsmaug_1_1Tensor.html">Tensor</a>(name, shape);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        TensorShape shape = inferOutputShape();</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        Tensor* output = <span class="keyword">new</span> Tensor(name, shape);</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        workspace-&gt;addTensor(output);</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <a class="code" href="classsmaug_1_1Operator.html#afd9e8862229d4e485ded6fb8d0f40268">outputs</a>.at(Outputs) = output;</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    }</div>
@@ -215,11 +215,13 @@ $(function() {
 <div class="ttc" id="aclasssmaug_1_1Workspace_html"><div class="ttname"><a href="classsmaug_1_1Workspace.html">smaug::Workspace</a></div><div class="ttdoc">Workspace is the container and owner of all Tensors and Operators in the Network.</div><div class="ttdef"><b>Definition:</b> <a href="workspace_8h_source.html#l00017">workspace.h:17</a></div></div>
 <div class="ttc" id="aclasssmaug_1_1PoolingOp_html_a8d8f987170b7f6af770926872129ec81"><div class="ttname"><a href="classsmaug_1_1PoolingOp.html#a8d8f987170b7f6af770926872129ec81">smaug::PoolingOp::createAllTensors</a></div><div class="ttdeci">void createAllTensors() override</div><div class="ttdoc">For tests: creates all input and output tensors for this operator.</div><div class="ttdef"><b>Definition:</b> <a href="pooling__op_8h_source.html#l00093">pooling_op.h:93</a></div></div>
 <div class="ttc" id="aclasssmaug_1_1TensorShape_html"><div class="ttname"><a href="classsmaug_1_1TensorShape.html">smaug::TensorShape</a></div><div class="ttdoc">TensorShape describes the shape of a Tensor.</div><div class="ttdef"><b>Definition:</b> <a href="tensor_8h_source.html#l00035">tensor.h:35</a></div></div>
-<div class="ttc" id="aclasssmaug_1_1Operator_html_afd9e8862229d4e485ded6fb8d0f40268"><div class="ttname"><a href="classsmaug_1_1Operator.html#afd9e8862229d4e485ded6fb8d0f40268">smaug::Operator::outputs</a></div><div class="ttdeci">std::vector&lt; TensorBase * &gt; outputs</div><div class="ttdoc">An ordered list of output tensors produced by this operator.</div><div class="ttdef"><b>Definition:</b> <a href="operator_8h_source.html#l00140">operator.h:140</a></div></div>
+<div class="ttc" id="aclasssmaug_1_1PoolingOp_html_aa8fa51f906c50a26949f92df5e353b1c"><div class="ttname"><a href="classsmaug_1_1PoolingOp.html#aa8fa51f906c50a26949f92df5e353b1c">smaug::PoolingOp::validate</a></div><div class="ttdeci">bool validate() override</div><div class="ttdoc">Returns true if the parameters/tensors of this operator are all valid.</div><div class="ttdef"><b>Definition:</b> <a href="pooling__op_8h_source.html#l00049">pooling_op.h:49</a></div></div>
+<div class="ttc" id="aclasssmaug_1_1Operator_html_afd9e8862229d4e485ded6fb8d0f40268"><div class="ttname"><a href="classsmaug_1_1Operator.html#afd9e8862229d4e485ded6fb8d0f40268">smaug::Operator::outputs</a></div><div class="ttdeci">std::vector&lt; TensorBase * &gt; outputs</div><div class="ttdoc">An ordered list of output tensors produced by this operator.</div><div class="ttdef"><b>Definition:</b> <a href="operator_8h_source.html#l00141">operator.h:141</a></div></div>
 <div class="ttc" id="aclasssmaug_1_1Operator_html"><div class="ttname"><a href="classsmaug_1_1Operator.html">smaug::Operator</a></div><div class="ttdoc">Operator is the base class for all graph operators supported by SMAUG.</div><div class="ttdef"><b>Definition:</b> <a href="operator_8h_source.html#l00028">operator.h:28</a></div></div>
 <div class="ttc" id="anamespacesmaug_html"><div class="ttname"><a href="namespacesmaug.html">smaug</a></div><div class="ttdoc">The smaug namespace is the parent namespace of all C++ code in SMAUG.</div><div class="ttdef"><b>Definition:</b> <a href="backend_8cpp_source.html#l00037">backend.cpp:37</a></div></div>
+<div class="ttc" id="aclasssmaug_1_1Operator_html_adae35edf8605e9542b548ae43b1f21c3"><div class="ttname"><a href="classsmaug_1_1Operator.html#adae35edf8605e9542b548ae43b1f21c3">smaug::Operator::validate</a></div><div class="ttdeci">virtual bool validate()</div><div class="ttdoc">Returns true if the parameters/tensors of this operator are all valid.</div><div class="ttdef"><b>Definition:</b> <a href="operator_8h_source.html#l00047">operator.h:47</a></div></div>
 <div class="ttc" id="aclasssmaug_1_1PoolingOp_html"><div class="ttname"><a href="classsmaug_1_1PoolingOp.html">smaug::PoolingOp</a></div><div class="ttdoc">Implements a pooling operator.</div><div class="ttdef"><b>Definition:</b> <a href="pooling__op_8h_source.html#l00022">pooling_op.h:22</a></div></div>
-<div class="ttc" id="aclasssmaug_1_1Operator_html_a17b7935d1065ef3746acdad304306662"><div class="ttname"><a href="classsmaug_1_1Operator.html#a17b7935d1065ef3746acdad304306662">smaug::Operator::inputs</a></div><div class="ttdeci">std::vector&lt; TensorBase * &gt; inputs</div><div class="ttdoc">An ordered list of input tensors consumed by this operator.</div><div class="ttdef"><b>Definition:</b> <a href="operator_8h_source.html#l00133">operator.h:133</a></div></div>
+<div class="ttc" id="aclasssmaug_1_1Operator_html_a17b7935d1065ef3746acdad304306662"><div class="ttname"><a href="classsmaug_1_1Operator.html#a17b7935d1065ef3746acdad304306662">smaug::Operator::inputs</a></div><div class="ttdeci">std::vector&lt; TensorBase * &gt; inputs</div><div class="ttdoc">An ordered list of input tensors consumed by this operator.</div><div class="ttdef"><b>Definition:</b> <a href="operator_8h_source.html#l00134">operator.h:134</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

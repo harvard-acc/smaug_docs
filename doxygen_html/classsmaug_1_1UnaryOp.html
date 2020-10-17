@@ -106,7 +106,8 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>UnaryOp</b> (const std::string &amp;name, OpType opType, <a class="el" href="classsmaug_1_1Workspace.html">Workspace</a> *workspace)</td></tr>
 <tr class="separator:a0fdf3f5962b9b27d7459e19e0444bb41"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2f2eeb529ca0683432753dc3ee79d808"><td class="memItemLeft" align="right" valign="top"><a id="a2f2eeb529ca0683432753dc3ee79d808"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>validate</b> () override</td></tr>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsmaug_1_1UnaryOp.html#a2f2eeb529ca0683432753dc3ee79d808">validate</a> () override</td></tr>
+<tr class="memdesc:a2f2eeb529ca0683432753dc3ee79d808"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the parameters/tensors of this operator are all valid. <br /></td></tr>
 <tr class="separator:a2f2eeb529ca0683432753dc3ee79d808"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abc90b84448a98f8204a3bbbfe94a1b20"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsmaug_1_1UnaryOp.html#abc90b84448a98f8204a3bbbfe94a1b20">createAllTensors</a> () override</td></tr>
 <tr class="memdesc:abc90b84448a98f8204a3bbbfe94a1b20"><td class="mdescLeft">&#160;</td><td class="mdescRight">For tests: creates all input and output tensors for this operator.  <a href="classsmaug_1_1UnaryOp.html#abc90b84448a98f8204a3bbbfe94a1b20">More...</a><br /></td></tr>
@@ -206,13 +207,6 @@ MemoryType&#160;</td><td class="memItemRight" valign="bottom"><b>getOutputsMemTy
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pro_methods_classsmaug_1_1Operator"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classsmaug_1_1Operator')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classsmaug_1_1Operator.html">smaug::Operator</a></td></tr>
-<tr class="memitem:a1ca7145e0ff039f9204405631a71d321 inherit pro_methods_classsmaug_1_1Operator"><td class="memItemLeft" align="right" valign="top"><a id="a1ca7145e0ff039f9204405631a71d321"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>tensorsAllConstructed</b> (const std::vector&lt; <a class="el" href="classsmaug_1_1TensorBase.html">TensorBase</a> * &gt; &amp;tensors) const</td></tr>
-<tr class="separator:a1ca7145e0ff039f9204405631a71d321 inherit pro_methods_classsmaug_1_1Operator"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a47529b30291662629356753c3008cf05 inherit pro_methods_classsmaug_1_1Operator"><td class="memItemLeft" align="right" valign="top"><a id="a47529b30291662629356753c3008cf05"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>validateInputsOutputs</b> () const</td></tr>
-<tr class="separator:a47529b30291662629356753c3008cf05 inherit pro_methods_classsmaug_1_1Operator"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classsmaug_1_1Operator"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classsmaug_1_1Operator')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classsmaug_1_1Operator.html">smaug::Operator</a></td></tr>
 <tr class="memitem:a17b7935d1065ef3746acdad304306662 inherit pro_attribs_classsmaug_1_1Operator"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classsmaug_1_1TensorBase.html">TensorBase</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classsmaug_1_1Operator.html#a17b7935d1065ef3746acdad304306662">inputs</a></td></tr>
 <tr class="memdesc:a17b7935d1065ef3746acdad304306662 inherit pro_attribs_classsmaug_1_1Operator"><td class="mdescLeft">&#160;</td><td class="mdescRight">An ordered list of input tensors consumed by this operator.  <a href="classsmaug_1_1Operator.html#a17b7935d1065ef3746acdad304306662">More...</a><br /></td></tr>

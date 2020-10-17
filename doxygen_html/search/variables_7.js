@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['inputs_658',['inputs',['../classsmaug_1_1Operator.html#a17b7935d1065ef3746acdad304306662',1,'smaug::Operator']]],
-  ['inputsmemtype_659',['inputsMemType',['../classsmaug_1_1Operator.html#a6de282a59d24ba762d3bf2bde3ffa84f',1,'smaug::Operator']]]
+  ['inputs_660',['inputs',['../classsmaug_1_1Operator.html#a17b7935d1065ef3746acdad304306662',1,'smaug::Operator']]],
+  ['inputsmemtype_661',['inputsMemType',['../classsmaug_1_1Operator.html#a6de282a59d24ba762d3bf2bde3ffa84f',1,'smaug::Operator']]]
 ];
