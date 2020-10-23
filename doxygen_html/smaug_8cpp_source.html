@@ -222,47 +222,49 @@ $(function() {
 <div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    <a class="code" href="classsmaug_1_1Workspace.html">Workspace</a>* workspace = <span class="keyword">new</span> <a class="code" href="classsmaug_1_1Workspace.html">Workspace</a>();</div>
 <div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    <a class="code" href="classsmaug_1_1Network.html">Network</a>* network =</div>
 <div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;            <a class="code" href="namespacesmaug.html#a248f5e43120d58f3297641d131a6fd13">buildNetwork</a>(modelTopo, modelParams, sampling, workspace);</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    SmvBackend::initGlobals();</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160; </div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <span class="keywordflow">if</span> (dumpGraph)</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        network-&gt;dumpDataflowGraph();</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="keywordflow">if</span> (!network-&gt;validate())</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        <span class="keywordflow">return</span> -1;</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160; </div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <a class="code" href="classsmaug_1_1Scheduler.html">Scheduler</a> scheduler(network, workspace);</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    <a class="code" href="classsmaug_1_1Tensor.html">Tensor</a>* output = scheduler.runNetwork();</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160; </div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    <span class="keywordflow">if</span> (!lastOutputFile.empty()) {</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;        <span class="keywordflow">if</span> (lastOutputFile == <span class="stringliteral">&quot;stdout&quot;</span>) {</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;            std::cout &lt;&lt; <span class="stringliteral">&quot;Final network output:\n&quot;</span> &lt;&lt; *output &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (lastOutputFile == <span class="stringliteral">&quot;proto&quot;</span>) {</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;            <span class="comment">// Serialize the output tensor into a proto buffer.</span></div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;            std::fstream outfile(<span class="stringliteral">&quot;output.pb&quot;</span>, std::ios::out | std::ios::trunc |</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;                                                      std::ios::binary);</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;            TensorProto* tensorProto = output-&gt;<a class="code" href="classsmaug_1_1Tensor.html#a5b412a10978f99039a1037486fc12346">asTensorProto</a>();</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;            <span class="keywordflow">if</span> (!tensorProto-&gt;SerializeToOstream(&amp;outfile)) {</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;                std::cerr &lt;&lt; <span class="stringliteral">&quot;Failed to serialize the output tensor and write &quot;</span></div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;                             <span class="stringliteral">&quot;it to the given C++ ostream! Did you run out of &quot;</span></div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;                             <span class="stringliteral">&quot;disk space?\n&quot;</span>;</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;                <span class="keywordflow">return</span> 1;</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;            }</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;            <span class="keyword">delete</span> tensorProto;</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;            std::ofstream outfile(lastOutputFile);</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;            outfile &lt;&lt; <span class="stringliteral">&quot;Final network output:\n&quot;</span> &lt;&lt; *output &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        }</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    }</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160; </div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="namespacesmaug.html#a628bab049837c7ce7193778f721dac85">threadPool</a>)</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;        <span class="keyword">delete</span> <a class="code" href="namespacesmaug.html#a628bab049837c7ce7193778f721dac85">threadPool</a>;</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160; </div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    <span class="keyword">delete</span> network;</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    <span class="keyword">delete</span> workspace;</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    SmvBackend::freeGlobals();</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160; </div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;}</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    ReferenceBackend::initGlobals();</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    SmvBackend::initGlobals();</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keywordflow">if</span> (dumpGraph)</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        network-&gt;dumpDataflowGraph();</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160; </div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <span class="keywordflow">if</span> (!network-&gt;validate())</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160; </div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    <a class="code" href="classsmaug_1_1Scheduler.html">Scheduler</a> scheduler(network, workspace);</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    <a class="code" href="classsmaug_1_1Tensor.html">Tensor</a>* output = scheduler.runNetwork();</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160; </div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    <span class="keywordflow">if</span> (!lastOutputFile.empty()) {</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        <span class="keywordflow">if</span> (lastOutputFile == <span class="stringliteral">&quot;stdout&quot;</span>) {</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;            std::cout &lt;&lt; <span class="stringliteral">&quot;Final network output:\n&quot;</span> &lt;&lt; *output &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (lastOutputFile == <span class="stringliteral">&quot;proto&quot;</span>) {</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;            <span class="comment">// Serialize the output tensor into a proto buffer.</span></div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;            std::fstream outfile(<span class="stringliteral">&quot;output.pb&quot;</span>, std::ios::out | std::ios::trunc |</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;                                                      std::ios::binary);</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;            TensorProto* tensorProto = output-&gt;<a class="code" href="classsmaug_1_1Tensor.html#a5b412a10978f99039a1037486fc12346">asTensorProto</a>();</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;            <span class="keywordflow">if</span> (!tensorProto-&gt;SerializeToOstream(&amp;outfile)) {</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;                std::cerr &lt;&lt; <span class="stringliteral">&quot;Failed to serialize the output tensor and write &quot;</span></div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;                             <span class="stringliteral">&quot;it to the given C++ ostream! Did you run out of &quot;</span></div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;                             <span class="stringliteral">&quot;disk space?\n&quot;</span>;</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;                <span class="keywordflow">return</span> 1;</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;            }</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;            <span class="keyword">delete</span> tensorProto;</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;            std::ofstream outfile(lastOutputFile);</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;            outfile &lt;&lt; <span class="stringliteral">&quot;Final network output:\n&quot;</span> &lt;&lt; *output &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        }</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    }</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160; </div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="namespacesmaug.html#a628bab049837c7ce7193778f721dac85">threadPool</a>)</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;        <span class="keyword">delete</span> <a class="code" href="namespacesmaug.html#a628bab049837c7ce7193778f721dac85">threadPool</a>;</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    <span class="keyword">delete</span> network;</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    <span class="keyword">delete</span> workspace;</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    ReferenceBackend::freeGlobals();</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    SmvBackend::freeGlobals();</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160; </div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclasssmaug_1_1Tensor_html"><div class="ttname"><a href="classsmaug_1_1Tensor.html">smaug::Tensor</a></div><div class="ttdoc">Tensor represents a single multi-dimensional array of data.</div><div class="ttdef"><b>Definition:</b> <a href="tensor_8h_source.html#l00344">tensor.h:344</a></div></div>
 <div class="ttc" id="aclasssmaug_1_1Tensor_html_a5b412a10978f99039a1037486fc12346"><div class="ttname"><a href="classsmaug_1_1Tensor.html#a5b412a10978f99039a1037486fc12346">smaug::Tensor::asTensorProto</a></div><div class="ttdeci">TensorProto * asTensorProto()</div><div class="ttdoc">Serializes this Tensor to a TensorProto.</div><div class="ttdef"><b>Definition:</b> <a href="tensor_8cpp_source.html#l00016">tensor.cpp:16</a></div></div>
