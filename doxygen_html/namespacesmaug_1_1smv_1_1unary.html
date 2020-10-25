@@ -85,9 +85,6 @@ std::pair&lt; <a class="el" href="common_8h.html#a3450a047484fbe6e9e6ff53b2fad79
 <tr class="memitem:ab7bc35f14f0b02b658091056239d53c6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesmaug_1_1smv_1_1unary.html#ab7bc35f14f0b02b658091056239d53c6">runX</a> (<a class="el" href="classsmaug_1_1UnaryOp.html">UnaryOp</a>&lt; <a class="el" href="classsmaug_1_1SmvBackend.html">SmvBackend</a> &gt; *op, <a class="el" href="classsmaug_1_1TiledTensor.html">TiledTensor</a> &amp;inputs, <a class="el" href="classsmaug_1_1TiledTensor.html">TiledTensor</a> &amp;outputs)</td></tr>
 <tr class="memdesc:ab7bc35f14f0b02b658091056239d53c6"><td class="mdescLeft">&#160;</td><td class="mdescRight">A generic tile dispatcher for unary operators.  <a href="namespacesmaug_1_1smv_1_1unary.html#ab7bc35f14f0b02b658091056239d53c6">More...</a><br /></td></tr>
 <tr class="separator:ab7bc35f14f0b02b658091056239d53c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a013d7cd481d2ce3da071f0943f7a34ea"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsmaug_1_1TiledTensor.html">TiledTensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesmaug_1_1smv_1_1unary.html#a013d7cd481d2ce3da071f0943f7a34ea">generateTiles</a> (<a class="el" href="classsmaug_1_1Tensor.html">Tensor</a> *tensor, const <a class="el" href="classsmaug_1_1TensorShape.html">TensorShape</a> &amp;tileShape, <a class="el" href="classsmaug_1_1Operator.html">Operator</a> *op, bool copyData=true)</td></tr>
-<tr class="memdesc:a013d7cd481d2ce3da071f0943f7a34ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tile the provided <a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a>.  <a href="namespacesmaug_1_1smv_1_1unary.html#a013d7cd481d2ce3da071f0943f7a34ea">More...</a><br /></td></tr>
-<tr class="separator:a013d7cd481d2ce3da071f0943f7a34ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e8d1bddf6261dd5b392a85f602744dd"><td class="memItemLeft" align="right" valign="top"><a id="a0e8d1bddf6261dd5b392a85f602744dd"></a>
 std::array&lt; <a class="el" href="classsmaug_1_1TiledTensor.html">TiledTensor</a>, 2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>doTiling</b> (<a class="el" href="classsmaug_1_1UnaryOp.html">UnaryOp</a>&lt; <a class="el" href="classsmaug_1_1SmvBackend.html">SmvBackend</a> &gt; *op, bool copyData)</td></tr>
 <tr class="separator:a0e8d1bddf6261dd5b392a85f602744dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -98,51 +95,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>run</b> (<a class="el
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Contains common functions for working with unary operators. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="a013d7cd481d2ce3da071f0943f7a34ea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a013d7cd481d2ce3da071f0943f7a34ea">&#9670;&nbsp;</a></span>generateTiles()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classsmaug_1_1TiledTensor.html">TiledTensor</a> smaug::smv::unary::generateTiles </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classsmaug_1_1Tensor.html">Tensor</a> *&#160;</td>
-          <td class="paramname"><em>tensor</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classsmaug_1_1TensorShape.html">TensorShape</a> &amp;&#160;</td>
-          <td class="paramname"><em>tileShape</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="classsmaug_1_1Operator.html">Operator</a> *&#160;</td>
-          <td class="paramname"><em>op</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>copyData</em> = <code>true</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Tile the provided <a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a>. </p>
-<p>This is only for unary operators. The only requirement is to tile the <a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a> in contiguous blocks of tileShape. </p>
-
-<p class="definition">Definition at line <a class="el" href="smv__unary__op__common_8cpp_source.html#l00079">79</a> of file <a class="el" href="smv__unary__op__common_8cpp_source.html">smv_unary_op_common.cpp</a>.</p>
-
-</div>
-</div>
 <a id="ab7bc35f14f0b02b658091056239d53c6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab7bc35f14f0b02b658091056239d53c6">&#9670;&nbsp;</a></span>runX()</h2>
 
@@ -178,7 +130,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>run</b> (<a class="el
 <p>A generic tile dispatcher for unary operators. </p>
 <p>"X" indicates that tiles can be scheduled in any order. </p>
 
-<p class="definition">Definition at line <a class="el" href="smv__unary__op__common_8cpp_source.html#l00052">52</a> of file <a class="el" href="smv__unary__op__common_8cpp_source.html">smv_unary_op_common.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="smv__unary__op__common_8cpp_source.html#l00053">53</a> of file <a class="el" href="smv__unary__op__common_8cpp_source.html">smv_unary_op_common.cpp</a>.</p>
 
 </div>
 </div>

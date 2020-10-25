@@ -2,9 +2,9 @@ var searchData=
 [
   ['gatherdatafromtile_538',['gatherDataFromTile',['../classsmaug_1_1TiledTensor.html#adecffda593d942aa2dd8450613e60100',1,'smaug::TiledTensor']]],
   ['generaterowwiseoutputtiledtensor_539',['generateRowwiseOutputTiledTensor',['../classsmaug_1_1smv_1_1conv_1_1TilingOptimizer.html#ab537f0f0783fed48faf1fb03073c830e',1,'smaug::smv::conv::TilingOptimizer']]],
-  ['generatetiledtensor_540',['generateTiledTensor',['../namespacesmaug.html#ac3a15489558517e3e3ef9f8044d455d2',1,'smaug']]],
-  ['generatetiledtensorandcopydata_541',['generateTiledTensorAndCopyData',['../namespacesmaug.html#ad4d176a53be84b0814fcac7852e30644',1,'smaug::generateTiledTensorAndCopyData(Tensor *tensor, const TensorShape &amp;tileShape, Operator *op, int fieldRows=0, int fieldCols=0, int rowStride=1, int colStride=1, PaddingType paddingType=ValidPadding)'],['../namespacesmaug.html#ae675b316024bb1518d583ef5c1d1bfd8',1,'smaug::generateTiledTensorAndCopyData(Args &amp;&amp;... args)']]],
-  ['generatetiles_542',['generateTiles',['../namespacesmaug_1_1smv_1_1unary.html#a013d7cd481d2ce3da071f0943f7a34ea',1,'smaug::smv::unary']]],
+  ['generatetiledtensor_540',['generateTiledTensor',['../namespacesmaug.html#aff3369c98caad00c02f99b232129a4bc',1,'smaug']]],
+  ['generatetiledtensorperbatchnc_541',['generateTiledTensorPerBatchNC',['../namespacesmaug.html#a82bee05ff5b5e1853c0cab3a0f23ac27',1,'smaug']]],
+  ['generatetiledtensorwithstrideandpadding_542',['generateTiledTensorWithStrideAndPadding',['../namespacesmaug.html#a61a2134afdc06bd0eae8f35a75fa56e7',1,'smaug']]],
   ['getactivationparams_543',['getActivationParams',['../namespacesmaug_1_1smv_1_1unary.html#a3ec5417c5c0cd2d9cd98ca1d95586119',1,'smaug::smv::unary']]],
   ['getcpuid_544',['getCpuId',['../namespacesmaug_1_1gem5.html#a1c97b37e899625ceda5ee5771db7a20a',1,'smaug::gem5']]],
   ['getindex_545',['getIndex',['../classsmaug_1_1TensorIndexIterator.html#a5e2b0de441c367f0ef74acb442072111',1,'smaug::TensorIndexIterator']]],

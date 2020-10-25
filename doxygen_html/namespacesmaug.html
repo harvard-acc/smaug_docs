@@ -396,9 +396,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="name
 <tr class="memitem:a6bb2498c8a66a4c0730a80d633c01a4c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesmaug.html#a6bb2498c8a66a4c0730a80d633c01a4c">copyRawTensorData</a> (<a class="el" href="classsmaug_1_1Tensor.html">Tensor</a> *dest, <a class="el" href="classsmaug_1_1Tensor.html">Tensor</a> *src, int destOffset, int srcOffset, int copySize)</td></tr>
 <tr class="memdesc:a6bb2498c8a66a4c0730a80d633c01a4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Directly copies a linear region of memory from dest to src, without taking dimensions/padding into account.  <a href="namespacesmaug.html#a6bb2498c8a66a4c0730a80d633c01a4c">More...</a><br /></td></tr>
 <tr class="separator:a6bb2498c8a66a4c0730a80d633c01a4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac3a15489558517e3e3ef9f8044d455d2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsmaug_1_1TiledTensor.html">TiledTensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesmaug.html#ac3a15489558517e3e3ef9f8044d455d2">generateTiledTensor</a> (<a class="el" href="classsmaug_1_1Tensor.html">Tensor</a> *tensor, const <a class="el" href="classsmaug_1_1TensorShape.html">TensorShape</a> &amp;tileShape, <a class="el" href="classsmaug_1_1Operator.html">Operator</a> *op, int fieldRows=0, int fieldCols=0, int rowStride=1, int colStride=1, PaddingType paddingType=ValidPadding)</td></tr>
-<tr class="memdesc:ac3a15489558517e3e3ef9f8044d455d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates a <a class="el" href="classsmaug_1_1TiledTensor.html" title="A multidimensional container of Tensors.">TiledTensor</a> from a source <a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a> with the specified tile shape.  <a href="namespacesmaug.html#ac3a15489558517e3e3ef9f8044d455d2">More...</a><br /></td></tr>
-<tr class="separator:ac3a15489558517e3e3ef9f8044d455d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82bee05ff5b5e1853c0cab3a0f23ac27"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsmaug_1_1TiledTensor.html">TiledTensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesmaug.html#a82bee05ff5b5e1853c0cab3a0f23ac27">generateTiledTensorPerBatchNC</a> (<a class="el" href="classsmaug_1_1Tensor.html">Tensor</a> *tensor, const <a class="el" href="classsmaug_1_1TensorShape.html">TensorShape</a> &amp;tileShape, <a class="el" href="classsmaug_1_1Operator.html">Operator</a> *op, bool copyData=true)</td></tr>
+<tr class="memdesc:a82bee05ff5b5e1853c0cab3a0f23ac27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tile the provided NC <a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a> per batch.  <a href="namespacesmaug.html#a82bee05ff5b5e1853c0cab3a0f23ac27">More...</a><br /></td></tr>
+<tr class="separator:a82bee05ff5b5e1853c0cab3a0f23ac27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61a2134afdc06bd0eae8f35a75fa56e7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsmaug_1_1TiledTensor.html">TiledTensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesmaug.html#a61a2134afdc06bd0eae8f35a75fa56e7">generateTiledTensorWithStrideAndPadding</a> (<a class="el" href="classsmaug_1_1Tensor.html">Tensor</a> *tensor, const <a class="el" href="classsmaug_1_1TensorShape.html">TensorShape</a> &amp;tileShape, <a class="el" href="classsmaug_1_1Operator.html">Operator</a> *op, int fieldRows, int fieldCols, int rowStride, int colStride, PaddingType paddingType, bool copyData=false)</td></tr>
+<tr class="memdesc:a61a2134afdc06bd0eae8f35a75fa56e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates a <a class="el" href="classsmaug_1_1TiledTensor.html" title="A multidimensional container of Tensors.">TiledTensor</a> from a source <a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a> with the specified tile shape.  <a href="namespacesmaug.html#a61a2134afdc06bd0eae8f35a75fa56e7">More...</a><br /></td></tr>
+<tr class="separator:a61a2134afdc06bd0eae8f35a75fa56e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff3369c98caad00c02f99b232129a4bc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classsmaug_1_1TiledTensor.html">TiledTensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesmaug.html#aff3369c98caad00c02f99b232129a4bc">generateTiledTensor</a> (<a class="el" href="classsmaug_1_1Tensor.html">Tensor</a> *tensor, const <a class="el" href="classsmaug_1_1TensorShape.html">TensorShape</a> &amp;tileShape, <a class="el" href="classsmaug_1_1Operator.html">Operator</a> *op, bool copyData=false)</td></tr>
+<tr class="memdesc:aff3369c98caad00c02f99b232129a4bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates a <a class="el" href="classsmaug_1_1TiledTensor.html" title="A multidimensional container of Tensors.">TiledTensor</a> from a source <a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a>.  <a href="namespacesmaug.html#aff3369c98caad00c02f99b232129a4bc">More...</a><br /></td></tr>
+<tr class="separator:aff3369c98caad00c02f99b232129a4bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a91d8dcd952a4a47c0899f95ed3f9ab6e"><td class="memItemLeft" align="right" valign="top"><a id="a91d8dcd952a4a47c0899f95ed3f9ab6e"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesmaug.html#a91d8dcd952a4a47c0899f95ed3f9ab6e">flattenTiledTensor</a> (<a class="el" href="classsmaug_1_1TiledTensor.html">TiledTensor</a> &amp;tiledTensor, <a class="el" href="classsmaug_1_1Tensor.html">Tensor</a> *destTensor)</td></tr>
 <tr class="memdesc:a91d8dcd952a4a47c0899f95ed3f9ab6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies the data from each tile in a <a class="el" href="classsmaug_1_1TiledTensor.html" title="A multidimensional container of Tensors.">TiledTensor</a> into a destination <a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a> as a contiguous block of memory, as if only one dimension ever existed. <br /></td></tr>
@@ -416,15 +422,6 @@ template&lt;typename DType &gt; </td></tr>
 <tr class="memitem:ad21ad0122a3d64e114419c7d7f5f9c7b"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacesmaug.html#ad21ad0122a3d64e114419c7d7f5f9c7b">writeTensorToOstream</a> (std::ostream &amp;os, const <a class="el" href="classsmaug_1_1Tensor.html">Tensor</a> &amp;tensor)</td></tr>
 <tr class="memdesc:ad21ad0122a3d64e114419c7d7f5f9c7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pretty-print a <a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a>'s name, shape, and contents to the provided ostream. <br /></td></tr>
 <tr class="separator:ad21ad0122a3d64e114419c7d7f5f9c7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4d176a53be84b0814fcac7852e30644"><td class="memItemLeft" align="right" valign="top"><a id="ad4d176a53be84b0814fcac7852e30644"></a>
-<a class="el" href="classsmaug_1_1TiledTensor.html">TiledTensor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesmaug.html#ad4d176a53be84b0814fcac7852e30644">generateTiledTensorAndCopyData</a> (<a class="el" href="classsmaug_1_1Tensor.html">Tensor</a> *tensor, const <a class="el" href="classsmaug_1_1TensorShape.html">TensorShape</a> &amp;tileShape, <a class="el" href="classsmaug_1_1Operator.html">Operator</a> *op, int fieldRows=0, int fieldCols=0, int rowStride=1, int colStride=1, PaddingType paddingType=ValidPadding)</td></tr>
-<tr class="memdesc:ad4d176a53be84b0814fcac7852e30644"><td class="mdescLeft">&#160;</td><td class="mdescRight">A helper method to both tile a <a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a> and fill the tiles with data. <br /></td></tr>
-<tr class="separator:ad4d176a53be84b0814fcac7852e30644"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae675b316024bb1518d583ef5c1d1bfd8"><td class="memTemplParams" colspan="2"><a id="ae675b316024bb1518d583ef5c1d1bfd8"></a>
-template&lt;typename... Args&gt; </td></tr>
-<tr class="memitem:ae675b316024bb1518d583ef5c1d1bfd8"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classsmaug_1_1TiledTensor.html">TiledTensor</a>&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacesmaug.html#ae675b316024bb1518d583ef5c1d1bfd8">generateTiledTensorAndCopyData</a> (Args &amp;&amp;... args)</td></tr>
-<tr class="memdesc:ae675b316024bb1518d583ef5c1d1bfd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">A helper method to both tile a <a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a> and fill the tiles with data. <br /></td></tr>
-<tr class="separator:ae675b316024bb1518d583ef5c1d1bfd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a20defcb7131115db6df85bd87a33ebc4"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacesmaug.html#a20defcb7131115db6df85bd87a33ebc4">getTraceName</a> (int accelIdx)</td></tr>
 <tr class="memdesc:a20defcb7131115db6df85bd87a33ebc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the name of the dynamic trace for this accelerator.  <a href="namespacesmaug.html#a20defcb7131115db6df85bd87a33ebc4">More...</a><br /></td></tr>
 <tr class="separator:a20defcb7131115db6df85bd87a33ebc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -786,7 +783,7 @@ constexpr float&#160;</td><td class="memItemRight" valign="bottom"><b>kFraction<
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="tensor__utils_8cpp_source.html#l00136">136</a> of file <a class="el" href="tensor__utils_8cpp_source.html">tensor_utils.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tensor__utils_8cpp_source.html#l00138">138</a> of file <a class="el" href="tensor__utils_8cpp_source.html">tensor_utils.cpp</a>.</p>
 
 </div>
 </div>
@@ -848,7 +845,7 @@ constexpr float&#160;</td><td class="memItemRight" valign="bottom"><b>kFraction<
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="tensor__utils_8cpp_source.html#l00063">63</a> of file <a class="el" href="tensor__utils_8cpp_source.html">tensor_utils.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tensor__utils_8cpp_source.html#l00065">65</a> of file <a class="el" href="tensor__utils_8cpp_source.html">tensor_utils.cpp</a>.</p>
 
 </div>
 </div>
@@ -875,8 +872,8 @@ constexpr float&#160;</td><td class="memItemRight" valign="bottom"><b>kFraction<
 
 </div>
 </div>
-<a id="ac3a15489558517e3e3ef9f8044d455d2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac3a15489558517e3e3ef9f8044d455d2">&#9670;&nbsp;</a></span>generateTiledTensor()</h2>
+<a id="aff3369c98caad00c02f99b232129a4bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff3369c98caad00c02f99b232129a4bc">&#9670;&nbsp;</a></span>generateTiledTensor()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -902,32 +899,146 @@ constexpr float&#160;</td><td class="memItemRight" valign="bottom"><b>kFraction<
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>fieldRows</em> = <code>0</code>, </td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>copyData</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generates a <a class="el" href="classsmaug_1_1TiledTensor.html" title="A multidimensional container of Tensors.">TiledTensor</a> from a source <a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a>. </p>
+<p>This does not support generating tiles with overlap, striding, or padding options.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tensor</td><td>The <a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a> to tile. </td></tr>
+    <tr><td class="paramname">tileShape</td><td>The maximum size of each tile. </td></tr>
+    <tr><td class="paramname">op</td><td>The <a class="el" href="classsmaug_1_1Operator.html" title="Operator is the base class for all graph operators supported by SMAUG.">Operator</a> that will be consuming this <a class="el" href="classsmaug_1_1TiledTensor.html" title="A multidimensional container of Tensors.">TiledTensor</a>. </td></tr>
+    <tr><td class="paramname">copyData</td><td>Whether to copy data from the source tensor into the tiles. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="tensor__utils_8cpp_source.html#l00335">335</a> of file <a class="el" href="tensor__utils_8cpp_source.html">tensor_utils.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a82bee05ff5b5e1853c0cab3a0f23ac27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82bee05ff5b5e1853c0cab3a0f23ac27">&#9670;&nbsp;</a></span>generateTiledTensorPerBatchNC()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classsmaug_1_1TiledTensor.html">TiledTensor</a> smaug::generateTiledTensorPerBatchNC </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classsmaug_1_1Tensor.html">Tensor</a> *&#160;</td>
+          <td class="paramname"><em>tensor</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classsmaug_1_1TensorShape.html">TensorShape</a> &amp;&#160;</td>
+          <td class="paramname"><em>tileShape</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classsmaug_1_1Operator.html">Operator</a> *&#160;</td>
+          <td class="paramname"><em>op</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>copyData</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Tile the provided NC <a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a> per batch. </p>
+<p>The only requirement is to tile the <a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a> in contiguous blocks of tileShape, without concern for strides, overlap, or padding. Thus, this is usually useful only for unary and elementwise operators.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tensor</td><td>The <a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a> to tile. </td></tr>
+    <tr><td class="paramname">tileShape</td><td>The maximum size of each tile. </td></tr>
+    <tr><td class="paramname">op</td><td>The <a class="el" href="classsmaug_1_1Operator.html" title="Operator is the base class for all graph operators supported by SMAUG.">Operator</a> that will be consuming this <a class="el" href="classsmaug_1_1TiledTensor.html" title="A multidimensional container of Tensors.">TiledTensor</a>. </td></tr>
+    <tr><td class="paramname">copyData</td><td>Whether to copy data from the source tensor into the tiles. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="tensor__utils_8cpp_source.html#l00199">199</a> of file <a class="el" href="tensor__utils_8cpp_source.html">tensor_utils.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a61a2134afdc06bd0eae8f35a75fa56e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61a2134afdc06bd0eae8f35a75fa56e7">&#9670;&nbsp;</a></span>generateTiledTensorWithStrideAndPadding()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classsmaug_1_1TiledTensor.html">TiledTensor</a> smaug::generateTiledTensorWithStrideAndPadding </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classsmaug_1_1Tensor.html">Tensor</a> *&#160;</td>
+          <td class="paramname"><em>tensor</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classsmaug_1_1TensorShape.html">TensorShape</a> &amp;&#160;</td>
+          <td class="paramname"><em>tileShape</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classsmaug_1_1Operator.html">Operator</a> *&#160;</td>
+          <td class="paramname"><em>op</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>fieldCols</em> = <code>0</code>, </td>
+          <td class="paramname"><em>fieldRows</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>rowStride</em> = <code>1</code>, </td>
+          <td class="paramname"><em>fieldCols</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>colStride</em> = <code>1</code>, </td>
+          <td class="paramname"><em>rowStride</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>colStride</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">PaddingType&#160;</td>
-          <td class="paramname"><em>paddingType</em> = <code>ValidPadding</code>&#160;</td>
+          <td class="paramname"><em>paddingType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>copyData</em> = <code>false</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -949,11 +1060,12 @@ constexpr float&#160;</td><td class="memItemRight" valign="bottom"><b>kFraction<
     <tr><td class="paramname">rowStride</td><td>The row stride of a filter applied, if any. </td></tr>
     <tr><td class="paramname">colStride</td><td>The column stride of a filter applied, if any. </td></tr>
     <tr><td class="paramname">paddingType</td><td>The type of additional zero-padding applied on the <a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a> by the <a class="el" href="classsmaug_1_1Operator.html" title="Operator is the base class for all graph operators supported by SMAUG.">Operator</a>, if any. </td></tr>
+    <tr><td class="paramname">copyData</td><td>Whether to copy data from the source tensor into the tiles. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="tensor__utils_8cpp_source.html#l00197">197</a> of file <a class="el" href="tensor__utils_8cpp_source.html">tensor_utils.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tensor__utils_8cpp_source.html#l00233">233</a> of file <a class="el" href="tensor__utils_8cpp_source.html">tensor_utils.cpp</a>.</p>
 
 </div>
 </div>
