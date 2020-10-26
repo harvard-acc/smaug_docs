@@ -89,7 +89,15 @@ Inheritance diagram for smaug::TensorRegionIndexIterator:</div>
 <area href="classsmaug_1_1TensorIndexIterator.html" title="An iterator over a multidimensional tensor&#39;s indices, accounting for data alignment padding." alt="smaug::TensorIndexIterator" shape="rect" coords="0,0,202,24"/>
   </map>
 </div></div>
-<table class="memberdecls">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A tensor index iterator that stays within a specified rectangular region. </p>
+<p>The rectangular region is specified using an origin coordinate and a region size. The iterator will output linear indices in the same space as the full tensor index iterator, but indices outside the region will be skipped.</p>
+<p>Example: consider a 3x3 tensor. The upper right 2x2 region's origin is at location (0,1). We can output just that block like so:</p>
+<p>auto it = <a class="el" href="classsmaug_1_1TensorRegionIndexIterator.html" title="A tensor index iterator that stays within a specified rectangular region.">TensorRegionIndexIterator</a>(tensor-&gt;getShape(), {0,1}, {2,2}); while (!it.end()) std::cout &lt;&lt; (int)it &lt;&lt; "\n";</p>
+<p>This produces: 1, 2, 4, 5 </p>
+
+<p class="definition">Definition at line <a class="el" href="tensor_8h_source.html#l00231">231</a> of file <a class="el" href="tensor_8h_source.html">tensor.h</a>.</p>
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a22dd9112d88631cdc57f2dd97a99464b"><td class="memItemLeft" align="right" valign="top"><a id="a22dd9112d88631cdc57f2dd97a99464b"></a>
@@ -169,15 +177,7 @@ const std::vector&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom
 <tr class="memdesc:aec8fea02b5fc440cb103ee195f63ec56 inherit pro_attribs_classsmaug_1_1TensorIndexIterator"><td class="mdescLeft">&#160;</td><td class="mdescRight">A vector of all ones, used to implement operator++. <br /></td></tr>
 <tr class="separator:aec8fea02b5fc440cb103ee195f63ec56 inherit pro_attribs_classsmaug_1_1TensorIndexIterator"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A tensor index iterator that stays within a specified rectangular region. </p>
-<p>The rectangular region is specified using an origin coordinate and a region size. The iterator will output linear indices in the same space as the full tensor index iterator, but indices outside the region will be skipped.</p>
-<p>Example: consider a 3x3 tensor. The upper right 2x2 region's origin is at location (0,1). We can output just that block like so:</p>
-<p>auto it = <a class="el" href="classsmaug_1_1TensorRegionIndexIterator.html" title="A tensor index iterator that stays within a specified rectangular region.">TensorRegionIndexIterator</a>(tensor-&gt;getShape(), {0,1}, {2,2}); while (!it.end()) std::cout &lt;&lt; (int)it &lt;&lt; "\n";</p>
-<p>This produces: 1, 2, 4, 5 </p>
-
-<p class="definition">Definition at line <a class="el" href="tensor_8h_source.html#l00231">231</a> of file <a class="el" href="tensor_8h_source.html">tensor.h</a>.</p>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li>smaug/core/<a class="el" href="tensor_8h_source.html">tensor.h</a></li>
 </ul>
 </div><!-- contents -->

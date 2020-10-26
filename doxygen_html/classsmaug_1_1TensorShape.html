@@ -80,7 +80,17 @@ $(function() {
  <a href="classsmaug_1_1TensorShape.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="tensor_8h_source.html">tensor.h</a>&gt;</code></p>
-<table class="memberdecls">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p><a class="el" href="classsmaug_1_1TensorShape.html" title="TensorShape describes the shape of a Tensor.">TensorShape</a> describes the shape of a <a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a>. </p>
+<p>A <a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a>'s shape is described by three parameters: its dimensions, alignment padding, and a DataLayout.</p>
+<ol type="1">
+<li>Dimensions: an N dimensional vector. The outermost dimension is at index 0, and innermost dimemnsion is at index N -1.</li>
+<li>Alignment: used to zeropad the innermost dimension to be a multiple of a hardware backend's data alignment requirements (for example, if an accelerator expects 8-wide vectors, the innermost dimension must be a multiple of 8). This can be zero if no alignment is required.</li>
+<li>DataLayout: the meaning of each dimension, e.g. "NCHW" means dimensions[0] = N, dimensions[3] = W, etc. </li>
+</ol>
+
+<p class="definition">Definition at line <a class="el" href="tensor_8h_source.html#l00035">35</a> of file <a class="el" href="tensor_8h_source.html">tensor.h</a>.</p>
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a230f2183f60fa5308449bb148d0646e9"><td class="memItemLeft" align="right" valign="top"><a id="a230f2183f60fa5308449bb148d0646e9"></a>
@@ -162,17 +172,7 @@ DataLayout&#160;</td><td class="memItemRight" valign="bottom"><b>layout</b></td>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>alignment</b></td></tr>
 <tr class="separator:a52ea5834a1ae429f136635e19da6b58c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="classsmaug_1_1TensorShape.html" title="TensorShape describes the shape of a Tensor.">TensorShape</a> describes the shape of a <a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a>. </p>
-<p>A <a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a>'s shape is described by three parameters: its dimensions, alignment padding, and a DataLayout.</p>
-<ol type="1">
-<li>Dimensions: an N dimensional vector. The outermost dimension is at index 0, and innermost dimemnsion is at index N -1.</li>
-<li>Alignment: used to zeropad the innermost dimension to be a multiple of a hardware backend's data alignment requirements (for example, if an accelerator expects 8-wide vectors, the innermost dimension must be a multiple of 8). This can be zero if no alignment is required.</li>
-<li>DataLayout: the meaning of each dimension, e.g. "NCHW" means dimensions[0] = N, dimensions[3] = W, etc. </li>
-</ol>
-
-<p class="definition">Definition at line <a class="el" href="tensor_8h_source.html#l00035">35</a> of file <a class="el" href="tensor_8h_source.html">tensor.h</a>.</p>
-</div><h2 class="groupheader">Member Data Documentation</h2>
+<h2 class="groupheader">Member Data Documentation</h2>
 <a id="a2c020b8452d947b50b8e3733a91e32b9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2c020b8452d947b50b8e3733a91e32b9">&#9670;&nbsp;</a></span>padding_</h2>
 

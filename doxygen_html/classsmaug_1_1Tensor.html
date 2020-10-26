@@ -89,7 +89,12 @@ Inheritance diagram for smaug::Tensor:</div>
 <area href="classsmaug_1_1TensorBase.html" title="The base class of all Tensor objects." alt="smaug::TensorBase" shape="rect" coords="0,0,121,24"/>
   </map>
 </div></div>
-<table class="memberdecls">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p><a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a> represents a single multi-dimensional array of data. </p>
+<p>At construction time, the dataType of the <a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a> is undetermined, and memory to store its data is not allocated. The dataType is set by a call to <a class="el" href="classsmaug_1_1Tensor.html#a549ac11e7bd713ff994c25d1fc6bac9f" title="Allocates memory to store Tensor data.">Tensor::allocateStorage()</a> or <a class="el" href="classsmaug_1_1Tensor.html#aa97298c8066cd04cc678b05b5a1f9e61" title="Fills the Tensor with externalData.">Tensor::fillData&lt;T&gt;</a>, where T is the type of the incoming data. Afterwards, the underlying data array can be accessed with <a class="el" href="classsmaug_1_1Tensor.html#a1f3477072b25cd69bac7e5f0476d2bfc" title="Returns a const pointer to the Tensor data.">Tensor::data&lt;T&gt;</a> (which will check that T matches the expected data type and assert-fail if not) and indexed using <a class="el" href="classsmaug_1_1TensorIndexIterator.html" title="An iterator over a multidimensional tensor&#39;s indices, accounting for data alignment padding.">TensorIndexIterator</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="tensor_8h_source.html#l00344">344</a> of file <a class="el" href="tensor_8h_source.html">tensor.h</a>.</p>
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a6e182041a62fb7bb996c316b965cc35d"><td class="memItemLeft" align="right" valign="top"><a id="a6e182041a62fb7bb996c316b965cc35d"></a>
@@ -212,12 +217,7 @@ std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="
 <tr class="memdesc:a25498ca79d198f200c7c2b1bad8654bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints the contents of the <a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a> to the given ostream. <br /></td></tr>
 <tr class="separator:a25498ca79d198f200c7c2b1bad8654bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a> represents a single multi-dimensional array of data. </p>
-<p>At construction time, the dataType of the <a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a> is undetermined, and memory to store its data is not allocated. The dataType is set by a call to <a class="el" href="classsmaug_1_1Tensor.html#a549ac11e7bd713ff994c25d1fc6bac9f" title="Allocates memory to store Tensor data.">Tensor::allocateStorage()</a> or <a class="el" href="classsmaug_1_1Tensor.html#aa97298c8066cd04cc678b05b5a1f9e61" title="Fills the Tensor with externalData.">Tensor::fillData&lt;T&gt;</a>, where T is the type of the incoming data. Afterwards, the underlying data array can be accessed with <a class="el" href="classsmaug_1_1Tensor.html#a1f3477072b25cd69bac7e5f0476d2bfc" title="Returns a const pointer to the Tensor data.">Tensor::data&lt;T&gt;</a> (which will check that T matches the expected data type and assert-fail if not) and indexed using <a class="el" href="classsmaug_1_1TensorIndexIterator.html" title="An iterator over a multidimensional tensor&#39;s indices, accounting for data alignment padding.">TensorIndexIterator</a>. </p>
-
-<p class="definition">Definition at line <a class="el" href="tensor_8h_source.html#l00344">344</a> of file <a class="el" href="tensor_8h_source.html">tensor.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a79f8e516905a202adda1303b523c8cb7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a79f8e516905a202adda1303b523c8cb7">&#9670;&nbsp;</a></span>Tensor()</h2>
 

@@ -70,6 +70,22 @@ $(function() {
 <div class="title">Building a custom operator </div>  </div>
 </div><!--header-->
 <div class="contents">
+<div class="toc"><h3>Table of Contents</h3>
+<ul><li class="level1"><a href="#backends">SMAUG backends</a></li>
+<li class="level1"><a href="#operator">The Operator class</a></li>
+<li class="level1"><a href="#logic">Implementing the operator logic</a><ul><li class="level2"><a href="#sw_implementation">Software-only implementation</a></li>
+<li class="level2"><a href="#testing">Test it out</a></li>
+<li class="level2"><a href="#hw_implementation">Hardware-accelerated implementation</a><ul><li class="level3"><a href="#design">Accelerator design parameters</a></li>
+<li class="level3"><a href="#tiling">Tile your Tensors</a></li>
+<li class="level3"><a href="#executor">Modify run() to loop over all our tiles</a></li>
+<li class="level3"><a href="#gem5_aladdin_apis">Use gem5-Aladdin APIs to copy data and invoke the kernel</a></li>
+<li class="level3"><a href="#llvm_tracer">Make the kernel function traceable with LLVM-Tracer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
 <div class="textblock"><p>In this document, we will describe how to build a custom operator with a custom hardware accelerator model implementing the logic. Our custom operator will perform an element-wise add of two tensors.</p>
 <h1><a class="anchor" id="backends"></a>
 SMAUG backends</h1>
@@ -78,7 +94,7 @@ SMAUG backends</h1>
 <li>Reference: reference implementations of all operators supported in SMAUG. These are intended to be correct, not fast.</li>
 <li>SMV: operators implementations based on the SMV chip taped out by the Harvard Architecture, Circuits, and Compilers research group in 2018. These are models of accelerators with 8-wide 16-bit vectorized datapaths. The SIMD datapaths require data to be properly aligned first.</li>
 </ul>
-<p>Backends are classes comprised purely of static functions and variables. They are defined in <a class="el" href="backend_8h_source.html">core/backend.h</a> and <a class="el" href="backend_8cpp_source.html">core/backend.cpp</a>. Backend classes are used as template parameters to <a class="el" href="classsmaug_1_1Operator.html" title="Operator is the base class for all graph operators supported by SMAUG.">Operator</a> subclasses, so they must be statically interchangeable. Thus, all backend definitions must statically define the same set of functions and variables, which means that they must also support every operator type.</p>
+<p>In SMAUG, a Backend is represented as a class comprised purely of static functions and variables. They are defined in <a class="el" href="backend_8h_source.html">core/backend.h</a> and <a class="el" href="backend_8cpp_source.html">core/backend.cpp</a>. Backend classes are used as template parameters to <a class="el" href="classsmaug_1_1Operator.html" title="Operator is the base class for all graph operators supported by SMAUG.">Operator</a> subclasses, so they must be statically interchangeable. Thus, all backend definitions must statically define the same set of functions and variables, which means that they must also support every operator type.</p>
 <p>After building your custom <a class="el" href="classsmaug_1_1Operator.html" title="Operator is the base class for all graph operators supported by SMAUG.">Operator</a>, you will need to include and register the new operator in those files. We will discuss this more once we get to that step.</p>
 <h1><a class="anchor" id="operator"></a>
 The Operator class</h1>
@@ -197,7 +213,7 @@ Software-only implementation</h2>
 <div class="line">  <span class="keywordtype">float</span>* input1Data = input1-&gt;data&lt;<span class="keywordtype">float</span>&gt;();</div>
 <div class="line">  <span class="keywordtype">float</span>* outputData = output-&gt;data&lt;<span class="keywordtype">float</span>&gt;();</div>
 <div class="line"> </div>
-<div class="line">  elementwise_add(input0Data, input1Data, output, output.getShape().size());</div>
+<div class="line">  elementwise_add(input0Data, input1Data, outputData, output.getShape().size());</div>
 <div class="line">}</div>
 </div><!-- fragment --><h2><a class="anchor" id="testing"></a>
 Test it out</h2>
@@ -214,7 +230,7 @@ Test it out</h2>
 <div class="line">  <span class="comment">// DataLayout::NC is a simple 2D layout, where N = batches and C = a column</span></div>
 <div class="line">  <span class="comment">// of data.</span></div>
 <div class="line">  <a class="code" href="classsmaug_1_1TensorShape.html">TensorShape</a> shape(1, 10, DataLayout::NC);</div>
-<div class="line">  <a class="code" href="classsmaug_1_1Tensor.html">Tensor</a>* input0 = <span class="keyword">new</span> <a class="code" href="classsmaug_1_1Tensor.html">Tensor</a>(<span class="stringliteral">&quot;tensor&quot;</span>, shape);</div>
+<div class="line">  <a class="code" href="classsmaug_1_1Tensor.html">Tensor</a>* input0 = <span class="keyword">new</span> <a class="code" href="classsmaug_1_1Tensor.html">Tensor</a>(<span class="stringliteral">&quot;tensor0&quot;</span>, shape);</div>
 <div class="line">  <span class="comment">// Allocate the memory for a 1x10 array of floats.</span></div>
 <div class="line">  input0-&gt;<a class="code" href="classsmaug_1_1Tensor.html#a549ac11e7bd713ff994c25d1fc6bac9f">allocateStorage</a>&lt;<span class="keywordtype">float</span>&gt;();</div>
 <div class="line">  <span class="comment">// Add some testing data.</span></div>
@@ -222,7 +238,7 @@ Test it out</h2>
 <div class="line">  workspace()-&gt;addTensor(input0);</div>
 <div class="line"> </div>
 <div class="line">  <span class="comment">// Repeat this for a second input tensor.</span></div>
-<div class="line">  <a class="code" href="classsmaug_1_1Tensor.html">Tensor</a>* input1 = <span class="keyword">new</span> <a class="code" href="classsmaug_1_1Tensor.html">Tensor</a>(<span class="stringliteral">&quot;tensor&quot;</span>, shape);</div>
+<div class="line">  <a class="code" href="classsmaug_1_1Tensor.html">Tensor</a>* input1 = <span class="keyword">new</span> <a class="code" href="classsmaug_1_1Tensor.html">Tensor</a>(<span class="stringliteral">&quot;tensor1&quot;</span>, shape);</div>
 <div class="line">  input1-&gt;<a class="code" href="classsmaug_1_1Tensor.html#a549ac11e7bd713ff994c25d1fc6bac9f">allocateStorage</a>&lt;<span class="keywordtype">float</span>&gt;();</div>
 <div class="line">  input1-&gt;<a class="code" href="classsmaug_1_1Tensor.html#aa97298c8066cd04cc678b05b5a1f9e61">fillData</a>&lt;<span class="keywordtype">float</span>&gt;({2,3,4,5,6,7,8,9,10,11});</div>
 <div class="line">  workspace()-&gt;addTensor(input1);</div>
@@ -235,30 +251,286 @@ Test it out</h2>
 <div class="line">  op-&gt;createAllTensors();</div>
 <div class="line">  <span class="comment">// Allocates memory for all the output tensors created by createAllTensors.</span></div>
 <div class="line">  allocateAllTensors(op);</div>
-<div class="line">  </div>
+<div class="line"> </div>
 <div class="line">  op-&gt;run();</div>
 <div class="line"> </div>
 <div class="line">  <span class="comment">// Compare the output of the operator against expected values.</span></div>
-<div class="line">  std::vector&lt;float&gt; expectedOutput = {3,5,7,9,11,13,15,17,19,21};</div>
+<div class="line">  std::vector&lt;float&gt; expected_output = {3,5,7,9,11,13,15,17,19,21};</div>
 <div class="line">  <a class="code" href="classsmaug_1_1Tensor.html">Tensor</a>* output = op-&gt;getOutput(TestOp::kOutput);</div>
 <div class="line">  <span class="comment">// This performs an approximate comparison between the tensor&#39;s output and</span></div>
 <div class="line">  <span class="comment">// the expected values.</span></div>
-<div class="line">  verifyOutputs(output, expectedOutput);</div>
+<div class="line">  verifyOutputs(output, expected_output);</div>
 <div class="line">}</div>
 </div><!-- fragment --><p>Add your new test to the <code>TESTS</code> variable in <code>make/Make.common</code>. Then build the unit tests with <code>make tests</code> and run <code>./smaug/operators/my_custom_operator_test</code>.</p>
 <h2><a class="anchor" id="hw_implementation"></a>
 Hardware-accelerated implementation</h2>
-<h1><a class="anchor" id="try_it_out"></a>
-Try it out</h1>
+<p>Now that our software-only implementation is working, we are going to adapt it to serve as an Aladdin model for a hardware accelerator. This is a multi-step process:</p>
+<ol type="1">
+<li>Select the design parameters for your accelerator memory system. In particular, how much local scratchpad space will the accelerator have to work with?</li>
+<li>Based on the answer to #1, tile your input and output tensors so that they fit within the allocated scratchpad space.</li>
+<li>Write a scheduler function to iterate over each of the tiles, copying data into/out of the local accelerator scratchpad space, and running the operator function. This is also commonly known as writing a loop nest.</li>
+<li>Use the provided gem5-Aladdin APIs to copy data and invoke the kernel function, so that during simulation, the simulator will invoke the Aladdin accelerator instead of running the function on the CPU.</li>
+<li>Adapt the accelerated function (also called the kernel function) so that it can be traced by LLVM-Tracer, the LLVM-based instrumentation tool that generates the Aladdin dynamic trace.</li>
+</ol>
+<h3><a class="anchor" id="design"></a>
+Accelerator design parameters</h3>
+<p>Accelerators have a limited amount of local memory that can be directly accessed. When offloading work to an accelerator, any data it needs must be copied into this local memory first before computation can begin. If the input data is larger than this local memory, that data must be tiled into smaller pieces that can fit. How much memory to allocate is a design tradeoff between performance and hardware cost. This is a tradeoff that SMAUG can help researchers investigate for a particular workload.</p>
+<p>A piece of accelerator-local memory is represented in SMAUG as a global array that is only accessed within the accelerated function. These are typically declared under the appropriate namespaces in <a class="el" href="backend_8h_source.html">backend.h</a> and defined in <a class="el" href="backend_8cpp_source.html">backend.cpp</a>. For example, the SMV backend has three scratchpads (<code>spad0</code>, <code>spad1</code>, and <code>spad2</code>). <code>spad0</code> and <code>spad1</code> are typically used for inputs, while <code>spad2</code> is used for outputs, but this is merely a convention.</p>
+<p>For our custom operator, let's add two scratchpads to the Reference backend. Open up <a class="el" href="backend_8cpp_source.html">backend.cpp</a> and add two array definitions as shown below. Also, add a unique integer ID for this custom operator. We'll use it later when invoking the accelerator in simulation.</p>
+<div class="fragment"><div class="line"><span class="keyword">namespace </span>ref {</div>
+<div class="line"><span class="comment">// This is all existing code...</span></div>
+<div class="line"><span class="keyword">const</span> <span class="keywordtype">unsigned</span> kConvolutionHw = 0x0001;</div>
+<div class="line"><span class="keyword">const</span> <span class="keywordtype">unsigned</span> kInnerProductHw = 0x0002;</div>
+<div class="line"><span class="keyword">const</span> <span class="keywordtype">unsigned</span> kEltwiseOpHw = 0x0003;</div>
+<div class="line"><span class="keyword">const</span> <span class="keywordtype">unsigned</span> kBatchNormHw = 0x0004;</div>
+<div class="line"><span class="keyword">const</span> <span class="keywordtype">unsigned</span> kPoolingHw = 0x0005;</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Define our new scratchpads here.</span></div>
+<div class="line"><span class="keywordtype">int</span> kSpadSize;</div>
+<div class="line"><span class="keywordtype">float</span>* spad0;</div>
+<div class="line"><span class="keywordtype">float</span>* spad1;</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Add a unique ID for our accelerator HW. This will be used to invoke the</span></div>
+<div class="line"><span class="comment">// accelerator during simulation.</span></div>
+<div class="line"><span class="keyword">const</span> <span class="keywordtype">unsigned</span> kMyCustomOperatorHw = 0x00006;</div>
+<div class="line">}  <span class="comment">// namespace ref</span></div>
+</div><!-- fragment --><p>Then, open up <a class="el" href="backend_8h_source.html">backend.h</a> and add extern declarations for them:</p>
+<div class="fragment"><div class="line"><span class="keyword">namespace </span>ref {</div>
+<div class="line"><span class="comment">// This is all existing code...</span></div>
+<div class="line"><span class="keyword">extern</span> <span class="keyword">const</span> <span class="keywordtype">unsigned</span> kConvolutionHw;</div>
+<div class="line"><span class="keyword">extern</span> <span class="keyword">const</span> <span class="keywordtype">unsigned</span> kInnerProductHw;</div>
+<div class="line"><span class="keyword">extern</span> <span class="keyword">const</span> <span class="keywordtype">unsigned</span> kEltwiseOpHw;</div>
+<div class="line"><span class="keyword">extern</span> <span class="keyword">const</span> <span class="keywordtype">unsigned</span> kBatchNormHw;</div>
+<div class="line"><span class="keyword">extern</span> <span class="keyword">const</span> <span class="keywordtype">unsigned</span> kPoolingHw;</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Declare our two new global arrays and accelerator IDs here.</span></div>
+<div class="line"><span class="keyword">extern</span> <span class="keywordtype">int</span> kSpadSize;</div>
+<div class="line"><span class="keyword">extern</span> <span class="keywordtype">float</span>* spad0;</div>
+<div class="line"><span class="keyword">extern</span> <span class="keywordtype">float</span>* spad1;</div>
+<div class="line"><span class="keyword">extern</span> <span class="keyword">const</span> <span class="keywordtype">unsigned</span> kMyCustomOperatorHw;</div>
+<div class="line">}  <span class="comment">// namespace ref</span></div>
+</div><!-- fragment --><p>We need to allocate memory for these new arrays before they can be used. By this point, you should have picked a scratchpad size. Let's say you picked 32KB. In <a class="el" href="backend_8h_source.html">backend.h</a>, modify <code><a class="el" href="classsmaug_1_1ReferenceBackend.html" title="ReferenceBackend provides reference implementations of all operators supported by SMAUG.">ReferenceBackend</a></code> like so:</p>
+<div class="fragment"><div class="line"><span class="keyword">class </span>ReferenceBackend {</div>
+<div class="line">  <span class="keyword">static</span> <span class="keywordtype">int</span> SpadSize() { <span class="keywordflow">return</span> ref::kSpadSize; }</div>
+<div class="line">  <span class="keyword">static</span> <span class="keywordtype">void</span> initGlobals() {</div>
+<div class="line">    ref::kSpadSize = 32*1024;  <span class="comment">// Replace with your actual value.</span></div>
+<div class="line">    ref::spad0 = (<span class="keywordtype">float</span>*) <a class="code" href="namespacesmaug.html#a4e8263824c0439a3234edbfb77925091">malloc_aligned</a>(ref::kSpadSize);</div>
+<div class="line">    ref::spad1 = (<span class="keywordtype">float</span>*) <a class="code" href="namespacesmaug.html#a4e8263824c0439a3234edbfb77925091">malloc_aligned</a>(ref::kSpadSize);</div>
+<div class="line">  }</div>
+<div class="line">  <span class="keyword">static</span> <span class="keywordtype">void</span> freeGlobals() {</div>
+<div class="line">    free(ref::spad0);</div>
+<div class="line">    free(ref::spad1);</div>
+<div class="line">  }</div>
+<div class="line">}</div>
+</div><!-- fragment --><p>Your accelerator-local scratchpads have now been correctly configured. We will modify our kernel function to use these shortly.</p>
+<h3><a class="anchor" id="tiling"></a>
+Tile your Tensors</h3>
+<p>Writing logic to correctly tile your tensors can be tricky. There are lots of corner cases and special features of the data that must be taken into account so that the accelerator can still compute the correct output with partial data. To ease this, SMAUG provides a library of useful tiling functionality that you can reuse. When that library is insufficient, you can refer to the existing tiling optimizers (e.g. for SMV convolution) to get started on more complex tiling scenarios.</p>
+<p>Fortunately, tiling a tensor for an elementwise operator is the easiest kind of tiling there is - no need to consider data reuse, striding, etc. We simply need to break up the two input tensors and output tensor into equal sized pieces which maximize the use of the local scratchpads. This can be accomplished with just a few lines of code in <code>my_custom_operator.h</code> by overriding the <code>tile()</code> function and calling the <a class="el" href="namespacesmaug.html#a82bee05ff5b5e1853c0cab3a0f23ac27" title="Tile the provided NC Tensor per batch.">smaug::generateTiledTensorPerBatchNC</a> function. The result will be an array of <a class="el" href="classsmaug_1_1TiledTensor.html" title="A multidimensional container of Tensors.">TiledTensor</a> objects. A <a class="el" href="classsmaug_1_1TiledTensor.html" title="A multidimensional container of Tensors.">TiledTensor</a> represents a spatially ordered collection of <a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a> objects, each containing a copy of a slice of data from an underlying <a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a>.</p>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;array&gt;</span></div>
+<div class="line"><span class="preprocessor">#include &quot;<a class="code" href="tensor__utils_8h.html">core/tensor_utils.h</a>&quot;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">class </span>MyCustomOperator {</div>
+<div class="line"> <span class="comment">/* Existing code... */</span></div>
+<div class="line"> <span class="keyword">public</span>:</div>
+<div class="line">  <span class="keywordtype">void</span> tile()<span class="keyword"> override </span>{</div>
+<div class="line">    <span class="keyword">auto</span> inputs0 = getInput(kInput0);</div>
+<div class="line">    <span class="keyword">auto</span> inputs1 = getInput(kInput1);</div>
+<div class="line">    <span class="keyword">auto</span> outputs = getOutput(kOutput);</div>
+<div class="line">    <span class="comment">// The simplest tiling strategy is to tile per batch. Each tile will have a</span></div>
+<div class="line">    <span class="comment">// size of at most 1 x maxTileSize.</span></div>
+<div class="line">    <span class="keywordtype">int</span> maxTileSize =</div>
+<div class="line">            std::min(ReferenceBackend::SpadSize() / inputs0-&gt;getDataTypeSize(),</div>
+<div class="line">                      inputs0-&gt;getShape().storageSize());</div>
+<div class="line">    TensorShape tileShape(</div>
+<div class="line">             { 1, maxTileSize }, DataLayout::NC, ReferenceBackend::Alignment);</div>
+<div class="line">    <span class="comment">// The final bool parameter specifies whether to copy the data from the</span></div>
+<div class="line">    <span class="comment">// source tensor into each of its tiles. Obivously, we want to do this for the</span></div>
+<div class="line">    <span class="comment">// input tensors, but the output tensor is empty, so there&#39;s no need to</span></div>
+<div class="line">    <span class="comment">// waste time on that.</span></div>
+<div class="line">    tiledTensors[0] = <a class="code" href="namespacesmaug.html#a82bee05ff5b5e1853c0cab3a0f23ac27">generateTiledTensorPerBatchNC</a>(inputs0, tileShape, <span class="keyword">this</span>, <span class="keyword">true</span>);</div>
+<div class="line">    tiledTensors[1] = <a class="code" href="namespacesmaug.html#a82bee05ff5b5e1853c0cab3a0f23ac27">generateTiledTensorPerBatchNC</a>(inputs1, tileShape, <span class="keyword">this</span>, <span class="keyword">true</span>);</div>
+<div class="line">    tiledTensors[2] = <a class="code" href="namespacesmaug.html#a82bee05ff5b5e1853c0cab3a0f23ac27">generateTiledTensorPerBatchNC</a>(outputs, tileShape, <span class="keyword">this</span>, <span class="keyword">false</span>);</div>
+<div class="line">  }</div>
+<div class="line"> </div>
+<div class="line"> <span class="keyword">private</span>:</div>
+<div class="line">  <span class="comment">// Because tensor tiling is done at the start of the program (before the</span></div>
+<div class="line">  <span class="comment">// operator starts running), these tiles need to be stored in memory for use</span></div>
+<div class="line">  <span class="comment">// later.</span></div>
+<div class="line">  std::array&lt;TiledTensor, 3&gt; tiledTensors;</div>
+<div class="line">}</div>
+</div><!-- fragment --><h3><a class="anchor" id="executor"></a>
+Modify run() to loop over all our tiles</h3>
+<p>This part is straightforward. Iterate over each of the tensor tiles and run the <code>elementwise_add</code> function on their contents. Finally, flatten the tiled output tensor back into a single one. Since this is an elementwise operation, there is no need to consider data reuse, so a simple for loop will do. For more complex operators in which data reuse is a critical factor to optimize for, changing the order of iteration along the dimensions may greatly affect performance.</p>
+<div class="fragment"><div class="line"><span class="keywordtype">void</span> run()<span class="keyword"> override </span>{</div>
+<div class="line">  TiledTensor&amp; input0 = tiledTensors[kInput0];</div>
+<div class="line">  TiledTensor&amp; input1 = tiledTensors[kInput1];</div>
+<div class="line">  TiledTensor&amp; output = tiledTensors[kOutput];</div>
+<div class="line"> </div>
+<div class="line">  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; input0.size(); i++) {</div>
+<div class="line">    Tensor* input0Tile = input0.getTileWithData(i);</div>
+<div class="line">    Tensor* input1Tile = input1.getTileWithData(i);</div>
+<div class="line">    Tensor* outputTile = output.getTileWithData(i);</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Get handles to the actual underlying data storage. This performs a</span></div>
+<div class="line">    <span class="comment">// dynamic_cast to the specified data type, which we verified is safe inside</span></div>
+<div class="line">    <span class="comment">// validate().</span></div>
+<div class="line">    <span class="keywordtype">float</span>* input0Data = input0Tile-&gt;<a class="code" href="classsmaug_1_1Tensor.html#a1f3477072b25cd69bac7e5f0476d2bfc">data</a>&lt;<span class="keywordtype">float</span>&gt;();</div>
+<div class="line">    <span class="keywordtype">float</span>* input1Data = input1Tile-&gt;data&lt;<span class="keywordtype">float</span>&gt;();</div>
+<div class="line">    <span class="keywordtype">float</span>* outputData = outputTile-&gt;data&lt;<span class="keywordtype">float</span>&gt;();</div>
+<div class="line">    elementwise_add(input0Data, input1Data, outputData, outputTile.getShape().size());</div>
+<div class="line">  }</div>
+<div class="line">  <span class="comment">// The results of the elementwise_add are stored in the tiled tensor. We need</span></div>
+<div class="line">  <span class="comment">// to merge the data from the individual tiles back into a single contiguous</span></div>
+<div class="line">  <span class="comment">// Tensor.</span></div>
+<div class="line">  <a class="code" href="namespacesmaug.html#a91d8dcd952a4a47c0899f95ed3f9ab6e">flattenTiledTensor</a>(tiledTensors[kOutput], outputs);</div>
+<div class="line">}</div>
+</div><!-- fragment --><p>As usual, let's add a unit test to verify that this implementation is correct. We need to ensure that our inputs are larger than the scratchpads we created in order for tiling to make any meaningful change. Add this code to your existing unit test.</p>
+<div class="fragment"><div class="line"><span class="comment">// A function to fill the tensor with a sequence of monotonically increasing</span></div>
+<div class="line"><span class="comment">// data, starting from 0. Note that this is ONLY advised for elementwise/unary</span></div>
+<div class="line"><span class="comment">// operators in which we don&#39;t care about data in specific dimensions.</span></div>
+<div class="line"><span class="keywordtype">void</span> fillTensorWithSequentialFloat32Data(Tensor* tensor) {</div>
+<div class="line">  float32* data = tensor-&gt;data&lt;<span class="keywordtype">float</span>&gt;();</div>
+<div class="line">  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; tensor-&gt;getShape().getStorageSize(); i++) {</div>
+<div class="line">    data[i] = i;</div>
+<div class="line">  }</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line">TEST_CASE_METHOD(SmaugTest, MyCustomOperatorWithTiling) {</div>
+<div class="line">  <span class="comment">// With float32 elements, this will occupy 128KB, which should create four</span></div>
+<div class="line">  <span class="comment">// tiles per tensor.</span></div>
+<div class="line">  TensorShape shape(8, 4096, DataLayout::NC);</div>
+<div class="line">  Tensor* input0 = <span class="keyword">new</span> Tensor(<span class="stringliteral">&quot;tensor0&quot;</span>, shape);</div>
+<div class="line">  Tensor* input1 = <span class="keyword">new</span> Tensor(<span class="stringliteral">&quot;tensor1&quot;</span>, shape);</div>
+<div class="line">  workspace()-&gt;addTensor(input0);</div>
+<div class="line">  workspace()-&gt;addTensor(input1);</div>
+<div class="line"> </div>
+<div class="line">  <span class="comment">// Create the operator and fill it with our tensors.</span></div>
+<div class="line">  <span class="keyword">using</span> TestOp = MyCustomOperator&lt;ReferenceBackend&gt;;</div>
+<div class="line">  <span class="keyword">auto</span> op = <span class="keyword">new</span> TestOp(<span class="stringliteral">&quot;eltwise_add&quot;</span>, workspace());</div>
+<div class="line">  op-&gt;setInput(input0, TestOp::kInputs0);</div>
+<div class="line">  op-&gt;setInput(input1, TestOp::kInputs1);</div>
+<div class="line">  <span class="comment">// This will handle creating/allocating storage/filling data into all the</span></div>
+<div class="line">  <span class="comment">// input tensors.</span></div>
+<div class="line">  createAndFillTensorsWithData(op, &amp;fillTensorWithSequentialFloat32Data);</div>
+<div class="line">  <span class="comment">// Compute the expected output.</span></div>
+<div class="line">  std::vector&lt;float&gt; expected_output(8*4096, 0);</div>
+<div class="line">  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; expected_output.size(); i++) {</div>
+<div class="line">    expected_output[i] = 2*i;</div>
+<div class="line">  }</div>
+<div class="line"> </div>
+<div class="line">  op-&gt;tile();</div>
+<div class="line">  op-&gt;run();</div>
+<div class="line"> </div>
+<div class="line">  Tensor* output = op-&gt;getOutput(kOutput);</div>
+<div class="line">  verifyOutputs(output, expected_output);</div>
+<div class="line">}</div>
+</div><!-- fragment --><h3><a class="anchor" id="gem5_aladdin_apis"></a>
+Use gem5-Aladdin APIs to copy data and invoke the kernel</h3>
+<p>From the perspective of the <code>elementwise_add</code> function, we've been writing our code as if it could directly access the contents of the <code>input0</code>, <code>input1</code>, and <code>output</code> arrays. These are pointers into <em>host</em> memory. But if it's representing a block of hardware, and the hardware can only access local scratchpads, we need to copy the contents of the host memory into the scratchpads. In gem5-Aladdin, this is accomplished with special functions: <code>dmaLoad</code> and <code>dmaStore</code>. They work just like regular calls to <code>memcpy</code>, except LLVM-Tracer will recognize this call as a special function call and have Aladdin handle it appropriately. This is handled as follows:</p>
+<div class="fragment"><div class="line"><span class="comment">// By convention, we prefix all pointers into host memory with &quot;host_&quot;.</span></div>
+<div class="line"><span class="keywordtype">void</span> elementwise_add(<span class="keywordtype">float</span>* host_input0, </div>
+<div class="line">                     <span class="keywordtype">float</span>* host_input1, </div>
+<div class="line">                     <span class="keywordtype">float</span>* host_output, </div>
+<div class="line">                     <span class="keywordtype">float</span>* spad0, </div>
+<div class="line">                     <span class="keywordtype">float</span>* spad1, </div>
+<div class="line">                     <span class="keywordtype">int</span> size) {</div>
+<div class="line">  <span class="comment">// Copy input data from host_inputN to spadN. The first argument to dmaLoad</span></div>
+<div class="line">  <span class="comment">// or dmaStore is always the destination.</span></div>
+<div class="line">  dmaLoad(spad0, host_input0, size);</div>
+<div class="line">  dmaLoad(spad1, host_input1, size);</div>
+<div class="line">  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; size; i++) {</div>
+<div class="line">    <span class="comment">// Accumulate the data from spad0 into spad1.</span></div>
+<div class="line">    <span class="comment">// NOTE: This could be optimized more if we had three scratchpads instead</span></div>
+<div class="line">    <span class="comment">// of two. This would be a great exercise for the reader :)</span></div>
+<div class="line">    spad1[i] += spad0[i];</div>
+<div class="line">  }</div>
+<div class="line">  <span class="comment">// Copy output data from spad1 back to the host.</span></div>
+<div class="line">  dmaStore(host_output, spad1, size);</div>
+<div class="line">}</div>
+</div><!-- fragment --><p>Next, for simulation, we need to set up a TLB page mapping for all host memory accessed by the accelerator, so that the <code>dmaLoad</code>/<code>dmaStore</code> functions can load the correct data into the scratchpads. This is done with the <code>mapArrayToAccelerator</code> API.</p>
+<p>Finally, we need to update the call to <code>elementwise_add</code> and wrap it with the <code>invokeKernel</code> function, so that in simulation, gem5-Aladdin will know to fire up the hardware accelerator model instead of just running the kernel function on the CPU.</p>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="common_8h.html">smaug/operators/common.h</a>&quot;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">void</span> run()<span class="keyword"> override </span>{</div>
+<div class="line">  TiledTensor&amp; input0 = tiledTensors[kInput0];</div>
+<div class="line">  TiledTensor&amp; input1 = tiledTensors[kInput1];</div>
+<div class="line">  TiledTensor&amp; output = tiledTensors[kOutput];</div>
+<div class="line"> </div>
+<div class="line">  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; input0.size(); i++) {</div>
+<div class="line">    Tensor* input0Tile = input0.getTileWithData(i);</div>
+<div class="line">    Tensor* input1Tile = input1.getTileWithData(i);</div>
+<div class="line">    Tensor* outputTile = output.getTileWithData(i);</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Get handles to the actual underlying data storage. This performs a</span></div>
+<div class="line">    <span class="comment">// dynamic_cast to the specified data type, which we verified is safe inside</span></div>
+<div class="line">    <span class="comment">// validate().</span></div>
+<div class="line">    <span class="keywordtype">float</span>* input0Data = input0Tile-&gt;data&lt;<span class="keywordtype">float</span>&gt;();</div>
+<div class="line">    <span class="keywordtype">float</span>* input1Data = input1Tile-&gt;data&lt;<span class="keywordtype">float</span>&gt;();</div>
+<div class="line">    <span class="keywordtype">float</span>* outputData = outputTile-&gt;data&lt;<span class="keywordtype">float</span>&gt;();</div>
+<div class="line">    input size = outputTile.getShape().size();</div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Set up the TLB mappings.</span></div>
+<div class="line">    mapArrayToAccelerator(</div>
+<div class="line">            ref::kMyCustomOperatorHw,  <span class="comment">// The accelerator ID this TLB mapping is for.</span></div>
+<div class="line">            <span class="stringliteral">&quot;host_input0&quot;</span>,             <span class="comment">// The name of the function argument in the kernel function.</span></div>
+<div class="line">            input0Data,                <span class="comment">// The pointer to the data.</span></div>
+<div class="line">            size                       <span class="comment">// The size of the TLB mapping</span></div>
+<div class="line">   );</div>
+<div class="line">    mapArrayToAccelerator(</div>
+<div class="line">            ref::kMyCustomOperatorHw, <span class="stringliteral">&quot;host_input1&quot;</span></div>
+<div class="line">            input1Data, size);</div>
+<div class="line">    mapArrayToAccelerator(</div>
+<div class="line">            ref::kMyCustomOperatorHw, <span class="stringliteral">&quot;host_output&quot;</span></div>
+<div class="line">            outputData, size);</div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line">    <span class="comment">// Wrap the call to elementwise_add with invokeKernel.</span></div>
+<div class="line">    <a class="code" href="namespacesmaug.html#a4af4bb02d63072ba24d12819d0290382">invokeKernel</a>(ref::kMyCustomOperatorHw,  <span class="comment">// our accelerator ID</span></div>
+<div class="line">                 elementwise_add, <span class="comment">// if not simulating, the function to call</span></div>
+<div class="line">                 <span class="comment">// All of the function call arguments.</span></div>
+<div class="line">                 input0Data,</div>
+<div class="line">                 input1Data,</div>
+<div class="line">                 outputData,</div>
+<div class="line">                 ref::spad0,</div>
+<div class="line">                 ref::spad1,</div>
+<div class="line">                 outputTile.getShape().size());</div>
+<div class="line">  }</div>
+<div class="line">  <span class="comment">// The results of the elementwise_add are stored in the tiled tensor. We need</span></div>
+<div class="line">  <span class="comment">// to merge the data from the individual tiles back into a single contiguous</span></div>
+<div class="line">  <span class="comment">// Tensor.</span></div>
+<div class="line">  <a class="code" href="namespacesmaug.html#a91d8dcd952a4a47c0899f95ed3f9ab6e">flattenTiledTensor</a>(tiledTensors[kOutput], outputs);</div>
+<div class="line">}</div>
+</div><!-- fragment --><h3><a class="anchor" id="llvm_tracer"></a>
+Make the kernel function traceable with LLVM-Tracer</h3>
+<p>LLVM-Tracer is the instrumentation tool that we will use to generate a dynamic execution trace for Aladdin to consume. It is only compatible with instrumenting C code, not C++, but it can ignore any code with C++ linkage that it sees. This allows us to write in C++ for the vast majority of our code, dropping down into C only for the few kernel functions representing the hardware accelerators.</p>
+<p>Adapt our code for use with LLVM-Tracer is simple: just surround the kernel function in an <code>extern "C"</code> block.</p>
+<div class="fragment"><div class="line"><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
+<div class="line"><span class="preprocessor">#endif</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">void</span> elementwise_add(<span class="comment">/*...*/</span>) { <span class="comment">/* code ... */</span> }</div>
+<div class="line"> </div>
+<div class="line"><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line">}</div>
+<div class="line"><span class="preprocessor">#endif</span></div>
+</div><!-- fragment --><p>Build your code, make sure it all compiles, and voila! We are ready to generate our trace, set up the simulator configuration files, and start simulating our first operator! </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <div class="ttc" id="aclasssmaug_1_1Tensor_html"><div class="ttname"><a href="classsmaug_1_1Tensor.html">smaug::Tensor</a></div><div class="ttdoc">Tensor represents a single multi-dimensional array of data.</div><div class="ttdef"><b>Definition:</b> <a href="tensor_8h_source.html#l00344">tensor.h:344</a></div></div>
 <div class="ttc" id="aclasssmaug_1_1SmaugTest_html"><div class="ttname"><a href="classsmaug_1_1SmaugTest.html">smaug::SmaugTest</a></div><div class="ttdoc">The Catch2 test fixture used by all C++ unit tests.</div><div class="ttdef"><b>Definition:</b> <a href="smaug__test_8h_source.html#l00043">smaug_test.h:43</a></div></div>
+<div class="ttc" id="aclasssmaug_1_1Tensor_html_a1f3477072b25cd69bac7e5f0476d2bfc"><div class="ttname"><a href="classsmaug_1_1Tensor.html#a1f3477072b25cd69bac7e5f0476d2bfc">smaug::Tensor::data</a></div><div class="ttdeci">const T * data() const</div><div class="ttdoc">Returns a const pointer to the Tensor data.</div><div class="ttdef"><b>Definition:</b> <a href="tensor_8h_source.html#l00521">tensor.h:521</a></div></div>
+<div class="ttc" id="anamespacesmaug_html_a4e8263824c0439a3234edbfb77925091"><div class="ttname"><a href="namespacesmaug.html#a4e8263824c0439a3234edbfb77925091">smaug::malloc_aligned</a></div><div class="ttdeci">void * malloc_aligned(size_t size, bool zeroOut)</div><div class="ttdoc">Return heap-allocated cacheline-aligned memory.</div><div class="ttdef"><b>Definition:</b> <a href="utils_8cpp_source.html#l00009">utils.cpp:9</a></div></div>
 <div class="ttc" id="aclasssmaug_1_1Tensor_html_a549ac11e7bd713ff994c25d1fc6bac9f"><div class="ttname"><a href="classsmaug_1_1Tensor.html#a549ac11e7bd713ff994c25d1fc6bac9f">smaug::Tensor::allocateStorage</a></div><div class="ttdeci">T * allocateStorage()</div><div class="ttdoc">Allocates memory to store Tensor data.</div><div class="ttdef"><b>Definition:</b> <a href="tensor_8h_source.html#l00473">tensor.h:473</a></div></div>
+<div class="ttc" id="atensor__utils_8h_html"><div class="ttname"><a href="tensor__utils_8h.html">tensor_utils.h</a></div><div class="ttdoc">Utility functions for copying/printing/tiling tensors.</div></div>
+<div class="ttc" id="anamespacesmaug_html_a82bee05ff5b5e1853c0cab3a0f23ac27"><div class="ttname"><a href="namespacesmaug.html#a82bee05ff5b5e1853c0cab3a0f23ac27">smaug::generateTiledTensorPerBatchNC</a></div><div class="ttdeci">TiledTensor generateTiledTensorPerBatchNC(Tensor *tensor, const TensorShape &amp;tileShape, Operator *op, bool copyData)</div><div class="ttdoc">Tile the provided NC Tensor per batch.</div><div class="ttdef"><b>Definition:</b> <a href="tensor__utils_8cpp_source.html#l00199">tensor_utils.cpp:199</a></div></div>
 <div class="ttc" id="aclasssmaug_1_1TensorShape_html"><div class="ttname"><a href="classsmaug_1_1TensorShape.html">smaug::TensorShape</a></div><div class="ttdoc">TensorShape describes the shape of a Tensor.</div><div class="ttdef"><b>Definition:</b> <a href="tensor_8h_source.html#l00035">tensor.h:35</a></div></div>
 <div class="ttc" id="aclasssmaug_1_1Tensor_html_aa97298c8066cd04cc678b05b5a1f9e61"><div class="ttname"><a href="classsmaug_1_1Tensor.html#aa97298c8066cd04cc678b05b5a1f9e61">smaug::Tensor::fillData</a></div><div class="ttdeci">void fillData(T *externalData, int size)</div><div class="ttdoc">Fills the Tensor with externalData.</div><div class="ttdef"><b>Definition:</b> <a href="tensor_8h_source.html#l00400">tensor.h:400</a></div></div>
 <div class="ttc" id="asmaug__test_8h_html"><div class="ttname"><a href="smaug__test_8h.html">smaug_test.h</a></div><div class="ttdoc">SMAUG unit test fixture.</div></div>
 <div class="ttc" id="anamespacesmaug_html"><div class="ttname"><a href="namespacesmaug.html">smaug</a></div><div class="ttdoc">The smaug namespace is the parent namespace of all C++ code in SMAUG.</div><div class="ttdef"><b>Definition:</b> <a href="backend_8cpp_source.html#l00037">backend.cpp:37</a></div></div>
+<div class="ttc" id="acommon_8h_html"><div class="ttname"><a href="common_8h.html">common.h</a></div><div class="ttdoc">Utilities for writing and invoking Aladdin kernels from Operators.</div></div>
+<div class="ttc" id="anamespacesmaug_html_a4af4bb02d63072ba24d12819d0290382"><div class="ttname"><a href="namespacesmaug.html#a4af4bb02d63072ba24d12819d0290382">smaug::invokeKernel</a></div><div class="ttdeci">void invokeKernel(int accelIdx, unsigned reqCode, const Kernel &amp;kernel, Args &amp;&amp;... args)</div><div class="ttdoc">The generic blocking interface for all accelerator kernel functions.</div><div class="ttdef"><b>Definition:</b> <a href="common_8h_source.html#l00072">common.h:72</a></div></div>
+<div class="ttc" id="anamespacesmaug_html_a91d8dcd952a4a47c0899f95ed3f9ab6e"><div class="ttname"><a href="namespacesmaug.html#a91d8dcd952a4a47c0899f95ed3f9ab6e">smaug::flattenTiledTensor</a></div><div class="ttdeci">void flattenTiledTensor(TiledTensor &amp;tiledTensor, Tensor *destTensor)</div><div class="ttdoc">Copies the data from each tile in a TiledTensor into a destination Tensor as a contiguous block of me...</div><div class="ttdef"><b>Definition:</b> <a href="tensor__utils_8cpp_source.html#l00343">tensor_utils.cpp:343</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

@@ -80,7 +80,21 @@ $(function() {
  <a href="classsmaug_1_1SmvAcceleratorPool.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="smv__accel__pool_8h_source.html">smv_accel_pool.h</a>&gt;</code></p>
-<table class="memberdecls">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Implements a pool of worker accelerators. </p>
+<p>For operators that require work tiling, tiles can be distributed across multiple accelerators to exploit parallelism. This class implements a deterministic round-robin worker pool. Determinism is required because when generating multiple dynamic traces, worker accelerator assignments must match with simulation of the binary in <a class="el" href="namespacesmaug_1_1gem5.html" title="Contains utility functions for interacting with gem5.">gem5</a>.</p>
+<p>To use:</p>
+<div class="fragment"><div class="line">SmvAcceleratorPool pool(<a class="code" href="classsmaug_1_1SmvAcceleratorPool.html#ab527d58c28f046728be520c683873b69">size</a>);</div>
+<div class="line"><span class="keywordtype">int</span> currAccel = 0;</div>
+<div class="line"><span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; tiles; i++) {</div>
+<div class="line">   <span class="keyword">volatile</span> <span class="keywordtype">int</span>* finishFlag = <a class="code" href="namespacesmaug.html#a8e283c69f2d709034e9426931ef6f0fb">invokeKernelNoBlock</a>(currAccel, redCode, kernel, args...);</div>
+<div class="line">   pool.addFinishFlag(currAccel, std::make_unique(finishFlag));</div>
+<div class="line">   currAccel = pool.getNextAvailableAccelerator(currAccel);</div>
+<div class="line">}</div>
+<div class="line">pool.joinAll();</div>
+</div><!-- fragment --> 
+<p class="definition">Definition at line <a class="el" href="smv__accel__pool_8h_source.html#l00032">32</a> of file <a class="el" href="smv__accel__pool_8h_source.html">smv_accel_pool.h</a>.</p>
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a31ea1c9daf4378527f52b50b173f8157"><td class="memItemLeft" align="right" valign="top"><a id="a31ea1c9daf4378527f52b50b173f8157"></a>
@@ -116,21 +130,7 @@ std::vector&lt; std::deque&lt; std::unique_ptr&lt; volatile int &gt; &gt; &gt;&#
 <tr class="memdesc:aaaca89247d404d094bec73695f7893dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Active finish flags for all the accelerators in the pool. <br /></td></tr>
 <tr class="separator:aaaca89247d404d094bec73695f7893dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Implements a pool of worker accelerators. </p>
-<p>For operators that require work tiling, tiles can be distributed across multiple accelerators to exploit parallelism. This class implements a deterministic round-robin worker pool. Determinism is required because when generating multiple dynamic traces, worker accelerator assignments must match with simulation of the binary in <a class="el" href="namespacesmaug_1_1gem5.html" title="Contains utility functions for interacting with gem5.">gem5</a>.</p>
-<p>To use:</p>
-<div class="fragment"><div class="line">SmvAcceleratorPool pool(<a class="code" href="classsmaug_1_1SmvAcceleratorPool.html#ab527d58c28f046728be520c683873b69">size</a>);</div>
-<div class="line"><span class="keywordtype">int</span> currAccel = 0;</div>
-<div class="line"><span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; tiles; i++) {</div>
-<div class="line">   <span class="keyword">volatile</span> <span class="keywordtype">int</span>* finishFlag = <a class="code" href="namespacesmaug.html#a8e283c69f2d709034e9426931ef6f0fb">invokeKernelNoBlock</a>(currAccel, redCode, kernel, args...);</div>
-<div class="line">   pool.addFinishFlag(currAccel, std::make_unique(finishFlag));</div>
-<div class="line">   currAccel = pool.getNextAvailableAccelerator(currAccel);</div>
-<div class="line">}</div>
-<div class="line">pool.joinAll();</div>
-</div><!-- fragment --> 
-<p class="definition">Definition at line <a class="el" href="smv__accel__pool_8h_source.html#l00032">32</a> of file <a class="el" href="smv__accel__pool_8h_source.html">smv_accel_pool.h</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a id="a82d5531e60fd07e1a4ccdedf141fd8d6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a82d5531e60fd07e1a4ccdedf141fd8d6">&#9670;&nbsp;</a></span>getNextAvailableAccelerator()</h2>
 

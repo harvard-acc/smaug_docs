@@ -90,7 +90,17 @@ Inheritance diagram for smaug::TensorIndexIterator:</div>
 <area href="classsmaug_1_1TensorRegionIndexIterator.html" title="A tensor index iterator that stays within a specified rectangular region." alt="smaug::TensorRegionIndexIterator" shape="rect" coords="0,56,202,80"/>
   </map>
 </div></div>
-<table class="memberdecls">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>An iterator over a multidimensional tensor's indices, accounting for data alignment padding. </p>
+<p>The iterator tracks the current location as a coordinate and outputs the linearized index so that the data in a tensor can be accessed. While most commonly used to iterate through the contents of a tensor one by one, it can also provide random access to any location in the tensor.</p>
+<p>Example usage for simple iteration: auto iter = <a class="el" href="classsmaug_1_1TensorIndexIterator.html" title="An iterator over a multidimensional tensor&#39;s indices, accounting for data alignment padding.">TensorIndexIterator</a>(tensor-&gt;getShape());</p><ul>
+<li>OR: auto iter = tensor-&gt;startIndex(); float* data = tensor-&gt;data&lt;float&gt;(); while (!iter.end()) std::cout &lt;&lt; data[iter] &lt;&lt; ",";</li>
+</ul>
+<p>Example usage for random access (assume 4D tensor): auto iter = <a class="el" href="classsmaug_1_1TensorIndexIterator.html" title="An iterator over a multidimensional tensor&#39;s indices, accounting for data alignment padding.">TensorIndexIterator</a>(tensor-&gt;getShape()); float* data = tensor-&gt;data&lt;float&gt;(); data[iter(1,2,3,4)] = 1.2; data[iter(3,4,0,0)] = 3.4;</p>
+<p>The iterator skips over data alignment padding areas, if any exist. </p>
+
+<p class="definition">Definition at line <a class="el" href="tensor_8h_source.html#l00128">128</a> of file <a class="el" href="tensor_8h_source.html">tensor.h</a>.</p>
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a05d72a1d1e19cd5b7b1d80ad80b7574a"><td class="memItemLeft" align="right" valign="top"><a id="a05d72a1d1e19cd5b7b1d80ad80b7574a"></a>
@@ -163,17 +173,7 @@ Friends</h2></td></tr>
 std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator&lt;&lt;</b> (std::ostream &amp;os, const <a class="el" href="classsmaug_1_1TensorIndexIterator.html">TensorIndexIterator</a> &amp;iter)</td></tr>
 <tr class="separator:ab3acab6c507cf3a006a1421202fcc41b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>An iterator over a multidimensional tensor's indices, accounting for data alignment padding. </p>
-<p>The iterator tracks the current location as a coordinate and outputs the linearized index so that the data in a tensor can be accessed. While most commonly used to iterate through the contents of a tensor one by one, it can also provide random access to any location in the tensor.</p>
-<p>Example usage for simple iteration: auto iter = <a class="el" href="classsmaug_1_1TensorIndexIterator.html" title="An iterator over a multidimensional tensor&#39;s indices, accounting for data alignment padding.">TensorIndexIterator</a>(tensor-&gt;getShape());</p><ul>
-<li>OR: auto iter = tensor-&gt;startIndex(); float* data = tensor-&gt;data&lt;float&gt;(); while (!iter.end()) std::cout &lt;&lt; data[iter] &lt;&lt; ",";</li>
-</ul>
-<p>Example usage for random access (assume 4D tensor): auto iter = <a class="el" href="classsmaug_1_1TensorIndexIterator.html" title="An iterator over a multidimensional tensor&#39;s indices, accounting for data alignment padding.">TensorIndexIterator</a>(tensor-&gt;getShape()); float* data = tensor-&gt;data&lt;float&gt;(); data[iter(1,2,3,4)] = 1.2; data[iter(3,4,0,0)] = 3.4;</p>
-<p>The iterator skips over data alignment padding areas, if any exist. </p>
-
-<p class="definition">Definition at line <a class="el" href="tensor_8h_source.html#l00128">128</a> of file <a class="el" href="tensor_8h_source.html">tensor.h</a>.</p>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li>smaug/core/<a class="el" href="tensor_8h_source.html">tensor.h</a></li>
 </ul>
 </div><!-- contents -->

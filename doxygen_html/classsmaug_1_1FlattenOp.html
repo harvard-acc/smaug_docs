@@ -79,7 +79,15 @@ $(function() {
  <a href="classsmaug_1_1FlattenOp.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="reorder__op_8h_source.html">reorder_op.h</a>&gt;</code></p>
-<table class="memberdecls">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;typename Backend&gt;<br />
+class smaug::FlattenOp&lt; Backend &gt;</h3>
+
+<p>Flattens each batch of a <a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a>. </p>
+<p>Implements a flattening operation that squashes any <a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a> DataLayout into NC; that is, each batch in a <a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a> is flattened into a single dimension. </p>
+
+<p class="definition">Definition at line <a class="el" href="backend_8h_source.html#l00045">45</a> of file <a class="el" href="backend_8h_source.html">backend.h</a>.</p>
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
 <tr class="memitem:aa5269fd456a3422ab70ff88467cdddf2"><td class="memItemLeft" align="right" valign="top"><a id="aa5269fd456a3422ab70ff88467cdddf2"></a>
@@ -92,15 +100,7 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>FlattenOp</b> (const std::string &amp;name, <a class="el" href="classsmaug_1_1Workspace.html">Workspace</a> *workspace)</td></tr>
 <tr class="separator:aa546947b8f2b210bb8836f3472008d6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename Backend&gt;<br />
-class smaug::FlattenOp&lt; Backend &gt;</h3>
-
-<p>Flattens each batch of a <a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a>. </p>
-<p>Implements a flattening operation that squashes any <a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a> DataLayout into NC; that is, each batch in a <a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a> is flattened into a single dimension. </p>
-
-<p class="definition">Definition at line <a class="el" href="backend_8h_source.html#l00045">45</a> of file <a class="el" href="backend_8h_source.html">backend.h</a>.</p>
-</div><hr/>The documentation for this class was generated from the following files:<ul>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li>smaug/core/<a class="el" href="backend_8h_source.html">backend.h</a></li>
 <li>smaug/operators/<a class="el" href="reorder__op_8h_source.html">reorder_op.h</a></li>
 </ul>

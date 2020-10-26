@@ -89,7 +89,12 @@ Inheritance diagram for smaug::TensorBase:</div>
 <area href="classsmaug_1_1TiledTensor.html" title="A multidimensional container of Tensors." alt="smaug::TiledTensor" shape="rect" coords="131,56,252,80"/>
   </map>
 </div></div>
-<table class="memberdecls">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>The base class of all <a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a> objects. </p>
+<p>This contains common properties used by all <a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a> implementations, like name, shape, and data type, but it does not contain the data itself. Subclasses are responsible for designing, allocating, and managing data storage. </p>
+
+<p class="definition">Definition at line <a class="el" href="tensor_8h_source.html#l00269">269</a> of file <a class="el" href="tensor_8h_source.html">tensor.h</a>.</p>
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a598a12e7d46144de1adbfb479ba9cee0"><td class="memItemLeft" align="right" valign="top"><a id="a598a12e7d46144de1adbfb479ba9cee0"></a>
@@ -151,12 +156,7 @@ DataType&#160;</td><td class="memItemRight" valign="bottom"><b>dataType</b></td>
 <tr class="memdesc:a4170d86fdfec661a2c51b4a2db08b40a"><td class="mdescLeft">&#160;</td><td class="mdescRight">If true, the tensor is dead, which means it is on an untaken control flow path.  <a href="classsmaug_1_1TensorBase.html#a4170d86fdfec661a2c51b4a2db08b40a">More...</a><br /></td></tr>
 <tr class="separator:a4170d86fdfec661a2c51b4a2db08b40a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The base class of all <a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a> objects. </p>
-<p>This contains common properties used by all <a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a> implementations, like name, shape, and data type, but it does not contain the data itself. Subclasses are responsible for designing, allocating, and managing data storage. </p>
-
-<p class="definition">Definition at line <a class="el" href="tensor_8h_source.html#l00269">269</a> of file <a class="el" href="tensor_8h_source.html">tensor.h</a>.</p>
-</div><h2 class="groupheader">Member Data Documentation</h2>
+<h2 class="groupheader">Member Data Documentation</h2>
 <a id="a00fea49cf41888bc7edde1ce8ed6ab50"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a00fea49cf41888bc7edde1ce8ed6ab50">&#9670;&nbsp;</a></span>dataFormat</h2>
 

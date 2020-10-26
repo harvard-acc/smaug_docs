@@ -88,7 +88,21 @@ Inheritance diagram for smaug::UnaryOp&lt; Backend &gt;:</div>
 <area href="classsmaug_1_1Operator.html" title="Operator is the base class for all graph operators supported by SMAUG." alt="smaug::Operator" shape="rect" coords="0,0,178,24"/>
   </map>
 </div></div>
-<table class="memberdecls">
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;typename Backend&gt;<br />
+class smaug::UnaryOp&lt; Backend &gt;</h3>
+
+<p>Base class for all operators with one input. </p>
+<p>Unary operators can produce multiple output Tensors.</p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Backend</td><td>The Backend specialization of this <a class="el" href="classsmaug_1_1Operator.html" title="Operator is the base class for all graph operators supported by SMAUG.">Operator</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="unary__op_8h_source.html#l00020">20</a> of file <a class="el" href="unary__op_8h_source.html">unary_op.h</a>.</p>
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
 <tr class="memitem:a84b0cd8d7aa651d2be7639a2c869942a"><td class="memItemLeft" align="right" valign="top"><a id="a84b0cd8d7aa651d2be7639a2c869942a"></a>enum &#160;</td><td class="memItemRight" valign="bottom">{ <b>Inputs</b>, 
@@ -244,21 +258,7 @@ MemoryType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href
 <tr class="memdesc:a0e10c3cbf8815762845e5715c042ad93 inherit pro_attribs_classsmaug_1_1Operator"><td class="mdescLeft">&#160;</td><td class="mdescRight">The memory interface over which outputs are expected to be delivered. <br /></td></tr>
 <tr class="separator:a0e10c3cbf8815762845e5715c042ad93 inherit pro_attribs_classsmaug_1_1Operator"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;typename Backend&gt;<br />
-class smaug::UnaryOp&lt; Backend &gt;</h3>
-
-<p>Base class for all operators with one input. </p>
-<p>Unary operators can produce multiple output Tensors.</p>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">Backend</td><td>The Backend specialization of this <a class="el" href="classsmaug_1_1Operator.html" title="Operator is the base class for all graph operators supported by SMAUG.">Operator</a>. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="unary__op_8h_source.html#l00020">20</a> of file <a class="el" href="unary__op_8h_source.html">unary_op.h</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a id="abc90b84448a98f8204a3bbbfe94a1b20"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abc90b84448a98f8204a3bbbfe94a1b20">&#9670;&nbsp;</a></span>createAllTensors()</h2>
 
