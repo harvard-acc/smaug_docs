@@ -29,6 +29,6 @@ var searchData=
   ['run_598',['run',['../classsmaug_1_1Operator.html#a53f1eac5c1a0328f68f6e51eb6709a71',1,'smaug::Operator::run()'],['../classsmaug_1_1SmvPoolingOp.html#ac7647709657ced0835b0b67ea8547df9',1,'smaug::SmvPoolingOp::run()'],['../classsmaug_1_1SmvMaxPoolingOp.html#a2c3804b1fd4f54c56bcef7c2b343361e',1,'smaug::SmvMaxPoolingOp::run()'],['../classsmaug_1_1SmvAvgPoolingOp.html#af2496a32e79dc4523cb572499ab2efb4',1,'smaug::SmvAvgPoolingOp::run()']]],
   ['runna_599',['runNA',['../classsmaug_1_1SmvBatchNormOp.html#aaa9b852b5ef9d7175e86b610ad1223e2',1,'smaug::SmvBatchNormOp']]],
   ['runnetwork_600',['runNetwork',['../classsmaug_1_1Scheduler.html#a914f29b336ba8db02ea3f944aeebac3f',1,'smaug::Scheduler']]],
-  ['runnhwc_601',['runNHWC',['../classsmaug_1_1SmvBatchNormOp.html#ac9fb53d39e7f92d4db9c4964510333cb',1,'smaug::SmvBatchNormOp']]],
+  ['runnhwc_601',['runNHWC',['../classsmaug_1_1SmvBatchNormOp.html#ac9fb53d39e7f92d4db9c4964510333cb',1,'smaug::SmvBatchNormOp::runNHWC()'],['../classsmaug_1_1SmvConvolutionOp.html#a79bddf9acdd10d665cfed5208ec71fc3',1,'smaug::SmvConvolutionOp::runNHWC()']]],
   ['runx_602',['runX',['../namespacesmaug_1_1smv_1_1unary.html#ab7bc35f14f0b02b658091056239d53c6',1,'smaug::smv::unary']]]
 ];

@@ -76,7 +76,7 @@ $(function() {
 <li class="level1"><a href="#logic">Implementing the operator logic</a><ul><li class="level2"><a href="#sw_implementation">Software-only implementation</a></li>
 <li class="level2"><a href="#testing">Test it out</a></li>
 <li class="level2"><a href="#hw_implementation">Hardware-accelerated implementation</a><ul><li class="level3"><a href="#design">Accelerator design parameters</a></li>
-<li class="level3"><a href="#tiling">Tile your Tensors</a></li>
+<li class="level3"><a href="#tutorial_tiling">Tile your Tensors</a></li>
 <li class="level3"><a href="#executor">Modify run() to loop over all our tiles</a></li>
 <li class="level3"><a href="#gem5_aladdin_apis">Use gem5-Aladdin APIs to copy data and invoke the kernel</a></li>
 <li class="level3"><a href="#llvm_tracer">Make the kernel function traceable with LLVM-Tracer</a></li>
@@ -323,9 +323,9 @@ Accelerator design parameters</h3>
 <div class="line">  }</div>
 <div class="line">}</div>
 </div><!-- fragment --><p>Your accelerator-local scratchpads have now been correctly configured. We will modify our kernel function to use these shortly.</p>
-<h3><a class="anchor" id="tiling"></a>
+<h3><a class="anchor" id="tutorial_tiling"></a>
 Tile your Tensors</h3>
-<p>Writing logic to correctly tile your tensors can be tricky. There are lots of corner cases and special features of the data that must be taken into account so that the accelerator can still compute the correct output with partial data. To ease this, SMAUG provides a library of useful tiling functionality that you can reuse. When that library is insufficient, you can refer to the existing tiling optimizers (e.g. for SMV convolution) to get started on more complex tiling scenarios.</p>
+<p>Writing logic to correctly tile your tensors can be tricky. There are lots of corner cases and special features of the data that must be taken into account so that the accelerator can still compute the correct output with partial data. To ease this, SMAUG provides a library of useful tiling functionality that you can reuse. For more information on the SMAUG tiling optimizer design, refer to <a class="el" href="tiling_optimizer.html">Tiling optimizers in SMAUG</a>.</p>
 <p>Fortunately, tiling a tensor for an elementwise operator is the easiest kind of tiling there is - no need to consider data reuse, striding, etc. We simply need to break up the two input tensors and output tensor into equal sized pieces which maximize the use of the local scratchpads. This can be accomplished with just a few lines of code in <code>my_custom_operator.h</code> by overriding the <code>tile()</code> function and calling the <a class="el" href="namespacesmaug.html#a82bee05ff5b5e1853c0cab3a0f23ac27" title="Tile the provided NC Tensor per batch.">smaug::generateTiledTensorPerBatchNC</a> function. The result will be an array of <a class="el" href="classsmaug_1_1TiledTensor.html" title="A multidimensional container of Tensors.">TiledTensor</a> objects. A <a class="el" href="classsmaug_1_1TiledTensor.html" title="A multidimensional container of Tensors.">TiledTensor</a> represents a spatially ordered collection of <a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a> objects, each containing a copy of a slice of data from an underlying <a class="el" href="classsmaug_1_1Tensor.html" title="Tensor represents a single multi-dimensional array of data.">Tensor</a>.</p>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;array&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &quot;<a class="code" href="tensor__utils_8h.html">core/tensor_utils.h</a>&quot;</span></div>
