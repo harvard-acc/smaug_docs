@@ -70,7 +70,52 @@ $(function() {
 <div class="title">SMAUG in simulation </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"></div></div><!-- contents -->
+<div class="textblock"><p>Due to certain limitations of the syscall-emulation mode of gem5-Aladdin, there are two key differences in how SMAUG runs under simulation compared to on real hardware, which affect how you will write code for SMAUG.</p>
+<h1><a class="anchor" id="sampling"></a>
+Sampling of accelerated kernels</h1>
+<p>DL models are highly compute-intensive, but oftentimes these core kernels are very repetitive, so we can afford to sample the loop iterations to save on simulation time and trace storage. This means that during tracing and simulation, we will only execute a small fraction of the total loop iterations, and afterwards, we unsample this simulated time to estimate the actual time spent in the kernel.</p>
+<p>Caveats of sampling if enabled:</p>
+<ol type="1">
+<li>Functional results will be incorrect. This has implications if sampled operators feed into operators whose control-flow is data-dependent, so please keep this in mind.</li>
+<li>There is a small amount of performance error, on average &lt;1%.</li>
+</ol>
+<p>Here's an example of how a loop is instrumented to enable sampling:</p>
+<div class="fragment"><div class="line"><span class="keywordtype">int</span> reduction(<span class="keywordtype">int</span>* a, <span class="keywordtype">int</span> size, <span class="keywordtype">int</span> sample) {</div>
+<div class="line">  <span class="comment">// dmaLoad is placed outside the sampled loop, so that we don&#39;t change the</span></div>
+<div class="line">  <span class="comment">// memory footprint of the application.</span></div>
+<div class="line">  dmaLoad(a, size * <span class="keyword">sizeof</span>(<span class="keywordtype">int</span>));</div>
+<div class="line">  <span class="keywordtype">int</span> result = 0;</div>
+<div class="line">  setSamplingFactor(<span class="stringliteral">&quot;loop&quot;</span>, (<span class="keywordtype">float</span>)size / sample);</div>
+<div class="line">loop:</div>
+<div class="line">  <span class="comment">// Run only `sample` iterations of this loop; the result will be wrong,</span></div>
+<div class="line">  <span class="comment">// but that&#39;s expected for sampling.</span></div>
+<div class="line">  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; sample; i++)</div>
+<div class="line">    result += a[i];</div>
+<div class="line">  <span class="keywordflow">return</span> result;</div>
+<div class="line">}</div>
+</div><!-- fragment --><p>By default, sampling is disabled. It is controlled by two flags in SMAUG:</p>
+<ol type="1">
+<li><code>--sample-level=[no|low|med|high|very_high]</code>. This is a hint to the software that indicates how many levels of a nested loop are sampled. For example, "low" could mean that only the innermost loop is sampled, but everything above it is not affected, whereas "very_high" could mean to sample <em>every</em> layer of a nested loop. Different kernels can implement this differently; this is merely a hint.</li>
+<li><code>--sample-num=N</code>: This informs the loop how many iterations to run (if sampling is enabled). We often set this to 1 or 2. 1 is sufficient for many loops. For pipelined loops, 2 iterations are required to correctly measure the amount of overlap between successive iterations.</li>
+</ol>
+<h1><a class="anchor" id="multithreading"></a>
+Multithreading in gem5 SE mode</h1>
+<p>In <a class="el" href="namespacesmaug_1_1gem5.html" title="Contains utility functions for interacting with gem5.">gem5</a>'s syscall-emulation mode, multithreading has slightly quirky behavior.</p>
+<ol type="1">
+<li>You must explicitly allocate as many CPUs as you intend to have threads from the beginning by passing <code>--num-cpus=N</code> to <a class="el" href="namespacesmaug_1_1gem5.html" title="Contains utility functions for interacting with gem5.">gem5</a>. <a class="el" href="namespacesmaug_1_1gem5.html" title="Contains utility functions for interacting with gem5.">gem5</a> will create N <code>ThreadContext</code> objects to represent the state of each thread. You must ensure that you never try to spawn more than this number of threads, or <a class="el" href="namespacesmaug_1_1gem5.html" title="Contains utility functions for interacting with gem5.">gem5</a> will crash with an "out of ThreadContexts" error.</li>
+<li>When a thread exists, its <code>ThreadContext</code> will be destroyed, but that slot cannot be reused. A newly created thread will always attempt to allocate a new <code>ThreadContext</code>, and if you've already created N <code>ThreadContext</code>s, any attempts to create more will fail even if CPUs are sitting around idling.</li>
+<li>In syscall-emulation mode, this is no thread scheduler built in, so there is no "idle" or "unscheduled" state of a thread. This means if you want to keep a thread around to accept work later (since destroying it means losing a thread), by default it will have to spinwait. This generates lots of useless memory traffic to the simulator, slowing down simulations.</li>
+<li>Since the behavior of accelerators is recorded in the trace, we must ensure that the CPU assignments and ordering is deterministic from run to run, or the simulation behavior will diverge from that in the trace, causing unexpected behavior.</li>
+</ol>
+<p>To work around these limitations, we have developed a specialized <a class="el" href="classsmaug_1_1ThreadPool.html" title="A user-space cooperatve thread pool implementation designed for gem5 in SE mode.">ThreadPool</a> implementation. It ensures that as long as the pool is still alive, none of the threads will exit. An work queue API is exposed for the application to use. Thread scheduling is round-robin and CPUs are deterministically assigned. And to reduce excessive memory traffic from spin-idling threads, we use a magic instruction to quiesce a CPU when there's no work for it to do and a magic wake instruction when a quiesced CPU has work again. When running on real hardware, these instructions are ignored.</p>
+<p>To use the thread pool with N threads:</p>
+<ol type="1">
+<li>Pass <code>--num-cpus=N+1</code> to gem5. We need one extra thread to run the main thread!</li>
+<li>To enqueue work, call <a class="el" href="classsmaug_1_1ThreadPool.html#a899c9cf51b8f776b1e14d0fc34bcded3" title="Dispatch the function to a worker in the thread pool.">ThreadPool::dispatchThread</a>.</li>
+<li>To join on all threads, call <a class="el" href="classsmaug_1_1ThreadPool.html#a20fa766472923e64de201d81e84df4af" title="Wait for all threads in the pool to finish work.">ThreadPool::joinThreadPool</a>.</li>
+</ol>
+<p>You can see examples of this in action at <a class="el" href="classsmaug_1_1TiledTensor.html#abfdd2f8b3f9c5ada1d5de40cfb3ab369" title="Split the work (data filling or gathering) across multiple threads.">TiledTensor::parallelCopyTileData</a>. </p>
+</div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
