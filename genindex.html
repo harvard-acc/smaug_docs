@@ -82,7 +82,8 @@
             
               <p class="caption"><span class="caption-text">Python API and tutorials</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="python_api.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api.html">SMAUG Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api.html#building-new-smaug-features">Building new SMAUG features</a></li>
 <li class="toctree-l1"><a class="reference internal" href="python_tutorials.html">Tutorials</a></li>
 </ul>
 
@@ -179,10 +180,14 @@
 </li>
       <li><a href="smaug.html#smaug.Node.add_input">add_input() (smaug.Node method)</a>
 </li>
+      <li><a href="internals.html#smaug.python.ops.common.add_node">add_node() (in module smaug.python.ops.common)</a>
+
+      <ul>
+        <li><a href="smaug.html#smaug.Graph.add_node">(smaug.Graph method)</a>
+</li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="smaug.html#smaug.Graph.add_node">add_node() (smaug.Graph method)</a>
-</li>
       <li><a href="smaug.html#smaug.Node.add_output">add_output() (smaug.Node method)</a>
 </li>
       <li><a href="smaug.html#smaug.Graph.alignment">alignment() (smaug.Graph property)</a>
@@ -203,6 +208,8 @@
 </li>
       <li><a href="nn.html#smaug.nn.BidirectionalLSTM">BidirectionalLSTM (class in smaug.nn)</a>
 </li>
+      <li><a href="internals.html#smaug.python.ops.array_ops.broadcast_inputs">broadcast_inputs() (in module smaug.python.ops.array_ops)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -211,12 +218,14 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="smaug.html#smaug.Tensor.calc_padding">calc_padding() (smaug.Tensor method)</a>
 </li>
-      <li><a href="nn.html#smaug.nn.BahdanauAttention.compute_score">compute_score() (smaug.nn.BahdanauAttention method)</a>
+      <li><a href="internals.html#smaug.python.ops.array_ops.check_and_add_layout_transform">check_and_add_layout_transform() (in module smaug.python.ops.array_ops)</a>
 </li>
-      <li><a href="tensor.html#smaug.tensor.concat">concat() (in module smaug.tensor)</a>
+      <li><a href="nn.html#smaug.nn.BahdanauAttention.compute_score">compute_score() (smaug.nn.BahdanauAttention method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="tensor.html#smaug.tensor.concat">concat() (in module smaug.tensor)</a>
+</li>
       <li><a href="smaug.html#smaug.cond">cond() (in module smaug)</a>
 </li>
       <li><a href="nn.html#smaug.nn.convolution">convolution() (in module smaug.nn)</a>
@@ -335,12 +344,19 @@
 </li>
       <li><a href="smaug.html#smaug.Graph.mem_policy">mem_policy() (smaug.Graph property)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="smaug.html#smaug.merge">merge() (in module smaug)</a>
 
       <ul>
         <li><a href="smaug.html#smaug.Graph.merge">(smaug.Graph method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    module
+
+      <ul>
+        <li><a href="add_python_operator.html#module-smaug.python.ops">smaug.python.ops</a>
 </li>
       </ul></li>
       <li><a href="math.html#smaug.math.mul">mul() (in module smaug.math)</a>
@@ -413,12 +429,19 @@
 </li>
       <li><a href="nn.html#smaug.nn.sigmoid">sigmoid() (in module smaug.nn)</a>
 </li>
-      <li><a href="nn.html#smaug.nn.softmax">softmax() (in module smaug.nn)</a>
+      <li>
+    smaug.python.ops
+
+      <ul>
+        <li><a href="add_python_operator.html#module-smaug.python.ops">module</a>
 </li>
-      <li><a href="smaug.html#smaug.Tensor.source">source() (smaug.Tensor property)</a>
+      </ul></li>
+      <li><a href="nn.html#smaug.nn.softmax">softmax() (in module smaug.nn)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="smaug.html#smaug.Tensor.source">source() (smaug.Tensor property)</a>
+</li>
       <li><a href="smaug.html#smaug.Tensor.source_index">source_index() (smaug.Tensor property)</a>
 </li>
       <li><a href="tensor.html#smaug.tensor.split">split() (in module smaug.tensor)</a>

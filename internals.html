@@ -1,0 +1,322 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Internal modules &mdash; SMAUG: Simulating Machine Learning Applications Using gem5-Aladdin</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Tutorials" href="python_tutorials.html" />
+    <link rel="prev" title="smaug.tensor" href="tensor.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> SMAUG
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Python API and tutorials</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="python_api.html">SMAUG Operators</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="python_api.html#building-new-smaug-features">Building new SMAUG features</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Internal modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#building-new-operators">Building new operators</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="python_tutorials.html">Tutorials</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SMAUG</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="python_api.html">SMAUG Operators</a> &raquo;</li>
+        
+      <li>Internal modules</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/internals.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="internal-modules">
+<h1>Internal modules<a class="headerlink" href="#internal-modules" title="Permalink to this headline">¶</a></h1>
+<p>This page describes internal APIs that can be used to add new features to
+SMAUG’s Python API. These are <em>not</em> meant to be used for building DL models
+using SMAUG.</p>
+<div class="section" id="building-new-operators">
+<h2>Building new operators<a class="headerlink" href="#building-new-operators" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="smaug.python.ops.common.add_node">
+<code class="sig-prename descclassname">smaug.python.ops.common.</code><code class="sig-name descname">add_node</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">op</span></em>, <em class="sig-param"><span class="n">input_tensors</span></em>, <em class="sig-param"><span class="n">output_tensors_dims</span></em>, <em class="sig-param"><span class="n">output_tensor_layout</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">output_tensor_dtype</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">output_tensor_dformat</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">params</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smaug/python/ops/common.html#add_node"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smaug.python.ops.common.add_node" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a new node to the current Graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – Name of the new operator. If another operator in the Graph already
+has this name, a unique suffix is automatically appended.</p></li>
+<li><p><strong>op</strong> – OpType of the operator.</p></li>
+<li><p><strong>input_tensors</strong> – List of all input tensors.</p></li>
+<li><p><strong>output_tensors_dims</strong> – List of the dimensions of all the output tensors.</p></li>
+<li><p><strong>output_tensor_layout</strong> – The expected data layout of the output tensors. If
+not provided, it will use the layout of the first input tensor.</p></li>
+<li><p><strong>output_tensor_dtype</strong> – The data type of the output tensor elements. If not
+provided, the data type of the first input tensor will be used.</p></li>
+<li><p><strong>output_tensor_dformat</strong> – The data format of the output tensor. The only
+supported option is uncompressed data. Compressed formats may be added
+at some later time.</p></li>
+<li><p><strong>params</strong> – A smaug.Params protobuf containing any additional parameters for
+this operator.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of output tensors.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="smaug.python.ops.array_ops.broadcast_inputs">
+<code class="sig-prename descclassname">smaug.python.ops.array_ops.</code><code class="sig-name descname">broadcast_inputs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tensor_a</span></em>, <em class="sig-param"><span class="n">tensor_b</span></em>, <em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">'broadcast_inputs'</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smaug/python/ops/array_ops.html#broadcast_inputs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smaug.python.ops.array_ops.broadcast_inputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Broadcast inputs to have a compatible shape.</p>
+<p>This uses NumPy’s broadcasting rules to make inputs of different shapes have a
+compatible shape during arithmetic operations. On each axis, the smaller
+dimension (of size 1) is broadcast across the larger dimension so that they
+have compatible shapes. Broadcasting provides a means of vectorizing
+operations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tensor_a</strong> – The first input tensor.</p></li>
+<li><p><strong>tensor_b</strong> – The second input tensor.</p></li>
+<li><p><strong>name</strong> – Name prefix for the operators used in this function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Two new tensors with the same shape.</p>
+</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float16</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float16</span><span class="p">)</span>
+<span class="n">tensor_a</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">data_layout</span><span class="o">=</span><span class="n">NC</span><span class="p">,</span> <span class="n">tensor_data</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>
+<span class="n">tensor_b</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">data_layout</span><span class="o">=</span><span class="n">NC</span><span class="p">,</span> <span class="n">tensor_data</span><span class="o">=</span><span class="n">b</span><span class="p">)</span>
+<span class="c1"># The elementwise add operator calls _broadcast_inputs() so that tensor_b</span>
+<span class="c1"># is broadcast in axis 1, making both inputs shaped [2, 8].</span>
+<span class="n">output</span> <span class="o">=</span> <span class="n">add</span><span class="p">(</span><span class="n">tensor_a</span><span class="p">,</span> <span class="n">tensor_b</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float16</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float16</span><span class="p">)</span>
+<span class="n">tensor_a</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">data_layout</span><span class="o">=</span><span class="n">NHWC</span><span class="p">,</span> <span class="n">tensor_data</span><span class="o">=</span><span class="n">a</span><span class="p">)</span>
+<span class="n">tensor_b</span> <span class="o">=</span> <span class="n">Tensor</span><span class="p">(</span><span class="n">data_layout</span><span class="o">=</span><span class="n">NHWC</span><span class="p">,</span> <span class="n">tensor_data</span><span class="o">=</span><span class="n">b</span><span class="p">)</span>
+<span class="c1"># The elementwise mul operator calls _broadcast_inputs() so that both</span>
+<span class="c1"># inputs will be shaped [2, 16, 8, 8].</span>
+<span class="n">output</span> <span class="o">=</span> <span class="n">mul</span><span class="p">(</span><span class="n">tensor_a</span><span class="p">,</span> <span class="n">tensor_b</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt id="smaug.python.ops.array_ops.check_and_add_layout_transform">
+<code class="sig-prename descclassname">smaug.python.ops.array_ops.</code><code class="sig-name descname">check_and_add_layout_transform</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">op</span></em>, <em class="sig-param"><span class="n">input_tensors</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smaug/python/ops/array_ops.html#check_and_add_layout_transform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smaug.python.ops.array_ops.check_and_add_layout_transform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check and perform layout transformation for the input tensors.</p>
+<p>This checks the input layout against the expected layout, and if a mismatch
+is found, an reorder operator will be added to transform the tensors into
+expected layouts.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – Name of the operator.</p></li>
+<li><p><strong>op</strong> – OpType of the operator.</p></li>
+<li><p><strong>input_tensors</strong> – A list of input tensors</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of transformed input tensors, or the original input tensors if no
+layout transformation is required.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="python_tutorials.html" class="btn btn-neutral float-right" title="Tutorials" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="tensor.html" class="btn btn-neutral float-left" title="smaug.tensor" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, SMAUG Contributors
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

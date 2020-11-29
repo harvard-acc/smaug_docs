@@ -83,10 +83,16 @@
             
               <p class="caption"><span class="caption-text">Python API and tutorials</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="python_api.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api.html">SMAUG Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_api.html#building-new-smaug-features">Building new SMAUG features</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="python_tutorials.html">Tutorials</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="build_python_model.html">Build a SMAUG model with Python API</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Adding a new operator</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Adding a new operator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#adding-a-simple-python-operator">Adding a simple Python operator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#adding-an-operator-with-additional-parameters">Adding an operator with additional parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#adding-a-complex-python-operator">Adding a complex Python operator</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -156,9 +162,124 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="adding-a-new-operator">
-<h1>Adding a new operator<a class="headerlink" href="#adding-a-new-operator" title="Permalink to this headline">¶</a></h1>
-<p>There are a few steps to add a new operator on the python side.</p>
+  <div class="section" id="module-smaug.python.ops">
+<span id="adding-a-new-operator"></span><h1>Adding a new operator<a class="headerlink" href="#module-smaug.python.ops" title="Permalink to this headline">¶</a></h1>
+<p>To add a new operator to SMAUG, we first need to implement the actual operator
+in C++.  Please see the <a class="reference external" href="doxygen_html/index.html">C++ tutorial</a> for details.
+Once that is done, all that is left is to expose a Python API which will add
+the operator to the model.</p>
+<p>Because at their core, Python operators simply add nodes to the graph, we can
+build arbitrarily complex operators in Python that invoke other Python
+operators. We will start simple, and then demonstrate more complex examples.</p>
+<div class="section" id="adding-a-simple-python-operator">
+<h2>Adding a simple Python operator<a class="headerlink" href="#adding-a-simple-python-operator" title="Permalink to this headline">¶</a></h2>
+<p>A simple Python operator is one that adds only a single underlying SMAUG
+operator. For the purposes of this tutorial, we’ll continue using the
+<code class="code docutils literal notranslate"><span class="pre">MyCustomOperator</span></code> operator we built in the C++ tutorial, which
+implements an elementwise add. This operator is as simple as it can get: it
+takes just two input tensors and no additional parameters and produces a single
+output tensor.</p>
+<p>First, go to <code class="code docutils literal notranslate"><span class="pre">smaug/python/ops</span></code>. All operators are defined in Python
+files here, organized by operator type. For example, <code class="code docutils literal notranslate"><span class="pre">math_ops</span></code> contains
+arithmetic operators like add/multiply/etc, while <code class="code docutils literal notranslate"><span class="pre">array_ops</span></code> contains
+operators for manipulating tensors by reshaping/concatentating/etc.  In
+practice, we would add a new operator to an existing file there. But for the
+purposes of this tutorial, we’ll create a brand new file called
+<cite>my_custom_operator.py</cite>.</p>
+<p>A SMAUG Python operator takes some number of input tensors, additional operator
+parameters (if appropriate), and returns some number of output tensors. Input
+and output tensors are all represented as <a class="reference internal" href="smaug.html#smaug.Tensor" title="smaug.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">smaug.Tensor</span></code></a> objects. The
+work that’s done is to add a properly formed <code class="code docutils literal notranslate"><span class="pre">NodeProto</span></code> to the
+<code class="code docutils literal notranslate"><span class="pre">GraphProto</span></code> with the <a class="reference internal" href="internals.html#smaug.python.ops.common.add_node" title="smaug.python.ops.common.add_node"><code class="xref py py-func docutils literal notranslate"><span class="pre">smaug.python.ops.common.add_node()</span></code></a> API.
+Here’s how the <cite>my_custom_operator.py</cite> file might look:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">smaug.core</span> <span class="kn">import</span> <span class="n">node_pb2</span><span class="p">,</span> <span class="n">types_pb2</span>
+<span class="kn">from</span> <span class="nn">smaug.python.ops</span> <span class="kn">import</span> <span class="n">common</span>
+
+<span class="k">def</span> <span class="nf">my_custom_operator</span><span class="p">(</span><span class="n">tensor_a</span><span class="p">,</span> <span class="n">tensor_b</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;my_custom_operator&quot;</span><span class="p">):</span>
+  <span class="k">if</span> <span class="n">tensor_a</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span> <span class="o">!=</span> <span class="n">tensor_b</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+        <span class="s2">&quot;The input tensors to MyCustomOperator must be of the same shape&quot;</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">common</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+    <span class="n">op</span><span class="o">=</span><span class="n">types_pb2</span><span class="o">.</span><span class="n">MyCustomOperator</span><span class="p">,</span>
+    <span class="n">input_tensors</span><span class="o">=</span><span class="p">[</span><span class="n">tensor_a</span><span class="p">,</span> <span class="n">tensor_b</span><span class="p">],</span>
+    <span class="n">output_tensors_dims</span><span class="o">=</span><span class="p">[</span><span class="n">tensor_a</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">],</span>
+    <span class="n">output_tensor_layout</span><span class="o">=</span><span class="n">tensor_a</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">layout</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>The <code class="code docutils literal notranslate"><span class="pre">name</span></code> parameter is actually a prefix for the actual name of the node
+that’s added to the graph. SMAUG will automatically generate a unique suffix to
+ensure that no two nodes have the same name. Also, <a class="reference internal" href="internals.html#smaug.python.ops.common.add_node" title="smaug.python.ops.common.add_node"><code class="xref py py-func docutils literal notranslate"><span class="pre">common.add_node()</span></code></a>
+returns a list of tensors, but in our case, we have only one, so to simplify
+our API, we just return the first element.  There are other optional parameters
+to <a class="reference internal" href="internals.html#smaug.python.ops.common.add_node" title="smaug.python.ops.common.add_node"><code class="xref py py-func docutils literal notranslate"><span class="pre">common.add_node()</span></code></a>, but they aren’t needed in this basic scenario.</p>
+<p>And that’s it! You’re now ready to use this operator in a new model.</p>
+</div>
+<div class="section" id="adding-an-operator-with-additional-parameters">
+<h2>Adding an operator with additional parameters<a class="headerlink" href="#adding-an-operator-with-additional-parameters" title="Permalink to this headline">¶</a></h2>
+<p>Some operators require additional parameters beyond just the input tensors. For
+example, you may want to specify padding or stride lengths to a convolution. If
+your operator needs additional parameters, you will need to add a custom
+parameter protobuf message to store them. Open <a class="reference external" href="doxygen_html/node_8proto_source.html">smaug/core/node.proto</a>.  This file contains the
+<code class="code docutils literal notranslate"><span class="pre">NodeProto</span></code> definition along with various operator-specific parameters.
+Then follow these steps.</p>
+<ol class="arabic simple">
+<li><p>Define a new message to store your operator’s parameters.</p></li>
+<li><p>Add it as a <code class="code docutils literal notranslate"><span class="pre">oneof</span></code> field in the <code class="code docutils literal notranslate"><span class="pre">Params</span></code> message.</p></li>
+<li><p>Build a <code class="code docutils literal notranslate"><span class="pre">Params</span></code> proto in your Python operator, populate it, and pass
+it to <a class="reference internal" href="internals.html#smaug.python.ops.common.add_node" title="smaug.python.ops.common.add_node"><code class="xref py py-func docutils literal notranslate"><span class="pre">common.add_node()</span></code></a>.</p></li>
+</ol>
+<p>As an example, suppose our custom operator actually performed the operation A +
+x*B, where x is a user-defined scalar. Then we would add a parameter message
+like so:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="hll"><span class="n">message</span> <span class="n">MyCustomOperatorParams</span> <span class="p">{</span>
+</span><span class="hll">  <span class="kt">float</span> <span class="n">scale_factor</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class="hll"><span class="p">}</span>
+</span>
+<span class="n">message</span> <span class="n">Params</span> <span class="p">{</span>
+  <span class="n">oneof</span> <span class="n">value</span> <span class="p">{</span>
+    <span class="cp"># ... if we already have five other parameters already here...</span>
+<span class="hll">    <span class="n">MyCustomOperatorParams</span> <span class="n">my_custom_operator_params</span> <span class="o">=</span> <span class="mi">6</span><span class="p">;</span>
+</span>  <span class="p">}</span>
+  <span class="cp"># ... anything else already here ...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">my_custom_operator</span><span class="p">(</span><span class="n">tensor_a</span><span class="p">,</span> <span class="n">tensor_b</span><span class="p">,</span> <span class="n">scale_factor</span><span class="o">=</span><span class="mf">1.0</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+  <span class="k">if</span> <span class="n">tensor_a</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span> <span class="o">!=</span> <span class="n">tensor_b</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+        <span class="s2">&quot;The input tensors to MyCustomOperator must be of the same shape&quot;</span><span class="p">)</span>
+  <span class="n">params</span> <span class="o">=</span> <span class="n">node_pb2</span><span class="o">.</span><span class="n">Params</span><span class="p">()</span>
+  <span class="n">params</span><span class="o">.</span><span class="n">my_custom_operator_params</span><span class="o">.</span><span class="n">scale_factor</span> <span class="o">=</span> <span class="n">scale_factor</span>
+  <span class="k">return</span> <span class="n">common</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+    <span class="n">op</span><span class="o">=</span><span class="n">types_pb2</span><span class="o">.</span><span class="n">MyCustomOperator</span><span class="p">,</span>
+    <span class="n">input_tensors</span><span class="o">=</span><span class="p">[</span><span class="n">tensor_a</span><span class="p">,</span> <span class="n">tensor_b</span><span class="p">],</span>
+    <span class="n">output_tensors_dims</span><span class="o">=</span><span class="p">[</span><span class="n">tensor_a</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">],</span>
+    <span class="n">output_tensor_layout</span><span class="o">=</span><span class="n">tensor_a</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">layout</span><span class="p">,</span>
+    <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="adding-a-complex-python-operator">
+<h2>Adding a complex Python operator<a class="headerlink" href="#adding-a-complex-python-operator" title="Permalink to this headline">¶</a></h2>
+<p>Since Python operators simply add nodes to the graph, we can call Python
+operators from each other. As a very simple example, we can chain together
+two instances of MyCustomOperator:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">my_custom_operator_chained</span><span class="p">(</span>
+    <span class="n">tensor_a</span><span class="p">,</span> <span class="n">tensor_b</span><span class="p">,</span> <span class="n">scale_factor</span><span class="o">=</span><span class="mf">1.0</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;my_custom_operator_chained&quot;</span><span class="p">):</span>
+  <span class="k">if</span> <span class="n">tensor_a</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span> <span class="o">!=</span> <span class="n">tensor_b</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+        <span class="s2">&quot;The input tensors to MyCustomOperator must be of the same shape&quot;</span><span class="p">)</span>
+  <span class="n">params</span> <span class="o">=</span> <span class="n">node_pb2</span><span class="o">.</span><span class="n">Params</span><span class="p">()</span>
+  <span class="n">params</span><span class="o">.</span><span class="n">my_custom_operator_params</span><span class="o">.</span><span class="n">scale_factor</span> <span class="o">=</span> <span class="n">scale_factor</span>
+  <span class="n">output_tensor_1</span> <span class="o">=</span> <span class="n">my_custom_operator</span><span class="p">(</span>
+      <span class="n">tensor_a</span><span class="p">,</span> <span class="n">tensor_b</span><span class="p">,</span> <span class="n">scale_factor</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">my_custom_operator</span><span class="p">(</span>
+      <span class="n">output_tensor_1</span><span class="p">,</span> <span class="n">tensor_b</span><span class="p">,</span> <span class="n">scale_factor</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </div>
 
 

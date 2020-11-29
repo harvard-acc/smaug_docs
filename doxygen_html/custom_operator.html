@@ -151,7 +151,7 @@ The Operator class</h1>
 <div class="line">}  <span class="comment">// namespace smaug</span></div>
 </div><!-- fragment --><p>Now we can integrate this custom operator into SMAUG. To do so, we need to make a few more modifications:</p>
 <ol type="1">
-<li>Add a new <code>OpType</code> enum for this operator to smaug/core/types.proto.</li>
+<li>Add a new <code>OpType</code> enum for this operator to <a class="el" href="types_8proto_source.html">smaug/core/types.proto</a>.</li>
 <li>Define the operator in all backends. Simply follow the existing convention in <a class="el" href="backend_8h_source.html">backend.h</a> and <a class="el" href="backend_8cpp_source.html">backend.cpp</a>:<ul>
 <li>Include the header file and forward declare the operator in <a class="el" href="backend_8h_source.html">backend.h</a>.</li>
 <li>Add <code>DECL_CREATE_OP(MyCustomOperator)</code> to all backends in <a class="el" href="backend_8h_source.html">backend.h</a>.</li>

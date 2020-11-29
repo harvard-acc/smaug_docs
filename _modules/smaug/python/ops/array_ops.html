@@ -1,0 +1,546 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>smaug.python.ops.array_ops &mdash; SMAUG: Simulating Machine Learning Applications Using gem5-Aladdin</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home" alt="Documentation Home"> SMAUG
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Python API and tutorials</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../python_api.html">SMAUG Operators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../python_api.html#building-new-smaug-features">Building new SMAUG features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../python_tutorials.html">Tutorials</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">SMAUG</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>smaug.python.ops.array_ops</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for smaug.python.ops.array_ops</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">from</span> <span class="nn">smaug.core</span> <span class="kn">import</span> <span class="n">types_pb2</span>
+<span class="kn">from</span> <span class="nn">smaug.core</span> <span class="kn">import</span> <span class="n">node_pb2</span>
+<span class="kn">from</span> <span class="nn">smaug.python</span> <span class="kn">import</span> <span class="n">global_vars</span><span class="p">,</span> <span class="n">tensor_utils</span>
+<span class="kn">from</span> <span class="nn">smaug.python.ops</span> <span class="kn">import</span> <span class="n">common</span>
+
+<span class="k">def</span> <span class="nf">reorder</span><span class="p">(</span><span class="n">input_tensor</span><span class="p">,</span> <span class="n">target_layout</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;reorder&quot;</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;Reorder the data of a given `Tensor` with the target layout.</span>
+
+<span class="sd">  Args:</span>
+<span class="sd">    input_tensor: A `Tensor`.</span>
+<span class="sd">    target_layout: The target layout.</span>
+<span class="sd">    name: Operator name (optional).</span>
+
+<span class="sd">  Returns:</span>
+<span class="sd">    A new `Tensor` with the layout as `target_layout`.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="n">src_layout</span> <span class="o">=</span> <span class="n">input_tensor</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">layout</span>
+  <span class="n">src_dims</span> <span class="o">=</span> <span class="n">input_tensor</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span>
+  <span class="k">if</span> <span class="n">src_layout</span> <span class="o">==</span> <span class="n">types_pb2</span><span class="o">.</span><span class="n">NCHW</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="p">(</span><span class="n">target_layout</span> <span class="o">==</span> <span class="n">types_pb2</span><span class="o">.</span><span class="n">NHWC</span> <span class="ow">or</span> <span class="n">target_layout</span> <span class="o">==</span> <span class="n">types_pb2</span><span class="o">.</span><span class="n">NC</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">target_layout</span> <span class="o">==</span> <span class="n">types_pb2</span><span class="o">.</span><span class="n">NC</span><span class="p">:</span>
+      <span class="n">output_tensor_dims</span> <span class="o">=</span> <span class="p">[</span><span class="n">src_dims</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">src_dims</span><span class="p">[</span><span class="mi">1</span><span class="p">:])]</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">output_tensor_dims</span> <span class="o">=</span> <span class="p">[</span><span class="n">src_dims</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">src_dims</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">src_dims</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">src_dims</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+  <span class="k">elif</span> <span class="n">src_layout</span> <span class="o">==</span> <span class="n">types_pb2</span><span class="o">.</span><span class="n">NHWC</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="p">(</span><span class="n">target_layout</span> <span class="o">==</span> <span class="n">types_pb2</span><span class="o">.</span><span class="n">NCHW</span> <span class="ow">or</span> <span class="n">target_layout</span> <span class="o">==</span> <span class="n">types_pb2</span><span class="o">.</span><span class="n">NC</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">target_layout</span> <span class="o">==</span> <span class="n">types_pb2</span><span class="o">.</span><span class="n">NC</span><span class="p">:</span>
+      <span class="n">output_tensor_dims</span> <span class="o">=</span> <span class="p">[</span><span class="n">src_dims</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">src_dims</span><span class="p">[</span><span class="mi">1</span><span class="p">:])]</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">output_tensor_dims</span> <span class="o">=</span> <span class="p">[</span><span class="n">src_dims</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">src_dims</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">src_dims</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">src_dims</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span>
+  <span class="k">elif</span> <span class="p">(</span><span class="n">src_layout</span> <span class="o">==</span> <span class="n">types_pb2</span><span class="o">.</span><span class="n">NTC</span> <span class="ow">and</span> <span class="n">target_layout</span> <span class="o">==</span> <span class="n">types_pb2</span><span class="o">.</span><span class="n">NCT</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
+      <span class="n">src_layout</span> <span class="o">==</span> <span class="n">types_pb2</span><span class="o">.</span><span class="n">NCT</span> <span class="ow">and</span> <span class="n">target_layout</span> <span class="o">==</span> <span class="n">types_pb2</span><span class="o">.</span><span class="n">NTC</span><span class="p">):</span>
+    <span class="n">output_tensor_dims</span> <span class="o">=</span> <span class="p">[</span><span class="n">src_dims</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">src_dims</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">src_dims</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+  <span class="k">elif</span> <span class="p">(</span><span class="n">src_layout</span> <span class="o">==</span> <span class="n">types_pb2</span><span class="o">.</span><span class="n">NC</span> <span class="ow">and</span> <span class="n">target_layout</span> <span class="o">==</span> <span class="n">types_pb2</span><span class="o">.</span><span class="n">CN</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span>
+      <span class="n">src_layout</span> <span class="o">==</span> <span class="n">types_pb2</span><span class="o">.</span><span class="n">CN</span> <span class="ow">and</span> <span class="n">target_layout</span> <span class="o">==</span> <span class="n">types_pb2</span><span class="o">.</span><span class="n">NC</span><span class="p">):</span>
+    <span class="c1"># 2D tensor transposition.</span>
+    <span class="n">output_tensor_dims</span> <span class="o">=</span> <span class="p">[</span><span class="n">src_dims</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">src_dims</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+        <span class="s2">&quot;Unsupported reordering </span><span class="si">%s</span><span class="s2">-&gt;</span><span class="si">%s</span><span class="s2">!&quot;</span> <span class="o">%</span>
+        <span class="p">(</span><span class="n">DataLayout</span><span class="o">.</span><span class="n">Name</span><span class="p">(</span><span class="n">src_layout</span><span class="p">),</span> <span class="n">DataLayout</span><span class="o">.</span><span class="n">Name</span><span class="p">(</span><span class="n">target_layout</span><span class="p">)))</span>
+
+  <span class="k">return</span> <span class="n">common</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span>
+      <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">op</span><span class="o">=</span><span class="n">types_pb2</span><span class="o">.</span><span class="n">Reorder</span><span class="p">,</span> <span class="n">input_tensors</span><span class="o">=</span><span class="p">[</span><span class="n">input_tensor</span><span class="p">],</span>
+      <span class="n">output_tensors_dims</span><span class="o">=</span><span class="p">[</span><span class="n">output_tensor_dims</span><span class="p">],</span>
+      <span class="n">output_tensor_layout</span><span class="o">=</span><span class="n">target_layout</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">flatten</span><span class="p">(</span><span class="n">input_tensor</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;flatten&quot;</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;Flatten the data of a given `Tensor`.</span>
+
+<span class="sd">  Args:</span>
+<span class="sd">    input_tensor: A 4D `Tensor`.</span>
+<span class="sd">    name: Operator name (optional).</span>
+
+<span class="sd">  Returns:</span>
+<span class="sd">    A 2D `Tensor` shaped as `NC`.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="k">assert</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">input_tensor</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">reorder</span><span class="p">(</span>
+      <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">input_tensor</span><span class="o">=</span><span class="n">input_tensor</span><span class="p">,</span> <span class="n">target_layout</span><span class="o">=</span><span class="n">types_pb2</span><span class="o">.</span><span class="n">NC</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">concat</span><span class="p">(</span><span class="n">input_tensors</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;concat&quot;</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;Concatenate tensors into one.</span>
+
+<span class="sd">  Args:</span>
+<span class="sd">    input_tensors: Input tensor to be concatenated.</span>
+<span class="sd">    axis: The dimension along which to concatenate.</span>
+<span class="sd">    name: Name of the operator.</span>
+
+<span class="sd">  Returns:</span>
+<span class="sd">    A concatenated tensor.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="n">dims</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">input_tensors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">,</span> <span class="n">axis</span><span class="p">)</span>
+  <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">array_equal</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">,</span> <span class="n">axis</span><span class="p">),</span> <span class="n">dims</span><span class="p">)</span>
+              <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">input_tensors</span><span class="p">]):</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+        <span class="s2">&quot;Tensors must have the same shape, except in axis </span><span class="si">%d</span><span class="s2"> along which to &quot;</span>
+        <span class="s2">&quot;concatenate.&quot;</span> <span class="o">%</span> <span class="n">axis</span><span class="p">)</span>
+  <span class="n">output_tensor_dims</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">input_tensors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">)</span>
+  <span class="n">output_tensor_dims</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">input_tensors</span><span class="p">)</span>
+  <span class="n">params</span> <span class="o">=</span> <span class="n">node_pb2</span><span class="o">.</span><span class="n">Params</span><span class="p">()</span>
+  <span class="n">params</span><span class="o">.</span><span class="n">concat_params</span><span class="o">.</span><span class="n">concat_axis</span> <span class="o">=</span> <span class="n">axis</span>
+  <span class="k">return</span> <span class="n">common</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span>
+      <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">op</span><span class="o">=</span><span class="n">types_pb2</span><span class="o">.</span><span class="n">Concat</span><span class="p">,</span> <span class="n">input_tensors</span><span class="o">=</span><span class="n">input_tensors</span><span class="p">,</span>
+      <span class="n">output_tensors_dims</span><span class="o">=</span><span class="p">[</span><span class="n">output_tensor_dims</span><span class="p">],</span>
+      <span class="n">output_tensor_layout</span><span class="o">=</span><span class="n">input_tensors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">layout</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">split</span><span class="p">(</span><span class="n">input_tensor</span><span class="p">,</span> <span class="n">num_or_size_splits</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;split&quot;</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;Split a tensor into sub tensors.</span>
+
+<span class="sd">  Args:</span>
+<span class="sd">    input_tensor: Input tensor.</span>
+<span class="sd">    num_or_size_splits: Either an integer indicating the number of splits along</span>
+<span class="sd">      axis or a 1D list containing the sizes of each output tensor along axis.</span>
+<span class="sd">      If an integer, then it must evenly divide input_tensor.shape.dims[axis];</span>
+<span class="sd">      otherwise the sum of sizes along the split axis must match that of the</span>
+<span class="sd">      value.</span>
+<span class="sd">    axis: The dimension to split.</span>
+<span class="sd">    name: Name of the operator.</span>
+
+<span class="sd">  Returns:</span>
+<span class="sd">    A list of sub tensors.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="n">splits</span> <span class="o">=</span> <span class="n">num_or_size_splits</span>
+  <span class="n">dim</span> <span class="o">=</span> <span class="n">input_tensor</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span>
+  <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">num_or_size_splits</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">dim</span> <span class="o">%</span> <span class="n">num_or_size_splits</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+          <span class="s2">&quot;The size (</span><span class="si">%d</span><span class="s2">) of the axis along which to split must divide the &quot;</span>
+          <span class="s2">&quot;splits (</span><span class="si">%d</span><span class="s2">)!&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="n">num_or_size_splits</span><span class="p">))</span>
+    <span class="n">splits</span> <span class="o">=</span> <span class="p">[</span><span class="n">dim</span> <span class="o">//</span> <span class="n">num_or_size_splits</span><span class="p">]</span> <span class="o">*</span> <span class="n">num_or_size_splits</span>
+  <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">splits</span><span class="p">)</span> <span class="o">!=</span> <span class="n">input_tensor</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">[</span><span class="n">axis</span><span class="p">]:</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+        <span class="s2">&quot;the sum (</span><span class="si">%d</span><span class="s2">) of sizes along the split axis must match that of the &quot;</span>
+        <span class="s2">&quot;input (</span><span class="si">%d</span><span class="s2">)!&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">splits</span><span class="p">),</span> <span class="n">input_tensor</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">[</span><span class="n">axis</span><span class="p">]))</span>
+  <span class="k">if</span> <span class="n">splits</span> <span class="o">==</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+    <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+        <span class="s2">&quot;Number of splits is 1 for the split operator, thus this operator is &quot;</span>
+        <span class="s2">&quot;optimized out.&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">input_tensor</span><span class="p">]</span>
+  <span class="n">output_tensors_dims</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">splits</span><span class="p">:</span>
+    <span class="n">dims</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">input_tensor</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">)</span>
+    <span class="n">dims</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span>
+    <span class="n">output_tensors_dims</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dims</span><span class="p">)</span>
+  <span class="n">params</span> <span class="o">=</span> <span class="n">node_pb2</span><span class="o">.</span><span class="n">Params</span><span class="p">()</span>
+  <span class="n">params</span><span class="o">.</span><span class="n">split_params</span><span class="o">.</span><span class="n">split_axis</span> <span class="o">=</span> <span class="n">axis</span>
+  <span class="k">return</span> <span class="n">common</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span>
+      <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">op</span><span class="o">=</span><span class="n">types_pb2</span><span class="o">.</span><span class="n">Split</span><span class="p">,</span> <span class="n">input_tensors</span><span class="o">=</span><span class="p">[</span><span class="n">input_tensor</span><span class="p">],</span>
+      <span class="n">output_tensors_dims</span><span class="o">=</span><span class="n">output_tensors_dims</span><span class="p">,</span>
+      <span class="n">output_tensor_layout</span><span class="o">=</span><span class="n">input_tensor</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">layout</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">reshape</span><span class="p">(</span><span class="n">input_tensor</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">layout</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;reshape&quot;</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot; Reshape the given tensor in the same order.</span>
+
+<span class="sd">  Args:</span>
+<span class="sd">    input_tensor: Input tensor.</span>
+<span class="sd">    shape: New shape.</span>
+<span class="sd">    layout: New layout.</span>
+<span class="sd">    name: Name of the operator.</span>
+
+<span class="sd">  Returns:</span>
+<span class="sd">    Tensor with the new shape.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">input_tensor</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">)</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">common</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span>
+      <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">op</span><span class="o">=</span><span class="n">types_pb2</span><span class="o">.</span><span class="n">Reshape</span><span class="p">,</span> <span class="n">input_tensors</span><span class="o">=</span><span class="p">[</span><span class="n">input_tensor</span><span class="p">],</span>
+      <span class="n">output_tensors_dims</span><span class="o">=</span><span class="p">[</span><span class="n">shape</span><span class="p">],</span> <span class="n">output_tensor_layout</span><span class="o">=</span><span class="n">layout</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">expand_dims</span><span class="p">(</span><span class="n">input_tensor</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;expand_dims&quot;</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;Expand a tensor with an additional dimension.</span>
+
+<span class="sd">  Args:</span>
+<span class="sd">    input_tensor: Input tensor.</span>
+<span class="sd">    axis: Dimension to expand the shape of input tensor.</span>
+<span class="sd">    name: Name used for naming the operator.</span>
+
+<span class="sd">  Returns:</span>
+<span class="sd">    A tensor with an additional dimension inserted at index axis.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">input_tensor</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">layout</span> <span class="o">==</span> <span class="n">types_pb2</span><span class="o">.</span><span class="n">NC</span> <span class="ow">and</span>
+          <span class="p">(</span><span class="n">axis</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">axis</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)):</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Currently we only support expanding NC layout.&quot;</span><span class="p">)</span>
+  <span class="n">output_tensor_dims</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">input_tensor</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="n">output_tensor_layout</span> <span class="o">=</span> <span class="n">types_pb2</span><span class="o">.</span><span class="n">NCT</span> <span class="k">if</span> <span class="n">axis</span> <span class="o">==</span> <span class="mi">2</span> <span class="k">else</span> <span class="n">types_pb2</span><span class="o">.</span><span class="n">NTC</span>
+  <span class="k">return</span> <span class="n">reshape</span><span class="p">(</span><span class="n">input_tensor</span><span class="p">,</span> <span class="n">output_tensor_dims</span><span class="p">,</span> <span class="n">output_tensor_layout</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">squeeze</span><span class="p">(</span><span class="n">input_tensor</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;squeeze&quot;</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;Eliminate a dimension of size 1 from a tensor.</span>
+
+<span class="sd">  Args:</span>
+<span class="sd">    input_tensor: Input tensor.</span>
+<span class="sd">    axis: Dimension to be removed from the input tensor.</span>
+<span class="sd">    name: Named used for naming the operator.</span>
+
+<span class="sd">  Returns:</span>
+<span class="sd">    A tensor with a dimension removed at index axis.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="k">if</span> <span class="n">input_tensor</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">layout</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="n">types_pb2</span><span class="o">.</span><span class="n">NTC</span><span class="p">,</span> <span class="n">types_pb2</span><span class="o">.</span><span class="n">NCT</span><span class="p">]:</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Currently we only support squeezing NCT and NTC to NC.&quot;</span><span class="p">)</span>
+  <span class="n">output_tensor_dims</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">input_tensor</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">,</span> <span class="n">axis</span><span class="p">)</span>
+  <span class="n">output_tensor_layout</span> <span class="o">=</span> <span class="n">types_pb2</span><span class="o">.</span><span class="n">NC</span>
+  <span class="k">return</span> <span class="n">reshape</span><span class="p">(</span><span class="n">input_tensor</span><span class="p">,</span> <span class="n">output_tensor_dims</span><span class="p">,</span> <span class="n">output_tensor_layout</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">repeat</span><span class="p">(</span><span class="n">input_tensor</span><span class="p">,</span> <span class="n">multiples</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;repeat&quot;</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;Construct a tensor by repeating a given tensor.</span>
+
+<span class="sd">  Args:</span>
+<span class="sd">    input_tensor: Input tensor.</span>
+<span class="sd">    multiples: A list that represents the number of multiples in each dimension</span>
+<span class="sd">      of the input tensor.</span>
+<span class="sd">    name: Name of the operator.</span>
+
+<span class="sd">  Returns:</span>
+<span class="sd">    A repeated version of the input tensor.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">input_tensor</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">multiples</span><span class="p">):</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+        <span class="s2">&quot;The multiples of the repeat operator must have the same number of &quot;</span>
+        <span class="s2">&quot;dims as the input tensor.&quot;</span><span class="p">)</span>
+  <span class="n">output_tensor_dims</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">input_tensor</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">,</span> <span class="n">multiples</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">common</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span>
+      <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">op</span><span class="o">=</span><span class="n">types_pb2</span><span class="o">.</span><span class="n">Repeat</span><span class="p">,</span> <span class="n">input_tensors</span><span class="o">=</span><span class="p">[</span><span class="n">input_tensor</span><span class="p">],</span>
+      <span class="n">output_tensors_dims</span><span class="o">=</span><span class="p">[</span><span class="n">output_tensor_dims</span><span class="p">],</span>
+      <span class="n">output_tensor_layout</span><span class="o">=</span><span class="n">input_tensor</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">layout</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">stack</span><span class="p">(</span><span class="n">input_tensor</span><span class="p">,</span> <span class="n">multiple</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;stack&quot;</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;Expand and repeat the specified dimension of a tensor.</span>
+
+<span class="sd">  Args:</span>
+<span class="sd">    input_tensor: Input tensor.</span>
+<span class="sd">    multiple: Number of repeats in the expanded dimension.</span>
+<span class="sd">    axis: Dimension on which to batch.</span>
+<span class="sd">    name: Name used for naming operators.</span>
+
+<span class="sd">  Returns:</span>
+<span class="sd">    A tensor with a new dimension.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="n">output</span> <span class="o">=</span> <span class="n">expand_dims</span><span class="p">(</span><span class="n">input_tensor</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;:expand_dims&quot;</span><span class="p">)</span>
+  <span class="n">multiples</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">output</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+  <span class="n">multiples</span><span class="p">[</span><span class="n">axis</span><span class="p">]</span> <span class="o">=</span> <span class="n">multiple</span>
+  <span class="n">output</span> <span class="o">=</span> <span class="n">repeat</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">multiples</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;:repeat&quot;</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">output</span>
+
+<span class="k">def</span> <span class="nf">unstack</span><span class="p">(</span><span class="n">input_tensor</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;unstack&quot;</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;Unpack the specified dimension of a tensor.</span>
+
+<span class="sd">  The size = 1 dimension gets squeezed out.</span>
+
+<span class="sd">  Args:</span>
+<span class="sd">    input_tensor: Input tensor.</span>
+<span class="sd">    axis: Dimension on which to unpack.</span>
+<span class="sd">    name: Name used for naming operators.</span>
+
+<span class="sd">  Returns:</span>
+<span class="sd">    A list of tensors with the given dimension unpacked.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="n">split_tensors</span> <span class="o">=</span> <span class="n">split</span><span class="p">(</span>
+      <span class="n">input_tensor</span><span class="p">,</span> <span class="n">input_tensor</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">[</span><span class="n">axis</span><span class="p">],</span> <span class="n">axis</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;:split&quot;</span><span class="p">)</span>
+  <span class="n">outputs</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">tensor</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">split_tensors</span><span class="p">):</span>
+    <span class="n">outputs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">squeeze</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;:squeeze&quot;</span><span class="p">))</span>
+  <span class="k">return</span> <span class="n">outputs</span>
+
+<div class="viewcode-block" id="broadcast_inputs"><a class="viewcode-back" href="../../../../internals.html#smaug.python.ops.array_ops.broadcast_inputs">[docs]</a><span class="k">def</span> <span class="nf">broadcast_inputs</span><span class="p">(</span><span class="n">tensor_a</span><span class="p">,</span> <span class="n">tensor_b</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;broadcast_inputs&quot;</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;Broadcast inputs to have a compatible shape.</span>
+
+<span class="sd">  This uses NumPy&#39;s broadcasting rules to make inputs of different shapes have a</span>
+<span class="sd">  compatible shape during arithmetic operations. On each axis, the smaller</span>
+<span class="sd">  dimension (of size 1) is broadcast across the larger dimension so that they</span>
+<span class="sd">  have compatible shapes. Broadcasting provides a means of vectorizing</span>
+<span class="sd">  operations.</span>
+
+<span class="sd">  Args:</span>
+<span class="sd">    tensor_a: The first input tensor.</span>
+<span class="sd">    tensor_b: The second input tensor.</span>
+<span class="sd">    name: Name prefix for the operators used in this function.</span>
+
+<span class="sd">  Returns:</span>
+<span class="sd">    Two new tensors with the same shape.</span>
+
+<span class="sd">  Examples:</span>
+
+<span class="sd">  .. code:: python</span>
+
+<span class="sd">     a = np.random.rand(2, 8).astype(np.float16)</span>
+<span class="sd">     b = np.random.rand(2, 1).astype(np.float16)</span>
+<span class="sd">     tensor_a = Tensor(data_layout=NC, tensor_data=a)</span>
+<span class="sd">     tensor_b = Tensor(data_layout=NC, tensor_data=b)</span>
+<span class="sd">     # The elementwise add operator calls _broadcast_inputs() so that tensor_b</span>
+<span class="sd">     # is broadcast in axis 1, making both inputs shaped [2, 8].</span>
+<span class="sd">     output = add(tensor_a, tensor_b)</span>
+
+<span class="sd">  .. code:: python</span>
+
+<span class="sd">     a = np.random.rand(2, 16, 1, 8).astype(np.float16)</span>
+<span class="sd">     b = np.random.rand(2, 1, 8, 8).astype(np.float16)</span>
+<span class="sd">     tensor_a = Tensor(data_layout=NHWC, tensor_data=a)</span>
+<span class="sd">     tensor_b = Tensor(data_layout=NHWC, tensor_data=b)</span>
+<span class="sd">     # The elementwise mul operator calls _broadcast_inputs() so that both</span>
+<span class="sd">     # inputs will be shaped [2, 16, 8, 8].</span>
+<span class="sd">     output = mul(tensor_a, tensor_b)</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">tensor_a</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tensor_b</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">):</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+        <span class="s2">&quot;Cannot broadcast: tensor_a has </span><span class="si">% d</span><span class="s2">imensions but tensor_b has %.&quot;</span> <span class="o">%</span>
+        <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tensor_a</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">tensor_b</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">)))</span>
+  <span class="n">multiples_a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tensor_a</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+  <span class="n">multiples_b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">tensor_a</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+  <span class="c1"># Loop over the matching dimensions of the two inputs.</span>
+  <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">a_dim</span><span class="p">,</span> <span class="n">b_dim</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span>
+      <span class="nb">zip</span><span class="p">(</span><span class="n">tensor_a</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">,</span> <span class="n">tensor_b</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">)):</span>
+    <span class="k">if</span> <span class="n">a_dim</span> <span class="o">==</span> <span class="n">b_dim</span><span class="p">:</span>
+      <span class="k">continue</span>
+    <span class="k">elif</span> <span class="n">a_dim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+      <span class="c1"># tensor_a will be broadcast along this dimension.</span>
+      <span class="n">multiples_a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">b_dim</span>
+    <span class="k">elif</span> <span class="n">b_dim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+      <span class="c1"># tensor_b will be broadcast along this dimension.</span>
+      <span class="n">multiples_b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">a_dim</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+          <span class="s2">&quot;tensor_a shape </span><span class="si">%s</span><span class="s2"> and tensor_b shape </span><span class="si">%s</span><span class="s2"> are incompatible for &quot;</span>
+          <span class="s2">&quot;broadcasting)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">tensor_a</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span>
+              <span class="n">tensor_b</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span><span class="p">)))</span>
+  <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">multiples_a</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="n">tensor_a</span> <span class="o">=</span> <span class="n">repeat</span><span class="p">(</span><span class="n">tensor_a</span><span class="p">,</span> <span class="n">multiples_a</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;:repeat_a&quot;</span><span class="p">)</span>
+  <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">multiples_b</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="n">tensor_b</span> <span class="o">=</span> <span class="n">repeat</span><span class="p">(</span><span class="n">tensor_b</span><span class="p">,</span> <span class="n">multiples_b</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;:repeat_b&quot;</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">tensor_a</span><span class="p">,</span> <span class="n">tensor_b</span></div>
+
+<div class="viewcode-block" id="check_and_add_layout_transform"><a class="viewcode-back" href="../../../../internals.html#smaug.python.ops.array_ops.check_and_add_layout_transform">[docs]</a><span class="k">def</span> <span class="nf">check_and_add_layout_transform</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">op</span><span class="p">,</span> <span class="n">input_tensors</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot; Check and perform layout transformation for the input tensors.</span>
+
+<span class="sd">  This checks the input layout against the expected layout, and if a mismatch</span>
+<span class="sd">  is found, an reorder operator will be added to transform the tensors into</span>
+<span class="sd">  expected layouts.</span>
+
+<span class="sd">  Args:</span>
+<span class="sd">    name: Name of the operator.</span>
+<span class="sd">    op: OpType of the operator.</span>
+<span class="sd">    input_tensors: A list of input tensors</span>
+
+<span class="sd">  Returns:</span>
+<span class="sd">    A list of transformed input tensors, or the original input tensors if no</span>
+<span class="sd">    layout transformation is required.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="k">if</span> <span class="ow">not</span> <span class="n">global_vars</span><span class="o">.</span><span class="n">get_graph</span><span class="p">()</span><span class="o">.</span><span class="n">layout_trans_enabled</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">input_tensors</span>
+  <span class="n">backend</span> <span class="o">=</span> <span class="n">global_vars</span><span class="o">.</span><span class="n">get_graph</span><span class="p">()</span><span class="o">.</span><span class="n">backend</span>
+  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">input_tensors</span><span class="p">)):</span>
+    <span class="n">expected_layoutset</span> <span class="o">=</span> <span class="n">global_vars</span><span class="o">.</span><span class="n">backend_layouts</span><span class="p">[</span><span class="n">backend</span><span class="p">][</span>
+        <span class="n">op</span><span class="p">]</span><span class="o">.</span><span class="n">input_layoutsets</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="n">input_layout</span> <span class="o">=</span> <span class="n">input_tensors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">layout</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">expected_layoutset</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="n">input_layout</span><span class="p">):</span>
+      <span class="n">reorder_op_output</span> <span class="o">=</span> <span class="n">tensor_utils</span><span class="o">.</span><span class="n">get_tensor_reorder_op</span><span class="p">(</span>
+          <span class="n">input_tensors</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">expected_layoutset</span><span class="o">.</span><span class="n">layouts</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">reorder_op_output</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">input_tensors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">reorder_op_output</span>
+        <span class="k">continue</span>
+      <span class="n">input_tensors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">reorder</span><span class="p">(</span><span class="n">input_tensors</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">expected_layoutset</span><span class="o">.</span><span class="n">layouts</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">input_tensors</span></div>
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, SMAUG Contributors
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
