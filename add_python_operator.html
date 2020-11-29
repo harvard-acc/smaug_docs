@@ -213,7 +213,16 @@ ensure that no two nodes have the same name. Also, <a class="reference internal"
 returns a list of tensors, but in our case, we have only one, so to simplify
 our API, we just return the first element.  There are other optional parameters
 to <a class="reference internal" href="internals.html#smaug.python.ops.common.add_node" title="smaug.python.ops.common.add_node"><code class="xref py py-func docutils literal notranslate"><span class="pre">common.add_node()</span></code></a>, but they aren’t needed in this basic scenario.</p>
-<p>And that’s it! You’re now ready to use this operator in a new model.</p>
+<p>The final step is to expose this operator at the global <a class="reference internal" href="smaug.html#module-smaug" title="smaug"><code class="xref py py-mod docutils literal notranslate"><span class="pre">smaug</span></code></a> module
+level. Open up <code class="file docutils literal notranslate"><span class="pre">smaug/__init__.py</span></code> and add the following line:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">smaug.python.ops</span> <span class="kn">import</span> <span class="n">my_custom_operator</span>
+</pre></div>
+</div>
+<p>And that’s it! You’re now ready to use this new operator in a new model. Users
+will refer to it as <code class="code docutils literal notranslate"><span class="pre">smaug.my_custom_operator.my_custom_operator</span></code>.
+Obviously, the name for this small example is quite repetitive and
+uninformative, but in practice, you would use a more descriptive module
+and operator name.</p>
 </div>
 <div class="section" id="adding-an-operator-with-additional-parameters">
 <h2>Adding an operator with additional parameters<a class="headerlink" href="#adding-an-operator-with-additional-parameters" title="Permalink to this headline">¶</a></h2>
