@@ -163,7 +163,166 @@
             
   <div class="section" id="build-a-smaug-model-with-python-api">
 <h1>Build a SMAUG model with Python API<a class="headerlink" href="#build-a-smaug-model-with-python-api" title="Permalink to this headline">¶</a></h1>
-<p>Building a model is quite easy in SMAUG.</p>
+<p>SMAUG’s Python frontend provides easy APIs to build DL models. The created model
+is a computational graph, which is serialized into two protobuf files, one for
+the model topology and the other for the parameters. These two files are inputs
+to SMAUG’s C++ runtime that performs the actual simulation. In this tutorial,
+we will be using the SMAUG Python APIs to build new DL models.</p>
+<p>Before building a model, we need to create a <cite>Graph</cite> context in which we will
+add operators.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">smaug</span> <span class="k">as</span> <span class="nn">sg</span>
+<span class="k">with</span> <span class="n">sg</span><span class="o">.</span><span class="n">Graph</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;my_model&quot;</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s2">&quot;SMV&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">graph</span><span class="p">:</span>
+  <span class="c1"># Any operators instantiated within the context will be added to `graph`.</span>
+</pre></div>
+</div>
+<p>When using the <a class="reference internal" href="smaug.html#smaug.Graph" title="smaug.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">smaug.Graph</span></code></a> API to create a graph context, we need to
+give a name for the model and select the backend we want to use when running the
+model through the C++ runtime. A backend in SMAUG is a logical combination of
+hardware blocks that implements all the SMAUG operators. Refer to
+<a class="reference external" href="doxygen_html/index.html">C++ docs</a> for more details of a backend
+implementation in the C++ runtime. Here, we choose the <code class="code docutils literal notranslate"><span class="pre">SMV</span></code> backend that
+comes with SMAUG, which is modeled after the NVDLA architecture. SMAUG also has
+another backend named <code class="code docutils literal notranslate"><span class="pre">Reference</span></code>, which is a reference implementation
+without having specific performance optimizations. Also, refer to
+<a class="reference internal" href="smaug.html#smaug.Graph" title="smaug.Graph"><code class="xref py py-class docutils literal notranslate"><span class="pre">smaug.Graph</span></code></a> for a detailed description of the parameters.</p>
+<p>Now we can start adding operators to the graph context. The following gives an
+example of building a simple 3-layer model.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">smaug</span> <span class="k">as</span> <span class="nn">sg</span>
+
+<span class="k">def</span> <span class="nf">generate_random_data</span><span class="p">(</span><span class="n">shape</span><span class="p">):</span>
+  <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">1234</span><span class="p">)</span>
+  <span class="k">return</span> <span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="o">*</span><span class="n">shape</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.005</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float16</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">sg</span><span class="o">.</span><span class="n">Graph</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;my_model&quot;</span><span class="p">,</span> <span class="n">backend</span><span class="o">=</span><span class="s2">&quot;SMV&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">graph</span><span class="p">:</span>
+  <span class="n">input_tensor</span> <span class="o">=</span> <span class="n">sg</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span>
+      <span class="n">data_layout</span><span class="o">=</span><span class="n">sg</span><span class="o">.</span><span class="n">NHWC</span><span class="p">,</span> <span class="n">tensor_data</span><span class="o">=</span><span class="n">generate_random_data</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+  <span class="n">conv_weights</span> <span class="o">=</span> <span class="n">sg</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span>
+      <span class="n">data_layout</span><span class="o">=</span><span class="n">sg</span><span class="o">.</span><span class="n">NHWC</span><span class="p">,</span> <span class="n">tensor_data</span><span class="o">=</span><span class="n">generate_random_data</span><span class="p">((</span><span class="mi">32</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))</span>
+  <span class="n">fc_weights</span> <span class="o">=</span> <span class="n">sg</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span>
+      <span class="n">data_layout</span><span class="o">=</span><span class="n">sg</span><span class="o">.</span><span class="n">NC</span><span class="p">,</span> <span class="n">tensor_data</span><span class="o">=</span><span class="n">generate_random_data</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6272</span><span class="p">)))</span>
+
+  <span class="c1"># Shape of act: [1, 28, 28, 1].</span>
+  <span class="n">act</span> <span class="o">=</span> <span class="n">sg</span><span class="o">.</span><span class="n">input_data</span><span class="p">(</span><span class="n">input_tensor</span><span class="p">)</span>
+  <span class="c1"># After the convolution, shape of act: [1, 32, 28, 28].</span>
+  <span class="n">act</span> <span class="o">=</span> <span class="n">sg</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">convolution</span><span class="p">(</span>
+      <span class="n">act</span><span class="p">,</span> <span class="n">conv_weights</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;same&quot;</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">)</span>
+  <span class="c1"># After the max pooling, shape of act: [1, 32, 14, 14].</span>
+  <span class="n">act</span> <span class="o">=</span> <span class="n">sg</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">max_pool</span><span class="p">(</span><span class="n">act</span><span class="p">,</span> <span class="n">pool_size</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">stride</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+  <span class="c1"># After the matrix multiply, shape of act: [1, 10].</span>
+  <span class="n">act</span> <span class="o">=</span> <span class="n">sg</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">mat_mul</span><span class="p">(</span><span class="n">act</span><span class="p">,</span> <span class="n">fc_weights</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>As we create the first operator for the model, we need to first prepare an
+input tensor and weight tensors that are used by the operator. Tensors are
+represented by the <a class="reference internal" href="smaug.html#smaug.Tensor" title="smaug.Tensor"><code class="xref py py-class docutils literal notranslate"><span class="pre">smaug.Tensor</span></code></a>. In the example, we create an input
+tensor <code class="code docutils literal notranslate"><span class="pre">input_tensor</span></code> using the API. Here, we specify the
+<code class="code docutils literal notranslate"><span class="pre">data_layout</span></code> as <code class="code docutils literal notranslate"><span class="pre">sg.NHWC</span></code>, which stands for a 4D tensor shape with
+the channel-major layout. We also specify the <code class="code docutils literal notranslate"><span class="pre">tensor_data</span></code> parameter
+with a randomly generated NumPy array, with a shape of <code class="code docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">28,</span> <span class="pre">28,</span> <span class="pre">1]</span></code>.
+However, the user can use the real weights extracted from a pretrained model.
+Likewise, we create two weight tensors that will be used by a convolution
+operator and a matrix multiply operator, respectively.</p>
+<p>A <code class="xref py py-func docutils literal notranslate"><span class="pre">smaug.data_op()</span></code>, which simply forwards an input tensor to its output, is
+required for any tensor that is not the output of another operator. Here,
+<code class="code docutils literal notranslate"><span class="pre">act</span></code> is a reference to code:<cite>input_tensor</cite>. Then, <code class="code docutils literal notranslate"><span class="pre">act</span></code> is
+fed to a convolution operator that also takes <code class="code docutils literal notranslate"><span class="pre">conv_weights</span></code> as its
+filter input. With more details provided in <a class="reference internal" href="nn.html#smaug.nn.convolution" title="smaug.nn.convolution"><code class="xref py py-func docutils literal notranslate"><span class="pre">smaug.nn.convolution()</span></code></a>, it
+computes a 3D convolution given the 4D input and filter tensors, and we use 1x1
+strides, the <code class="code docutils literal notranslate"><span class="pre">same</span></code> padding and a ReLU activation fused with the
+convolution operation.  The output of it then goes through a max pooling
+operator with a 2x2 filter size, which in turn fans its output into the last
+matrix multiply operator. Note that since the output of the max pooling
+operator is a 4D tensor while <a class="reference internal" href="nn.html#smaug.nn.mat_mul" title="smaug.nn.mat_mul"><code class="xref py py-func docutils literal notranslate"><span class="pre">smaug.nn.mat_mul()</span></code></a> expects a 2D input
+tensor, SMAUG will automatically add a layout transformation operator
+<a class="reference internal" href="tensor.html#smaug.tensor.reorder" title="smaug.tensor.reorder"><code class="xref py py-func docutils literal notranslate"><span class="pre">smaug.tensor.reorder()</span></code></a> in between to make the data layout format
+compatible. Thus, the 4D tensor of shape <code class="code docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">32,</span> <span class="pre">14,</span> <span class="pre">14]</span></code> will be
+flattened into a 2D tensor of shape <code class="code docutils literal notranslate"><span class="pre">[1,</span> <span class="pre">6272]</span></code> before running the matrix
+multiply. Similarly, SMAUG will also perform the NHWC to NCHW layout
+transformation or vice versa as per the expected layout format of the backend.</p>
+<p>After finishing adding operators to the model, we can now take a look at the
+summary of the model using the <a class="reference internal" href="smaug.html#smaug.Graph.print_summary" title="smaug.Graph.print_summary"><code class="xref py py-func docutils literal notranslate"><span class="pre">smaug.Graph.print_summary()</span></code></a> API.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">print_summary</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This prints model-level information and operator-specific properties as below:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">=================================================================</span>
+<span class="n">Summary</span> <span class="n">of</span> <span class="n">the</span> <span class="n">network</span><span class="p">:</span> <span class="n">my_model</span> <span class="p">(</span><span class="n">SMV</span><span class="p">)</span>
+<span class="o">=================================================================</span>
+<span class="n">Host</span> <span class="n">memory</span> <span class="n">access</span> <span class="n">policy</span><span class="p">:</span> <span class="n">AllDma</span><span class="o">.</span>
+<span class="o">-----------------------------------------------------------------</span>
+<span class="n">Name</span><span class="p">:</span> <span class="n">data</span> <span class="p">(</span><span class="n">Data</span><span class="p">)</span>
+<span class="n">Parents</span><span class="p">:</span>
+<span class="n">Children</span><span class="p">:</span><span class="n">conv</span>
+<span class="n">Input</span> <span class="n">tensors</span><span class="p">:</span>
+  <span class="n">data</span><span class="o">/</span><span class="n">input0</span> <span class="n">Float16</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="n">NHWC</span> <span class="n">alignment</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">Output</span> <span class="n">tensors</span><span class="p">:</span>
+  <span class="n">data</span><span class="o">/</span><span class="n">output0</span> <span class="n">Float16</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="n">NHWC</span> <span class="n">alignment</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="o">-----------------------------------------------------------------</span>
+<span class="n">Name</span><span class="p">:</span> <span class="n">data_1</span> <span class="p">(</span><span class="n">Data</span><span class="p">)</span>
+<span class="n">Parents</span><span class="p">:</span>
+<span class="n">Children</span><span class="p">:</span><span class="n">conv</span>
+<span class="n">Input</span> <span class="n">tensors</span><span class="p">:</span>
+  <span class="n">data_1</span><span class="o">/</span><span class="n">input0</span> <span class="n">Float16</span> <span class="p">[</span><span class="mi">32</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="n">NHWC</span> <span class="n">alignment</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">Output</span> <span class="n">tensors</span><span class="p">:</span>
+  <span class="n">data_1</span><span class="o">/</span><span class="n">output0</span> <span class="n">Float16</span> <span class="p">[</span><span class="mi">32</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="n">NHWC</span> <span class="n">alignment</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="o">-----------------------------------------------------------------</span>
+<span class="n">Name</span><span class="p">:</span> <span class="n">conv</span> <span class="p">(</span><span class="n">Convolution3d</span><span class="p">)</span>
+<span class="n">Parents</span><span class="p">:</span><span class="n">data</span> <span class="n">data_1</span>
+<span class="n">Children</span><span class="p">:</span><span class="n">max_pool</span>
+<span class="n">Input</span> <span class="n">tensors</span><span class="p">:</span>
+  <span class="n">data</span><span class="o">/</span><span class="n">output0</span> <span class="n">Float16</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="n">NHWC</span> <span class="n">alignment</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+  <span class="n">data_1</span><span class="o">/</span><span class="n">output0</span> <span class="n">Float16</span> <span class="p">[</span><span class="mi">32</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="n">NHWC</span> <span class="n">alignment</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">Output</span> <span class="n">tensors</span><span class="p">:</span>
+  <span class="n">conv</span><span class="o">/</span><span class="n">output0</span> <span class="n">Float16</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">32</span><span class="p">]</span> <span class="n">NHWC</span> <span class="n">alignment</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="o">-----------------------------------------------------------------</span>
+<span class="n">Name</span><span class="p">:</span> <span class="n">max_pool</span> <span class="p">(</span><span class="n">MaxPooling</span><span class="p">)</span>
+<span class="n">Parents</span><span class="p">:</span><span class="n">conv</span>
+<span class="n">Children</span><span class="p">:</span><span class="n">reorder</span>
+<span class="n">Input</span> <span class="n">tensors</span><span class="p">:</span>
+  <span class="n">conv</span><span class="o">/</span><span class="n">output0</span> <span class="n">Float16</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">32</span><span class="p">]</span> <span class="n">NHWC</span> <span class="n">alignment</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">Output</span> <span class="n">tensors</span><span class="p">:</span>
+  <span class="n">max_pool</span><span class="o">/</span><span class="n">output0</span> <span class="n">Float16</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">32</span><span class="p">]</span> <span class="n">NHWC</span> <span class="n">alignment</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="o">-----------------------------------------------------------------</span>
+<span class="n">Name</span><span class="p">:</span> <span class="n">reorder</span> <span class="p">(</span><span class="n">Reorder</span><span class="p">)</span>
+<span class="n">Parents</span><span class="p">:</span><span class="n">max_pool</span>
+<span class="n">Children</span><span class="p">:</span><span class="n">mat_mul</span>
+<span class="n">Input</span> <span class="n">tensors</span><span class="p">:</span>
+  <span class="n">max_pool</span><span class="o">/</span><span class="n">output0</span> <span class="n">Float16</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">32</span><span class="p">]</span> <span class="n">NHWC</span> <span class="n">alignment</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">Output</span> <span class="n">tensors</span><span class="p">:</span>
+  <span class="n">reorder</span><span class="o">/</span><span class="n">output0</span> <span class="n">Float16</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6272</span><span class="p">]</span> <span class="n">NC</span> <span class="n">alignment</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="o">-----------------------------------------------------------------</span>
+<span class="n">Name</span><span class="p">:</span> <span class="n">data_2</span> <span class="p">(</span><span class="n">Data</span><span class="p">)</span>
+<span class="n">Parents</span><span class="p">:</span>
+<span class="n">Children</span><span class="p">:</span><span class="n">mat_mul</span>
+<span class="n">Input</span> <span class="n">tensors</span><span class="p">:</span>
+  <span class="n">data_2</span><span class="o">/</span><span class="n">input0</span> <span class="n">Float16</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6272</span><span class="p">]</span> <span class="n">NC</span> <span class="n">alignment</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">Output</span> <span class="n">tensors</span><span class="p">:</span>
+  <span class="n">data_2</span><span class="o">/</span><span class="n">output0</span> <span class="n">Float16</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6272</span><span class="p">]</span> <span class="n">NC</span> <span class="n">alignment</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="o">-----------------------------------------------------------------</span>
+<span class="n">Name</span><span class="p">:</span> <span class="n">mat_mul</span> <span class="p">(</span><span class="n">InnerProduct</span><span class="p">)</span>
+<span class="n">Parents</span><span class="p">:</span><span class="n">reorder</span> <span class="n">data_2</span>
+<span class="n">Children</span><span class="p">:</span>
+<span class="n">Input</span> <span class="n">tensors</span><span class="p">:</span>
+  <span class="n">reorder</span><span class="o">/</span><span class="n">output0</span> <span class="n">Float16</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6272</span><span class="p">]</span> <span class="n">NC</span> <span class="n">alignment</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+  <span class="n">data_2</span><span class="o">/</span><span class="n">output0</span> <span class="n">Float16</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6272</span><span class="p">]</span> <span class="n">NC</span> <span class="n">alignment</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">Output</span> <span class="n">tensors</span><span class="p">:</span>
+  <span class="n">mat_mul</span><span class="o">/</span><span class="n">output0</span> <span class="n">Float16</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span> <span class="n">NC</span> <span class="n">alignment</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="o">-----------------------------------------------------------------</span>
+</pre></div>
+</div>
+<p>Finally, we can export the model files using the
+<a class="reference internal" href="smaug.html#smaug.Graph.write_graph" title="smaug.Graph.write_graph"><code class="xref py py-func docutils literal notranslate"><span class="pre">smaug.Graph.write_graph()</span></code></a> API.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">graph</span><span class="o">.</span><span class="n">write_graph</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This gives us two files named <code class="code docutils literal notranslate"><span class="pre">my_model_topo.pbtxt</span></code> and
+<code class="code docutils literal notranslate"><span class="pre">my_model_params.pb</span></code>, where the former stores all the model information
+except for the parameters, which are stored in the latter. This separation is
+helpful for us to quickly check things in the human readable topology file
+while still compressing as much as possible the oftentimes large paramaters.
+We can now move on to the <a class="reference external" href="doxygen_html/index.html">C++ side tutorials</a> that
+explain the details of using these two files to run the model.</p>
 </div>
 
 
