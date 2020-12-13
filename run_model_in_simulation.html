@@ -1,0 +1,467 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Run a model in gem5-Aladdin simulation &mdash; SMAUG: Simulating Machine Learning Applications Using gem5-Aladdin</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Adding a new operator" href="add_python_operator.html" />
+    <link rel="prev" title="Build a SMAUG model with Python API" href="build_python_model.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> SMAUG
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Python API and tutorials</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="python_api.html">SMAUG Python APIs</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="python_tutorials.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="build_python_model.html">Build a SMAUG model with Python API</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Run a model in gem5-Aladdin simulation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#build-gem5-aladdin">Build gem5-Aladdin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#generate-dynamic-trace-for-gem5-aladdin-simulation">Generate dynamic trace for gem5-Aladdin simulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#create-gem5-aladdin-configuraion-files">Create gem5-Aladdin configuraion files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#run-the-first-simulation">Run the first simulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#apply-sampling-to-reduce-simulation-time-and-trace-storage">Apply sampling to reduce simulation time and trace storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#simulate-with-multiple-threads">Simulate with multiple threads</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="add_python_operator.html">Adding a new operator</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">C++ docs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cpp_docs.html">C++ API and Tutorials</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">SMAUG</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="python_tutorials.html">Tutorials</a> &raquo;</li>
+        
+      <li>Run a model in gem5-Aladdin simulation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/run_model_in_simulation.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="run-a-model-in-gem5-aladdin-simulation">
+<h1>Run a model in gem5-Aladdin simulation<a class="headerlink" href="#run-a-model-in-gem5-aladdin-simulation" title="Permalink to this headline">¶</a></h1>
+<p>Following the tutorial in <a class="reference internal" href="build_python_model.html#label-build-python-model"><span class="std std-ref">Build a SMAUG model with Python API</span></a>, now we are able to
+create a DL model using the SMAUG Python APIs. In this tutorial, we will
+proceed to introduce the steps of running a model in gem5-Aladdin simulation.
+We strongly recommend using our <a class="reference external" href="https://registry.hub.docker.com/r/xyzsam/smaug">Docker image</a> and this tutorial assumes we
+are in the Docker image.</p>
+<div class="section" id="build-gem5-aladdin">
+<h2>Build gem5-Aladdin<a class="headerlink" href="#build-gem5-aladdin" title="Permalink to this headline">¶</a></h2>
+<p>First, if you haven’t built gem5-Aladdin (cloned in
+<code class="code docutils literal notranslate"><span class="pre">/workspace/gem5-aladdin</span></code>), use the following command to build it.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python2.7 `which scons` build/X86/gem5.opt PROTOCOL=MESI_Two_Level_aladdin -j2</span>
+</pre></div>
+</div>
+<p>Here, the <code class="code docutils literal notranslate"><span class="pre">MESI_Two_Level_aladdin</span></code> is the coherence protocol we will use
+in the gem5 Ruby memory model. Change <code class="code docutils literal notranslate"><span class="pre">-j</span></code> parameter to increase the
+number of CPU threads to speed up the build, but keep in mind that you may run
+out of memory before you run out of CPUs. Running out of memory or disk space
+can cause mysterious build failures.</p>
+</div>
+<div class="section" id="generate-dynamic-trace-for-gem5-aladdin-simulation">
+<h2>Generate dynamic trace for gem5-Aladdin simulation<a class="headerlink" href="#generate-dynamic-trace-for-gem5-aladdin-simulation" title="Permalink to this headline">¶</a></h2>
+<p>gem5-Aladdin, which provides the simulation capabilities of estimating
+performance/power/area for pre-RTL kernels via various SoCs, is a trace-driven
+simulator. Thus, in SMAUG, in order to run a model in gem5-Aladdin, we need to
+generate a dynamic trace for the kernels to be simulated as hardware blocks.</p>
+<p>First, we need to build the SMAUG tracer, which is an instrumented binary that
+will be executed to generate the dynamic trace.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">make tracer -j4</span>
+</pre></div>
+</div>
+<p>After running the above command, we will get a binary under <code class="code docutils literal notranslate"><span class="pre">build/bin/</span></code>
+named <code class="code docutils literal notranslate"><span class="pre">smaug-instrumented</span></code>. Then we will run the model created in
+<a class="reference internal" href="build_python_model.html#label-build-python-model"><span class="std std-ref">Build a SMAUG model with Python API</span></a> using the following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">build/bin/smaug-instrumented my_model_topo.pbtxt my_model_params.pb</span>
+</pre></div>
+</div>
+<p>While the tracer is producing the dynamic trace, we will see outputs such as the
+following pair for each invocation of the hardware blocks:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dynamic_trace_acc0</span><span class="o">.</span><span class="n">gz</span><span class="p">:</span> <span class="n">Starting</span> <span class="n">to</span> <span class="n">log</span> <span class="n">at</span> <span class="n">inst</span> <span class="o">=</span> <span class="mf">0.</span>
+<span class="n">dynamic_trace_acc0</span><span class="o">.</span><span class="n">gz</span><span class="p">:</span> <span class="n">Stopping</span> <span class="n">logging</span> <span class="n">at</span> <span class="n">inst</span> <span class="mf">18199217.</span>
+</pre></div>
+</div>
+<p>A trace file named <code class="code docutils literal notranslate"><span class="pre">dynamic_trace_acc0.gz</span></code> is generated.</p>
+<p>Note that for large models, this step can take a long time and the resulting
+trace file can be quite large. Sampling should be used to solve this, which is
+discussed in <a class="reference internal" href="#label-apply-sampling"><span class="std std-ref">Apply sampling to reduce simulation time and trace storage</span></a>.</p>
+</div>
+<div class="section" id="create-gem5-aladdin-configuraion-files">
+<h2>Create gem5-Aladdin configuraion files<a class="headerlink" href="#create-gem5-aladdin-configuraion-files" title="Permalink to this headline">¶</a></h2>
+<p>gem5-Aladdin also requires two configuration files for running simulations. One
+file specifies SoC-level parameters such as each accelerator’s ID, cache or DMA
+configurations, location of the corresponding dynamic trace file, and etc.  An
+example can found be in <code class="code docutils literal notranslate"><span class="pre">experiments/sims/smv/minerva/gem5.cfg</span></code> (make
+sure the submodules are initialized by running <code class="code docutils literal notranslate"><span class="pre">git</span> <span class="pre">submodule</span> <span class="pre">update</span>
+<span class="pre">--init</span> <span class="pre">--recursive</span></code>). The other file gives the parameters to be used for
+implementing the accelerator, such as parameters for applying loop unrolling
+and scratchpad partition. An example configuration file of implementing the
+hardware blocks in our <cite>SMV</cite> backend can be found in
+<code class="code docutils literal notranslate"><span class="pre">experiments/sims/smv/smv-accel.cfg</span></code>.  If you don’t make any changes to
+the <cite>SMV</cite> backend, both of these configuration files are sufficient to simulate
+any model run on <cite>SMV</cite>. You can change the parameters but it may lead to
+unexpected accelerator performance characteristics especially if you change
+<code class="code docutils literal notranslate"><span class="pre">smv-accel.cfg</span></code>, as the array partitioning/loop unrolling/loop pipelining
+are all fine tuned to achieve a specific throughput.</p>
+<p>We defer to the <a class="reference external" href="https://github.com/harvard-acc/gem5-aladdin">gem5-Aladdin GitHub repo</a> and <a class="reference external" href="http://accelerator.eecs.harvard.edu/micro16tutorial/slides/micro2016-tutorial-gem5-aladdin.pptx">gem5-Aladdin tutorial</a>
+for more details of writing these configuration files.</p>
+</div>
+<div class="section" id="run-the-first-simulation">
+<h2>Run the first simulation<a class="headerlink" href="#run-the-first-simulation" title="Permalink to this headline">¶</a></h2>
+<p>Assuming we use configuration files in
+<code class="code docutils literal notranslate"><span class="pre">experiments/sims/smv/tests/minerva/gem5.cfg</span></code>
+and <code class="code docutils literal notranslate"><span class="pre">experiments/sims/smv/smv-accel.cfg</span></code>, let’s create a folder for our
+first simulation. It contains these files:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">root@72e3f78202e0:test #</span> ls
+<span class="go">dynamic_trace_acc0.gz  gem5.cfg  my_model_params.pb  my_model_topo.pbtxt smv-accel.cfg</span>
+</pre></div>
+</div>
+<p>Now we are ready to launch the simulation.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">/workspace/gem5-aladdin/build/X86/gem5.opt \</span>
+<span class="go">  --debug-flags=Aladdin,HybridDatapath \</span>
+<span class="go">  --outdir=outputs \</span>
+<span class="go">  /workspace/gem5-aladdin/configs/aladdin/aladdin_se.py \</span>
+<span class="go">  --num-cpus=1 \</span>
+<span class="go">  --mem-size=4GB \</span>
+<span class="go">  --mem-type=LPDDR4_3200_2x16  \</span>
+<span class="go">  --cpu-clock=2.5GHz \</span>
+<span class="go">  --cpu-type=DerivO3CPU \</span>
+<span class="go">  --ruby \</span>
+<span class="go">  --access-backing-store \</span>
+<span class="go">  --l2_size=2097152 \</span>
+<span class="go">  --l2_assoc=16 \</span>
+<span class="go">  --cacheline_size=32 \</span>
+<span class="go">  --accel_cfg_file=gem5.cfg \</span>
+<span class="go">  --fast-forward=10000000000 \</span>
+<span class="go">  -c /workspace/smaug/build/bin/smaug \</span>
+<span class="go">  -o &quot;my_model_topo.pbtxt my_model_params.pb --gem5 --debug-level=0&quot;</span>
+</pre></div>
+</div>
+<p>This command runs our custom 3-level DNN model in gem5-Aladdin simulation.
+gem5-Aladdin provides a wide range of SoC simulation choices, for instance,
+here, the simulated SoC has an out-of-order CPU running at 2.5GHZ, a two-level
+cache hierarchy with a 2MB, 16-way associative L2 cache and 32B cacheline size.</p>
+<p>There are a few parameters that have special importance:</p>
+<ul class="simple">
+<li><p><code class="code docutils literal notranslate"><span class="pre">--mem-size=4GB</span></code> will attempt to allocate an enitre 4GB block of
+memory. If the host machine is low on memory, this could fail.</p></li>
+<li><p>The <code class="code docutils literal notranslate"><span class="pre">--num-cpus=1</span></code> can be adjusted to allow for multithreading (see
+<a class="reference internal" href="#label-multithreading"><span class="std std-ref">Simulate with multiple threads</span></a> for discussion).</p></li>
+<li><p>The <code class="code docutils literal notranslate"><span class="pre">--fast-forward</span></code> parameter is used to speed up the simulation of
+the initialization phase, which uses a simplified CPU model in gem5. It is
+set to a very large cycle value to ensure that gem5 doesn’t automatically
+switch to detailed CPU too early. In SMAUG, we use gem5’s magic instruction
+<code class="code docutils literal notranslate"><span class="pre">m5_switch_cpu</span></code> to switch to the detailed CPU when the initialization
+is done.</p></li>
+<li><p>For the SMAUG commandline options, note that now we must pass <code class="code docutils literal notranslate"><span class="pre">--gem5</span></code>
+flag to enable gem5-Aladdin simulation.</p></li>
+</ul>
+<p>After the simulation starts, we will see the output look like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Model</span> <span class="n">topology</span> <span class="n">file</span><span class="p">:</span> <span class="n">my_model_topo</span><span class="o">.</span><span class="n">pbtxt</span>
+<span class="n">Model</span> <span class="n">parameters</span> <span class="n">file</span><span class="p">:</span> <span class="n">my_model_params</span><span class="o">.</span><span class="n">pb</span>
+<span class="n">Number</span> <span class="n">of</span> <span class="n">accelerators</span><span class="p">:</span> <span class="mi">1</span>
+<span class="n">info</span><span class="p">:</span> <span class="n">Increasing</span> <span class="n">stack</span> <span class="n">size</span> <span class="n">by</span> <span class="n">one</span> <span class="n">page</span><span class="o">.</span>
+<span class="o">======================================================</span>
+<span class="n">Loading</span> <span class="n">the</span> <span class="n">network</span> <span class="n">model</span><span class="o">...</span>
+<span class="o">======================================================</span>
+<span class="o">======================================================</span>
+<span class="n">Summary</span> <span class="n">of</span> <span class="n">the</span> <span class="n">network</span><span class="o">.</span>
+<span class="o">======================================================</span>
+<span class="n">____________________________________________________________________________________________</span>
+<span class="n">Layer</span> <span class="p">(</span><span class="nb">type</span><span class="p">)</span>                             <span class="n">Output</span> <span class="n">shape</span>                 <span class="n">Parameters</span>
+<span class="n">____________________________________________________________________________________________</span>
+<span class="n">data_2</span> <span class="p">(</span><span class="n">Data</span><span class="p">)</span>                            <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6272</span><span class="p">)</span>                       <span class="mi">0</span>
+<span class="n">____________________________________________________________________________________________</span>
+<span class="n">data_1</span> <span class="p">(</span><span class="n">Data</span><span class="p">)</span>                            <span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>                    <span class="mi">0</span>
+<span class="n">____________________________________________________________________________________________</span>
+<span class="n">data</span> <span class="p">(</span><span class="n">Data</span><span class="p">)</span>                              <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>                   <span class="mi">0</span>
+<span class="n">____________________________________________________________________________________________</span>
+<span class="n">conv</span> <span class="p">(</span><span class="n">Convolution3d</span><span class="p">)</span>                     <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>                 <span class="mi">288</span>
+<span class="n">____________________________________________________________________________________________</span>
+<span class="n">max_pool</span> <span class="p">(</span><span class="n">MaxPooling</span><span class="p">)</span>                    <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>                  <span class="mi">0</span>
+<span class="n">____________________________________________________________________________________________</span>
+<span class="n">reorder</span> <span class="p">(</span><span class="n">Reorder</span><span class="p">)</span>                        <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6272</span><span class="p">)</span>                        <span class="mi">0</span>
+<span class="n">____________________________________________________________________________________________</span>
+<span class="n">mat_mul</span> <span class="p">(</span><span class="n">InnerProduct</span><span class="p">)</span>                   <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>                        <span class="mi">62720</span>
+<span class="n">____________________________________________________________________________________________</span>
+</pre></div>
+</div>
+<p>This means the model has been successfully loaded in the simulation. Then we
+will see the following right after the network summary:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">======================================================</span>
+<span class="n">Tiling</span> <span class="n">operators</span> <span class="n">of</span> <span class="n">the</span> <span class="n">network</span><span class="o">...</span>
+<span class="o">======================================================</span>
+<span class="n">Tiling</span> <span class="n">conv</span> <span class="p">(</span><span class="n">Convolution3d</span><span class="p">)</span><span class="o">.</span>
+<span class="n">Tiling</span> <span class="n">data</span> <span class="p">(</span><span class="n">Data</span><span class="p">)</span><span class="o">.</span>
+<span class="n">Tiling</span> <span class="n">data_1</span> <span class="p">(</span><span class="n">Data</span><span class="p">)</span><span class="o">.</span>
+<span class="n">Tiling</span> <span class="n">data_2</span> <span class="p">(</span><span class="n">Data</span><span class="p">)</span><span class="o">.</span>
+<span class="n">Tiling</span> <span class="n">mat_mul</span> <span class="p">(</span><span class="n">InnerProduct</span><span class="p">)</span><span class="o">.</span>
+<span class="n">Tiling</span> <span class="n">max_pool</span> <span class="p">(</span><span class="n">MaxPooling</span><span class="p">)</span><span class="o">.</span>
+<span class="n">Tiling</span> <span class="n">reorder</span> <span class="p">(</span><span class="n">Reorder</span><span class="p">)</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>This shows that SMAUG is performing pre-tiling procedures for each operator -
+read-only tensors such as weights can be tiled before the actual layer-by-layer
+network execution. After this, we can see the simulation switches to use the OoO
+CPU model:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Switched</span> <span class="n">CPUS</span> <span class="o">@</span> <span class="n">tick</span> <span class="mi">29955086000</span>
+<span class="n">switching</span> <span class="n">cpus</span>
+</pre></div>
+</div>
+<p>This means the initialization is done and SMAUG will start scheduling operators
+of the model. We can see:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">======================================================</span>
+<span class="n">Scheduling</span> <span class="n">operators</span> <span class="n">of</span> <span class="n">the</span> <span class="n">network</span><span class="o">...</span>
+<span class="o">======================================================</span>
+<span class="n">Scheduling</span> <span class="n">data</span> <span class="p">(</span><span class="n">Data</span><span class="p">)</span><span class="o">.</span>
+<span class="n">Scheduling</span> <span class="n">data_1</span> <span class="p">(</span><span class="n">Data</span><span class="p">)</span><span class="o">.</span>
+<span class="n">Scheduling</span> <span class="n">data_2</span> <span class="p">(</span><span class="n">Data</span><span class="p">)</span><span class="o">.</span>
+<span class="n">Scheduling</span> <span class="n">conv</span> <span class="p">(</span><span class="n">Convolution3d</span><span class="p">)</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>As the <code class="code docutils literal notranslate"><span class="pre">conv</span></code> operator needs to invoke the convolution engine, we begin
+to see the Aladdin simulation logs. After each invocation of the hardware
+block, results are printed:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">===============================</span>
+       <span class="n">Aladdin</span> <span class="n">Results</span>
+<span class="o">===============================</span>
+<span class="n">Running</span> <span class="p">:</span> <span class="o">./</span><span class="n">outputs</span><span class="o">/</span><span class="n">nnet_fwd</span>
+<span class="n">Top</span> <span class="n">level</span> <span class="n">function</span><span class="p">:</span> <span class="n">smv_conv3d_nhwc_vec_fxp</span>
+<span class="n">Cycle</span> <span class="p">:</span> <span class="mi">89771</span> <span class="n">cycles</span>
+<span class="n">Upsampled</span> <span class="n">Cycle</span> <span class="p">:</span> <span class="mi">0</span> <span class="n">cycles</span>
+<span class="n">Avg</span> <span class="n">Power</span><span class="p">:</span> <span class="mf">132.997</span> <span class="n">mW</span>
+<span class="n">Idle</span> <span class="n">FU</span> <span class="n">Cycles</span><span class="p">:</span> <span class="mi">24432</span> <span class="n">cycles</span>
+<span class="n">Avg</span> <span class="n">FU</span> <span class="n">Power</span><span class="p">:</span> <span class="mf">111.49</span> <span class="n">mW</span>
+<span class="n">Avg</span> <span class="n">FU</span> <span class="n">Dynamic</span> <span class="n">Power</span><span class="p">:</span> <span class="mf">102.124</span> <span class="n">mW</span>
+<span class="n">Avg</span> <span class="n">FU</span> <span class="n">leakage</span> <span class="n">Power</span><span class="p">:</span> <span class="mf">9.36592</span> <span class="n">mW</span>
+<span class="n">Avg</span> <span class="n">MEM</span> <span class="n">Power</span><span class="p">:</span> <span class="mf">21.5071</span> <span class="n">mW</span>
+<span class="n">Avg</span> <span class="n">MEM</span> <span class="n">Dynamic</span> <span class="n">Power</span><span class="p">:</span> <span class="mf">2.5961</span> <span class="n">mW</span>
+<span class="n">Avg</span> <span class="n">MEM</span> <span class="n">Leakage</span> <span class="n">Power</span><span class="p">:</span> <span class="mf">18.911</span> <span class="n">mW</span>
+<span class="n">Total</span> <span class="n">Area</span><span class="p">:</span> <span class="mf">1.91503e+06</span> <span class="n">uM</span><span class="o">^</span><span class="mi">2</span>
+<span class="n">FU</span> <span class="n">Area</span><span class="p">:</span> <span class="mi">775140</span> <span class="n">uM</span><span class="o">^</span><span class="mi">2</span>
+<span class="n">MEM</span> <span class="n">Area</span><span class="p">:</span> <span class="mf">1.13989e+06</span> <span class="n">uM</span><span class="o">^</span><span class="mi">2</span>
+<span class="n">Num</span> <span class="n">of</span> <span class="n">Multipliers</span> <span class="p">(</span><span class="mi">32</span><span class="o">-</span><span class="n">bit</span><span class="p">):</span> <span class="mi">37</span>
+<span class="n">Num</span> <span class="n">of</span> <span class="n">Adders</span> <span class="p">(</span><span class="mi">32</span><span class="o">-</span><span class="n">bit</span><span class="p">):</span> <span class="mi">138</span>
+<span class="n">Num</span> <span class="n">of</span> <span class="n">Bit</span><span class="o">-</span><span class="n">wise</span> <span class="n">Operators</span> <span class="p">(</span><span class="mi">32</span><span class="o">-</span><span class="n">bit</span><span class="p">):</span> <span class="mi">12</span>
+<span class="n">Num</span> <span class="n">of</span> <span class="n">Shifters</span> <span class="p">(</span><span class="mi">32</span><span class="o">-</span><span class="n">bit</span><span class="p">):</span> <span class="mi">21</span>
+<span class="n">Num</span> <span class="n">of</span> <span class="n">Registers</span> <span class="p">(</span><span class="mi">32</span><span class="o">-</span><span class="n">bit</span><span class="p">):</span> <span class="mi">1798</span>
+<span class="o">===============================</span>
+      <span class="n">Aladdin</span> <span class="n">Results</span>
+<span class="o">===============================</span>
+</pre></div>
+</div>
+<p>Congratulations! You just finished running the first SMAUG simulation. The
+<code class="code docutils literal notranslate"><span class="pre">outputs</span></code> folder contains simulation stats generated by gem5-Aladdin.</p>
+<p>How long the simulation will take depends on the machine. On my Intel Core i7
+9850H, it takes about 10 minutes. For larger models, both the trace storage and
+simulation time can become problematic, read on to see the solution.</p>
+</div>
+<div class="section" id="apply-sampling-to-reduce-simulation-time-and-trace-storage">
+<span id="label-apply-sampling"></span><h2>Apply sampling to reduce simulation time and trace storage<a class="headerlink" href="#apply-sampling-to-reduce-simulation-time-and-trace-storage" title="Permalink to this headline">¶</a></h2>
+<p>To save simulation time and trace storage for large models, we can sample the
+loop iterations in the oftentimes repetitive DL kernels. To enable sampling,
+use the <code class="code docutils literal notranslate"><span class="pre">--sample-level</span></code> and <code class="code docutils literal notranslate"><span class="pre">--sample-num</span></code> parameters in SMAUG.
+<code class="code docutils literal notranslate"><span class="pre">--sample-level</span></code> sets the sampling level, which can be one of the five
+levels: <code class="code docutils literal notranslate"><span class="pre">no</span></code>, <code class="code docutils literal notranslate"><span class="pre">low</span></code>, <code class="code docutils literal notranslate"><span class="pre">medium</span></code>, <code class="code docutils literal notranslate"><span class="pre">high</span></code> and
+<code class="code docutils literal notranslate"><span class="pre">very_high</span></code>. <code class="code docutils literal notranslate"><span class="pre">--sample-num</span></code> sets the number of iterations a sampled
+loop will run.  A smaller value means more sampling will be applied. Details
+about using the sampling parameters and the gem5-Aladdin sampling APIs are
+discussed in <a class="reference external" href="doxygen_html/simulation.html">Sampling of accelerated kernels</a>.</p>
+</div>
+<div class="section" id="simulate-with-multiple-threads">
+<span id="label-multithreading"></span><h2>Simulate with multiple threads<a class="headerlink" href="#simulate-with-multiple-threads" title="Permalink to this headline">¶</a></h2>
+<p>If the SoC has multiple CPUs (specified via the <code class="code docutils literal notranslate"><span class="pre">--num-cpus</span></code> parameter),
+we can enable SMAUG’s multithreading feature by passing the
+<code class="code docutils literal notranslate"><span class="pre">--num-threads</span></code> parameter to it. See <a class="reference external" href="doxygen_html/simulation.html">Multithreading in gem5 SE mode</a> for more details.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="add_python_operator.html" class="btn btn-neutral float-right" title="Adding a new operator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="build_python_model.html" class="btn btn-neutral float-left" title="Build a SMAUG model with Python API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, SMAUG Contributors
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
