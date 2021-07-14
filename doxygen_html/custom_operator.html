@@ -226,7 +226,7 @@ Test it out</h2>
 <div class="line"> </div>
 <div class="line"><span class="keyword">using namespace </span><a class="code" href="namespacesmaug.html">smaug</a>;</div>
 <div class="line"> </div>
-<div class="line">TEST_CASE_METHOD(<a class="code" href="classsmaug_1_1SmaugTest.html">SmaugTest</a>, MyCustomOperator) {</div>
+<div class="line">TEST_CASE_METHOD(<a class="code" href="classsmaug_1_1SmaugTest.html">SmaugTest</a>, MyCustomOperator, <span class="stringliteral">&quot;[ops]&quot;</span>) {</div>
 <div class="line">  <span class="comment">// DataLayout::NC is a simple 2D layout, where N = batches and C = a column</span></div>
 <div class="line">  <span class="comment">// of data.</span></div>
 <div class="line">  <a class="code" href="classsmaug_1_1TensorShape.html">TensorShape</a> shape(1, 10, DataLayout::NC);</div>
@@ -396,7 +396,7 @@ Modify run() to loop over all our tiles</h3>
 <div class="line">  }</div>
 <div class="line">}</div>
 <div class="line"> </div>
-<div class="line">TEST_CASE_METHOD(SmaugTest, MyCustomOperatorWithTiling) {</div>
+<div class="line">TEST_CASE_METHOD(SmaugTest, MyCustomOperatorWithTiling, <span class="stringliteral">&quot;[tiling]&quot;</span>) {</div>
 <div class="line">  <span class="comment">// With float32 elements, this will occupy 128KB, which should create four</span></div>
 <div class="line">  <span class="comment">// tiles per tensor.</span></div>
 <div class="line">  TensorShape shape(8, 4096, DataLayout::NC);</div>
