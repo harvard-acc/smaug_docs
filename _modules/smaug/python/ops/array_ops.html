@@ -498,6 +498,34 @@
       <span class="n">input_tensors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">reorder</span><span class="p">(</span><span class="n">input_tensors</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">expected_layoutset</span><span class="o">.</span><span class="n">layouts</span><span class="p">)</span>
   <span class="k">return</span> <span class="n">input_tensors</span></div>
 
+<span class="k">def</span> <span class="nf">padding</span><span class="p">(</span><span class="n">input_tensor</span><span class="p">,</span> <span class="n">padding_size</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;padding&quot;</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;Construct a tensor by padding a given tensor.</span>
+
+<span class="sd">  Args:</span>
+<span class="sd">    input_tensor: Input tensor.</span>
+<span class="sd">    padding_size: A list in the format of {dim0_begin, dim0_end, dim1_begin, </span>
+<span class="sd">                  dim1_end, ...} that represent number of values padded to </span>
+<span class="sd">                  each dimension. Note that the order of dimensions of this </span>
+<span class="sd">                  must align with the data layout of input_tensor.</span>
+<span class="sd">    name: Name of the operator.</span>
+
+<span class="sd">  Returns:</span>
+<span class="sd">    A padded version of the input tensor.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="n">src_layout</span> <span class="o">=</span> <span class="n">input_tensor</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">layout</span>
+  <span class="n">src_dims</span> <span class="o">=</span> <span class="n">input_tensor</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dims</span>
+  <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">padding_size</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">src_dims</span><span class="p">):</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;len(padding_size) should be 2x input_tensor.shape.dims&quot;</span><span class="p">)</span>
+  <span class="n">output_tensor_dims</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">src_dims</span><span class="p">)</span>
+  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">src_dims</span><span class="p">)):</span>
+    <span class="n">output_tensor_dims</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">src_dims</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">padding_size</span><span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">padding_size</span><span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+  <span class="n">params</span> <span class="o">=</span> <span class="n">node_pb2</span><span class="o">.</span><span class="n">Params</span><span class="p">()</span>
+  <span class="n">params</span><span class="o">.</span><span class="n">padding_params</span><span class="o">.</span><span class="n">padding_size</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">padding_size</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">common</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span>
+      <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="n">op</span><span class="o">=</span><span class="n">types_pb2</span><span class="o">.</span><span class="n">Padding</span><span class="p">,</span> <span class="n">input_tensors</span><span class="o">=</span><span class="p">[</span><span class="n">input_tensor</span><span class="p">],</span>
+      <span class="n">output_tensors_dims</span><span class="o">=</span><span class="p">[</span><span class="n">output_tensor_dims</span><span class="p">],</span>
+      <span class="n">output_tensor_layout</span><span class="o">=</span><span class="n">input_tensor</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">layout</span><span class="p">,</span>
+      <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 
            </div>

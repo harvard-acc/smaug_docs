@@ -87,69 +87,74 @@ $(function() {
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;  repeated int32 pool_size = 2;</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;}</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;message ConcatParams {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  int32 concat_axis = 1;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;message PaddingParams {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  repeated int32 padding_size = 1;</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;}</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;message SplitParams {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  int32 split_axis = 1;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;message ConcatParams {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  int32 concat_axis = 1;</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;}</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;message LreluParams {</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  float slope = 1;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;message SplitParams {</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  int32 split_axis = 1;</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;}</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;message EluParams {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  float alpha = 1;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  float lambda_param = 2;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;message HardTanhParams {</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  float min = 1;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  float max = 2;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;}</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;message ActivationParams {</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  OpType activation = 1;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  oneof value {</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    LreluParams lrelu_params = 2;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    EluParams elu_params = 3;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    HardTanhParams hard_tanh_params = 4;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  }</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;}</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;message Params {</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  oneof value {</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    ConvParams conv_params = 1;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    PoolParams pool_params = 2;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    ConcatParams concat_params = 4;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    SplitParams split_params = 5;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  }</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  ActivationParams act_params = 3;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;}</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;message NodeProto {</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  // Unique node name in the form of &quot;scopes:name&quot;. Scopes are optional.</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  string name = 1;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  OpType op = 2;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  // Parents of this node.</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  repeated string parents = 3;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  // The size of src_tensors_indices must be the same as `parents`. For each</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  // parent node parents[i], src_tensors_indices[i] indicates the index of its</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  // output tensor that becomes the input tensor of this node. Note that if a</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  // parent has multiple output tensors connected to this node, we would have to</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  // specify that one operator multiple times in the parents field, with</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  // different src_tensors_indices.</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  repeated int32 src_tensors_indices = 5;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  // In theory, we could specify the above node-to-node connection information</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  // in TensorProto, but the current proto design seems easier for the C++</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  // side which was built to construct the operators first and then create</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  // tensors.</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  repeated TensorProto input_tensors = 6;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  repeated TensorProto output_tensors = 7;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  // Parameters</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  Params params = 8;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;}</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;message LreluParams {</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  float slope = 1;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;}</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;message EluParams {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  float alpha = 1;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  float lambda_param = 2;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;}</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;message HardTanhParams {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  float min = 1;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  float max = 2;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;}</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;message ActivationParams {</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  OpType activation = 1;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  oneof value {</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    LreluParams lrelu_params = 2;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    EluParams elu_params = 3;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    HardTanhParams hard_tanh_params = 4;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  }</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;message Params {</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  oneof value {</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    ConvParams conv_params = 1;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    PoolParams pool_params = 2;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    ConcatParams concat_params = 4;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    SplitParams split_params = 5;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    PaddingParams padding_params = 6;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  }</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  ActivationParams act_params = 3;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;}</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;message NodeProto {</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  // Unique node name in the form of &quot;scopes:name&quot;. Scopes are optional.</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  string name = 1;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  OpType op = 2;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  // Parents of this node.</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  repeated string parents = 3;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  // The size of src_tensors_indices must be the same as `parents`. For each</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  // parent node parents[i], src_tensors_indices[i] indicates the index of its</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  // output tensor that becomes the input tensor of this node. Note that if a</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  // parent has multiple output tensors connected to this node, we would have to</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  // specify that one operator multiple times in the parents field, with</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  // different src_tensors_indices.</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  repeated int32 src_tensors_indices = 5;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  // In theory, we could specify the above node-to-node connection information</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  // in TensorProto, but the current proto design seems easier for the C++</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  // side which was built to construct the operators first and then create</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  // tensors.</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  repeated TensorProto input_tensors = 6;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  repeated TensorProto output_tensors = 7;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  // Parameters</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  Params params = 8;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
