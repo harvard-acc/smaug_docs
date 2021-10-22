@@ -360,136 +360,132 @@ $(function() {
 <div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;        op-&gt;setInputsMemType(MemoryType::acp);</div>
 <div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;        op-&gt;setWeightsMemType(MemoryType::acp);</div>
 <div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;        op-&gt;setOutputsMemType(MemoryType::acp);</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (memPolicy == HostMemoryAccessPolicy::AllCache) {</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;        op-&gt;setInputsMemType(MemoryType::cache);</div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;        op-&gt;setWeightsMemType(MemoryType::cache);</div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;        op-&gt;setOutputsMemType(MemoryType::cache);</div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (memPolicy == HostMemoryAccessPolicy::AllAcpWithDmaForWeights) {</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;        op-&gt;setInputsMemType(MemoryType::acp);</div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;        op-&gt;setWeightsMemType(MemoryType::dma);</div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;        op-&gt;setOutputsMemType(MemoryType::acp);</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (memPolicy == HostMemoryAccessPolicy::UnknownMemoryPolicy) {</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;        assert(<span class="keyword">false</span> &amp;&amp; <span class="stringliteral">&quot;Invalid host memory access policy!&quot;</span>);</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    }</div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160; </div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    <span class="comment">// Create the output tensors and allocate storage for them.</span></div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    <span class="comment">// TODO: The tensor storage allocation can be deferred until scheduling</span></div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    <span class="comment">// time, which can benefit future control flow operators because the untaken</span></div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;    <span class="comment">// branch of the control flow will not have that memory allocated and</span></div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;    <span class="comment">// filled.</span></div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; op-&gt;getOutputs().size(); i++) {</div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;        <span class="keywordflow">if</span> (!op-&gt;getOutput(i)) {</div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;            <span class="keyword">const</span> TensorProto&amp; tensorProto = node.output_tensors(i);</div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;            <a class="code" href="classsmaug_1_1Tensor.html">Tensor</a>* output = workspace-&gt;addTensor(</div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;                    <span class="keyword">new</span> <a class="code" href="classsmaug_1_1Tensor.html">Tensor</a>(tensorProto.name(), tensorProto.shape()));</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;            output-&gt;<a class="code" href="classsmaug_1_1Tensor.html#a549ac11e7bd713ff994c25d1fc6bac9f">allocateStorage</a>(tensorProto.data_type());</div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;            op-&gt;setOutput(output, i);</div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;        }</div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;    }</div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;}</div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160; </div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;<span class="comment">// Create the network by deserializing the graph stored in the</span></div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;<span class="comment">// protobuf model.</span></div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Backend&gt;</div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;<span class="keyword">static</span> <a class="code" href="classsmaug_1_1Network.html">Network</a>* createNetworkFromProto(<span class="keyword">const</span> GraphProto&amp; graphProto,</div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;                                       <span class="keyword">const</span> TensorDataArray&amp; tensorDataArray,</div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;                                       <a class="code" href="struct__SamplingInfo.html">SamplingInfo</a>&amp; sampling,</div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;                                       <a class="code" href="classsmaug_1_1Workspace.html">Workspace</a>* workspace) {</div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;    <a class="code" href="classsmaug_1_1Network.html">Network</a>* network = <span class="keyword">new</span> <a class="code" href="classsmaug_1_1Network.html">Network</a>(graphProto.name());</div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;    network-&gt;setSamplingInfo(sampling);</div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; graphProto.nodes_size(); i++) {</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;        <span class="keyword">const</span> NodeProto&amp; node = graphProto.nodes(i);</div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;        createAndAddOperator&lt;Backend&gt;(node,</div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;                                      tensorDataArray,</div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;                                      graphProto.mem_policy(),</div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;                                      network,</div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;                                      workspace);</div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;    }</div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160; </div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;    <span class="comment">// Now every operator has been added into the network, we can connect them</span></div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;    <span class="comment">// together by adding edges in the graph view of the network.</span></div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; graphProto.nodes_size(); i++) {</div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;        <span class="keyword">const</span> NodeProto&amp; node = graphProto.nodes(i);</div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;        <a class="code" href="classsmaug_1_1Operator.html">Operator</a>* op = network-&gt;getOperator(node.name());</div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; node.parents_size(); i++) {</div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;            std::string inputOpName = node.parents(i);</div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;            <span class="keywordtype">int</span> srcTensorIdx = node.src_tensors_indices(i);</div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;            <a class="code" href="classsmaug_1_1Operator.html">Operator</a>* inputOp = network-&gt;getOperator(inputOpName);</div>
-<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;            network-&gt;addEdge(inputOp, op, { srcTensorIdx, i });</div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;        }</div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;    }</div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160; </div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;    <span class="comment">// Flowing through the graph edges (by doing a topological sort), we forward</span></div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;    <span class="comment">// the output tensors of each operator (aka node) to its children.</span></div>
-<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;    <span class="keyword">const</span> Graph&amp; graph = network-&gt;getGraph();</div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;    EdgeNameMap edges = get(boost::edge_name, graph);</div>
-<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;    std::list&lt;Vertex&gt; vertices;</div>
-<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;    boost::topological_sort(graph, std::front_inserter(vertices));</div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> v : vertices) {</div>
-<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;        <a class="code" href="classsmaug_1_1Operator.html">Operator</a>* op = get(boost::vertex_op, graph, v);</div>
-<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;        <span class="keyword">const</span> std::vector&lt;TensorBase*&gt;&amp; outputs = op-&gt;getOutputs();</div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;        out_edge_iter outEdgeIt, outEdgeEnd;</div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;        <span class="keywordtype">int</span> srcIdx, destIdx;</div>
-<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;        <span class="keywordflow">for</span> (boost::tie(outEdgeIt, outEdgeEnd) = out_edges(v, graph);</div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;             outEdgeIt != outEdgeEnd;</div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;             ++outEdgeIt) {</div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;            Vertex childVertex = target(*outEdgeIt, graph);</div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;            <a class="code" href="classsmaug_1_1Operator.html">Operator</a>* child = get(boost::vertex_op, graph, childVertex);</div>
-<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;            <span class="keyword">const</span> <a class="code" href="structsmaug_1_1TensorIndices.html">TensorIndices</a>&amp; indices = edges[*outEdgeIt];</div>
-<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;            child-&gt;setInput(op-&gt;getOutput(indices.srcIdx), indices.destIdx);</div>
-<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;        }</div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;    }</div>
-<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160; </div>
-<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;    <span class="keywordflow">return</span> network;</div>
-<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;}</div>
-<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160; </div>
-<div class="line"><a name="l00374"></a><span class="lineno"><a class="line" href="namespacesmaug.html#a248f5e43120d58f3297641d131a6fd13">  374</a></span>&#160;<a class="code" href="classsmaug_1_1Network.html">Network</a>* <a class="code" href="namespacesmaug.html#a248f5e43120d58f3297641d131a6fd13">smaug::buildNetwork</a>(<span class="keyword">const</span> std::string&amp; modelTopo,</div>
-<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;                             <span class="keyword">const</span> std::string&amp; modelParams,</div>
-<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;                             <a class="code" href="struct__SamplingInfo.html">SamplingInfo</a>&amp; sampling,</div>
-<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;                             <a class="code" href="classsmaug_1_1Workspace.html">Workspace</a>* workspace) {</div>
-<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;    <span class="comment">// Parse the network topology from the protobuf text file.</span></div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;    GraphProto graph;</div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;    <span class="keywordtype">int</span> modelTopoDescriptor = open(modelTopo.c_str(), O_RDONLY);</div>
-<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;    <span class="keywordflow">if</span> (modelTopoDescriptor &lt; 0) {</div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;        cout &lt;&lt; modelTopo &lt;&lt; <span class="stringliteral">&quot;: network topology file not found.&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;        exit(1);</div>
-<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;    }</div>
-<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;    google::protobuf::io::FileInputStream modelTopoInput(modelTopoDescriptor);</div>
-<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;    <span class="keywordflow">if</span> (!google::protobuf::TextFormat::Parse(&amp;modelTopoInput, &amp;graph)) {</div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;Failed to parse the network topology file!&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;        exit(1);</div>
-<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;    }</div>
-<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;    <span class="comment">// Parse the network parameters from the protobuf binary file.</span></div>
-<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;    TensorDataArray tensorDataArray;</div>
-<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;    fstream modelParamsFile(modelParams, ios::in | ios::binary);</div>
-<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;    <span class="keywordflow">if</span> (!modelParamsFile) {</div>
-<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;        cout &lt;&lt; modelParams &lt;&lt; <span class="stringliteral">&quot;: network parameters file not found.&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;        exit(1);</div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (!tensorDataArray.ParseFromIstream(&amp;modelParamsFile)) {</div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;Failed to parse the network parameters file.\n&quot;</span>;</div>
-<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;        exit(1);</div>
-<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;    }</div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160; </div>
-<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;======================================================\n&quot;</span>;</div>
-<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;      Loading the network model...\n&quot;</span>;</div>
-<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;======================================================\n&quot;</span>;</div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;    <a class="code" href="classsmaug_1_1Network.html">Network</a>* network = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;    <span class="keywordflow">if</span> (graph.backend() == ReferenceBackend::Name) {</div>
-<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;        network = createNetworkFromProto&lt;ReferenceBackend&gt;(</div>
-<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;                graph, tensorDataArray, sampling, workspace);</div>
-<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (graph.backend() == SmvBackend::Name) {</div>
-<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;        network = createNetworkFromProto&lt;SmvBackend&gt;(</div>
-<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;                graph, tensorDataArray, sampling, workspace);</div>
-<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;        assert(<span class="keyword">false</span> &amp;&amp; <span class="stringliteral">&quot;Unknown backend!&quot;</span>);</div>
-<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;    }</div>
-<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160; </div>
-<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;======================================================\n&quot;</span>;</div>
-<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;      Summary of the network.\n&quot;</span>;</div>
-<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;======================================================\n&quot;</span>;</div>
-<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;    network-&gt;printSummary();</div>
-<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;    <span class="keywordflow">return</span> network;</div>
-<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;}</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (memPolicy == HostMemoryAccessPolicy::AllAcpWithDmaForWeights) {</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;        op-&gt;setInputsMemType(MemoryType::acp);</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;        op-&gt;setWeightsMemType(MemoryType::dma);</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;        op-&gt;setOutputsMemType(MemoryType::acp);</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (memPolicy == HostMemoryAccessPolicy::UnknownMemoryPolicy) {</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;        assert(<span class="keyword">false</span> &amp;&amp; <span class="stringliteral">&quot;Invalid host memory access policy!&quot;</span>);</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;    }</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160; </div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;    <span class="comment">// Create the output tensors and allocate storage for them.</span></div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;    <span class="comment">// TODO: The tensor storage allocation can be deferred until scheduling</span></div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    <span class="comment">// time, which can benefit future control flow operators because the untaken</span></div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;    <span class="comment">// branch of the control flow will not have that memory allocated and</span></div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    <span class="comment">// filled.</span></div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; op-&gt;getOutputs().size(); i++) {</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;        <span class="keywordflow">if</span> (!op-&gt;getOutput(i)) {</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;            <span class="keyword">const</span> TensorProto&amp; tensorProto = node.output_tensors(i);</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;            <a class="code" href="classsmaug_1_1Tensor.html">Tensor</a>* output = workspace-&gt;addTensor(</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;                    <span class="keyword">new</span> <a class="code" href="classsmaug_1_1Tensor.html">Tensor</a>(tensorProto.name(), tensorProto.shape()));</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;            output-&gt;<a class="code" href="classsmaug_1_1Tensor.html#a549ac11e7bd713ff994c25d1fc6bac9f">allocateStorage</a>(tensorProto.data_type());</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;            op-&gt;setOutput(output, i);</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;        }</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;    }</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;}</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160; </div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;<span class="comment">// Create the network by deserializing the graph stored in the</span></div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;<span class="comment">// protobuf model.</span></div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">typename</span> Backend&gt;</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;<span class="keyword">static</span> <a class="code" href="classsmaug_1_1Network.html">Network</a>* createNetworkFromProto(<span class="keyword">const</span> GraphProto&amp; graphProto,</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;                                       <span class="keyword">const</span> TensorDataArray&amp; tensorDataArray,</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;                                       <a class="code" href="struct__SamplingInfo.html">SamplingInfo</a>&amp; sampling,</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;                                       <a class="code" href="classsmaug_1_1Workspace.html">Workspace</a>* workspace) {</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;    <a class="code" href="classsmaug_1_1Network.html">Network</a>* network = <span class="keyword">new</span> <a class="code" href="classsmaug_1_1Network.html">Network</a>(graphProto.name());</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;    network-&gt;setSamplingInfo(sampling);</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; graphProto.nodes_size(); i++) {</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;        <span class="keyword">const</span> NodeProto&amp; node = graphProto.nodes(i);</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;        createAndAddOperator&lt;Backend&gt;(node,</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;                                      tensorDataArray,</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;                                      graphProto.mem_policy(),</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;                                      network,</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;                                      workspace);</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;    }</div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160; </div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;    <span class="comment">// Now every operator has been added into the network, we can connect them</span></div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;    <span class="comment">// together by adding edges in the graph view of the network.</span></div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; graphProto.nodes_size(); i++) {</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;        <span class="keyword">const</span> NodeProto&amp; node = graphProto.nodes(i);</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;        <a class="code" href="classsmaug_1_1Operator.html">Operator</a>* op = network-&gt;getOperator(node.name());</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; node.parents_size(); i++) {</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;            std::string inputOpName = node.parents(i);</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;            <span class="keywordtype">int</span> srcTensorIdx = node.src_tensors_indices(i);</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;            <a class="code" href="classsmaug_1_1Operator.html">Operator</a>* inputOp = network-&gt;getOperator(inputOpName);</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;            network-&gt;addEdge(inputOp, op, { srcTensorIdx, i });</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;        }</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;    }</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160; </div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;    <span class="comment">// Flowing through the graph edges (by doing a topological sort), we forward</span></div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;    <span class="comment">// the output tensors of each operator (aka node) to its children.</span></div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;    <span class="keyword">const</span> Graph&amp; graph = network-&gt;getGraph();</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;    EdgeNameMap edges = get(boost::edge_name, graph);</div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;    std::list&lt;Vertex&gt; vertices;</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;    boost::topological_sort(graph, std::front_inserter(vertices));</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> v : vertices) {</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;        <a class="code" href="classsmaug_1_1Operator.html">Operator</a>* op = get(boost::vertex_op, graph, v);</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;        <span class="keyword">const</span> std::vector&lt;TensorBase*&gt;&amp; outputs = op-&gt;getOutputs();</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;        out_edge_iter outEdgeIt, outEdgeEnd;</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;        <span class="keywordtype">int</span> srcIdx, destIdx;</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;        <span class="keywordflow">for</span> (boost::tie(outEdgeIt, outEdgeEnd) = out_edges(v, graph);</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;             outEdgeIt != outEdgeEnd;</div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;             ++outEdgeIt) {</div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;            Vertex childVertex = target(*outEdgeIt, graph);</div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;            <a class="code" href="classsmaug_1_1Operator.html">Operator</a>* child = get(boost::vertex_op, graph, childVertex);</div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;            <span class="keyword">const</span> <a class="code" href="structsmaug_1_1TensorIndices.html">TensorIndices</a>&amp; indices = edges[*outEdgeIt];</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;            child-&gt;setInput(op-&gt;getOutput(indices.srcIdx), indices.destIdx);</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;        }</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;    }</div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160; </div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;    <span class="keywordflow">return</span> network;</div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;}</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160; </div>
+<div class="line"><a name="l00370"></a><span class="lineno"><a class="line" href="namespacesmaug.html#a248f5e43120d58f3297641d131a6fd13">  370</a></span>&#160;<a class="code" href="classsmaug_1_1Network.html">Network</a>* <a class="code" href="namespacesmaug.html#a248f5e43120d58f3297641d131a6fd13">smaug::buildNetwork</a>(<span class="keyword">const</span> std::string&amp; modelTopo,</div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;                             <span class="keyword">const</span> std::string&amp; modelParams,</div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;                             <a class="code" href="struct__SamplingInfo.html">SamplingInfo</a>&amp; sampling,</div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;                             <a class="code" href="classsmaug_1_1Workspace.html">Workspace</a>* workspace) {</div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;    <span class="comment">// Parse the network topology from the protobuf text file.</span></div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;    GraphProto graph;</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;    <span class="keywordtype">int</span> modelTopoDescriptor = open(modelTopo.c_str(), O_RDONLY);</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;    <span class="keywordflow">if</span> (modelTopoDescriptor &lt; 0) {</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;        cout &lt;&lt; modelTopo &lt;&lt; <span class="stringliteral">&quot;: network topology file not found.&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;        exit(1);</div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;    }</div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;    google::protobuf::io::FileInputStream modelTopoInput(modelTopoDescriptor);</div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;    <span class="keywordflow">if</span> (!google::protobuf::TextFormat::Parse(&amp;modelTopoInput, &amp;graph)) {</div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;Failed to parse the network topology file!&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;        exit(1);</div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;    }</div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;    <span class="comment">// Parse the network parameters from the protobuf binary file.</span></div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;    TensorDataArray tensorDataArray;</div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;    fstream modelParamsFile(modelParams, ios::in | ios::binary);</div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;    <span class="keywordflow">if</span> (!modelParamsFile) {</div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;        cout &lt;&lt; modelParams &lt;&lt; <span class="stringliteral">&quot;: network parameters file not found.&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;        exit(1);</div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (!tensorDataArray.ParseFromIstream(&amp;modelParamsFile)) {</div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;Failed to parse the network parameters file.\n&quot;</span>;</div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;        exit(1);</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;    }</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160; </div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;======================================================\n&quot;</span>;</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;      Loading the network model...\n&quot;</span>;</div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;======================================================\n&quot;</span>;</div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;    <a class="code" href="classsmaug_1_1Network.html">Network</a>* network = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;    <span class="keywordflow">if</span> (graph.backend() == ReferenceBackend::Name) {</div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;        network = createNetworkFromProto&lt;ReferenceBackend&gt;(</div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;                graph, tensorDataArray, sampling, workspace);</div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (graph.backend() == SmvBackend::Name) {</div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;        network = createNetworkFromProto&lt;SmvBackend&gt;(</div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;                graph, tensorDataArray, sampling, workspace);</div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;        assert(<span class="keyword">false</span> &amp;&amp; <span class="stringliteral">&quot;Unknown backend!&quot;</span>);</div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;    }</div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160; </div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;======================================================\n&quot;</span>;</div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;      Summary of the network.\n&quot;</span>;</div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;======================================================\n&quot;</span>;</div>
+<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;    network-&gt;printSummary();</div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;    <span class="keywordflow">return</span> network;</div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="aclasssmaug_1_1Tensor_html"><div class="ttname"><a href="classsmaug_1_1Tensor.html">smaug::Tensor</a></div><div class="ttdoc">Tensor represents a single multi-dimensional array of data.</div><div class="ttdef"><b>Definition:</b> <a href="tensor_8h_source.html#l00344">tensor.h:344</a></div></div>
 <div class="ttc" id="anamespacesmaug_html_ad1f908b70c513f83fddd7efc5e5a9b3f"><div class="ttname"><a href="namespacesmaug.html#ad1f908b70c513f83fddd7efc5e5a9b3f">smaug::dout</a></div><div class="ttdeci">const DebugStream &amp; dout(int debugLevel)</div><div class="ttdoc">Returns a DebugStream instance for the given debug level.</div><div class="ttdef"><b>Definition:</b> <a href="debug__stream_8cpp_source.html#l00016">debug_stream.cpp:16</a></div></div>
@@ -497,7 +493,7 @@ $(function() {
 <div class="ttc" id="astruct__SamplingInfo_html"><div class="ttname"><a href="struct__SamplingInfo.html">_SamplingInfo</a></div><div class="ttdoc">Simulation sampling information maintained by the Operator and passed to the accelerated kernel.</div><div class="ttdef"><b>Definition:</b> <a href="common_8h_source.html#l00262">common.h:262</a></div></div>
 <div class="ttc" id="astructsmaug_1_1TensorIndices_html"><div class="ttname"><a href="structsmaug_1_1TensorIndices.html">smaug::TensorIndices</a></div><div class="ttdoc">Additional metadata for edges in the graph.</div><div class="ttdef"><b>Definition:</b> <a href="typedefs_8h_source.html#l00022">typedefs.h:22</a></div></div>
 <div class="ttc" id="astructActivationInfo_html"><div class="ttname"><a href="structActivationInfo.html">ActivationInfo</a></div><div class="ttdoc">Specifies an activation function and relevant parameters.</div><div class="ttdef"><b>Definition:</b> <a href="common_8h_source.html#l00210">common.h:210</a></div></div>
-<div class="ttc" id="anamespacesmaug_html_a248f5e43120d58f3297641d131a6fd13"><div class="ttname"><a href="namespacesmaug.html#a248f5e43120d58f3297641d131a6fd13">smaug::buildNetwork</a></div><div class="ttdeci">Network * buildNetwork(const std::string &amp;modelTopoFile, const std::string &amp;modelParamsFile, SamplingInfo &amp;sampling, Workspace *workspace)</div><div class="ttdoc">buildNetwork reads the specified model topology and parameters protobufs and simulation sampling dire...</div><div class="ttdef"><b>Definition:</b> <a href="network__builder_8cpp_source.html#l00374">network_builder.cpp:374</a></div></div>
+<div class="ttc" id="anamespacesmaug_html_a248f5e43120d58f3297641d131a6fd13"><div class="ttname"><a href="namespacesmaug.html#a248f5e43120d58f3297641d131a6fd13">smaug::buildNetwork</a></div><div class="ttdeci">Network * buildNetwork(const std::string &amp;modelTopoFile, const std::string &amp;modelParamsFile, SamplingInfo &amp;sampling, Workspace *workspace)</div><div class="ttdoc">buildNetwork reads the specified model topology and parameters protobufs and simulation sampling dire...</div><div class="ttdef"><b>Definition:</b> <a href="network__builder_8cpp_source.html#l00370">network_builder.cpp:370</a></div></div>
 <div class="ttc" id="aclasssmaug_1_1Tensor_html_a549ac11e7bd713ff994c25d1fc6bac9f"><div class="ttname"><a href="classsmaug_1_1Tensor.html#a549ac11e7bd713ff994c25d1fc6bac9f">smaug::Tensor::allocateStorage</a></div><div class="ttdeci">T * allocateStorage()</div><div class="ttdoc">Allocates memory to store Tensor data.</div><div class="ttdef"><b>Definition:</b> <a href="tensor_8h_source.html#l00473">tensor.h:473</a></div></div>
 <div class="ttc" id="aclasssmaug_1_1Workspace_html"><div class="ttname"><a href="classsmaug_1_1Workspace.html">smaug::Workspace</a></div><div class="ttdoc">Workspace is the container and owner of all Tensors and Operators in the Network.</div><div class="ttdef"><b>Definition:</b> <a href="workspace_8h_source.html#l00017">workspace.h:17</a></div></div>
 <div class="ttc" id="aclasssmaug_1_1Operator_html"><div class="ttname"><a href="classsmaug_1_1Operator.html">smaug::Operator</a></div><div class="ttdoc">Operator is the base class for all graph operators supported by SMAUG.</div><div class="ttdef"><b>Definition:</b> <a href="operator_8h_source.html#l00028">operator.h:28</a></div></div>
